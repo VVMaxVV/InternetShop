@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">InternetShop</string>
-    <string name="button">Test</string>
+    <string name="prise">19.99$</string>
+    <string name="brand">H&amp;M</string>
+    <string name="short_description">Short black dress</string>
+    <string name="description">Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim. Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.</string>
+    <string name="number_of_reviews">(10)</string>
 </resources>

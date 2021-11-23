@@ -1,18 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/mainButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F9F9F9"
+        tools:context=".MainActivity">
+
+        <ImageView
+            android:id="@+id/mainImage"
+            android:layout_width="match_parent"
+            android:layout_height="412dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/photomodel" />
+
+        <ImageView
+            android:id="@+id/favorite_bg"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/dimen_default_margin"
+
+            android:src="@drawable/add_to_favorites_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainImage" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/add_to_favorites"
+            app:layout_constraintEnd_toEndOf="@+id/favorite_bg"
+            app:layout_constraintTop_toTopOf="@+id/favorite_bg" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="76dp"
+            android:layout_height="@dimen/dimen_headers_height"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/dimen_default_margin"
+            android:text="@string/prise"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_headers_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favorite_bg" />
+
+        <TextView
+            android:id="@+id/brand"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_headers_height"
+            android:layout_marginStart="@dimen/dimen_default_margin"
+            android:gravity="center"
+            android:text="@string/brand"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_headers_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/price" />
+
+        <!--        тут небольшое расхождение по размеру шприфта и высоте вьюхи (они оба = 12)-->
+        <TextView
+            android:id="@+id/short_description"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_short_description_height"
+            android:text="@string/short_description"
+            android:textSize="@dimen/dimen_short_description_text_size"
+            app:layout_constraintStart_toStartOf="@id/brand"
+            app:layout_constraintTop_toBottomOf="@id/brand" />
+
+        <ImageButton
+            android:id="@+id/rate_1"
+            android:layout_width="@dimen/dimen_star_rate_size_width"
+            android:layout_height="@dimen/dimen_star_rate_size_height"
+            android:layout_marginStart="@dimen/dimen_star_rate_margin_start"
+            android:layout_marginTop="@dimen/dimen_star_rate_margin_top"
+            android:src="@drawable/orange_star"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/short_description" />
+
+        <ImageButton
+            android:id="@+id/rate_2"
+            android:layout_width="@dimen/dimen_star_rate_size_width"
+            android:layout_height="@dimen/dimen_star_rate_size_height"
+            android:layout_marginStart="@dimen/dimen_star_rate_margin_between"
+            android:src="@drawable/orange_star"
+            app:layout_constraintStart_toEndOf="@id/rate_1"
+            app:layout_constraintTop_toTopOf="@id/rate_1" />
+
+        <ImageButton
+            android:id="@+id/rate_3"
+            android:layout_width="@dimen/dimen_star_rate_size_width"
+            android:layout_height="@dimen/dimen_star_rate_size_height"
+            android:layout_marginStart="@dimen/dimen_star_rate_margin_between"
+            android:src="@drawable/orange_star"
+            app:layout_constraintStart_toEndOf="@id/rate_2"
+            app:layout_constraintTop_toTopOf="@id/rate_1" />
+
+        <ImageButton
+            android:id="@+id/rate_4"
+            android:layout_width="@dimen/dimen_star_rate_size_width"
+            android:layout_height="@dimen/dimen_star_rate_size_height"
+            android:layout_marginStart="@dimen/dimen_star_rate_margin_between"
+            android:src="@drawable/orange_star"
+            app:layout_constraintStart_toEndOf="@id/rate_3"
+            app:layout_constraintTop_toTopOf="@id/rate_1" />
+
+        <ImageButton
+            android:id="@+id/rate_5"
+            android:layout_width="@dimen/dimen_star_rate_size_width"
+            android:layout_height="@dimen/dimen_star_rate_size_height"
+            android:layout_marginStart="@dimen/dimen_star_rate_margin_between"
+            android:src="@drawable/orange_star"
+            app:layout_constraintStart_toEndOf="@id/rate_4"
+            app:layout_constraintTop_toTopOf="@id/rate_1" />
+
+        <TextView
+            android:id="@+id/numberOfReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_number_of_reviews_height"
+            android:layout_marginStart="@dimen/dimen_number_of_reviews_margin_start"
+            android:gravity="center"
+            android:text="@string/number_of_reviews"
+            android:textSize="@dimen/dimen_number_of_reviews_text_size"
+            app:layout_constraintStart_toEndOf="@id/rate_5"
+            app:layout_constraintTop_toTopOf="@id/rate_5" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_default_margin"
+            android:layout_marginTop="20dp"
+            android:text="@string/description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/numberOfReviews" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

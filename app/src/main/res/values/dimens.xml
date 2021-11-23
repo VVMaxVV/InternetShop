@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimen_default_margin">16dp</dimen>
+
+    <dimen name="dimen_headers_height">28dp</dimen>
+    <dimen name="dimen_short_description_height">16dp</dimen>
+
+    <dimen name="dimen_star_rate_margin_between">4dp</dimen>
+    <dimen name="dimen_star_rate_size_height">12dp</dimen>
+    <dimen name="dimen_star_rate_size_width">12dp</dimen>
+    <dimen name="dimen_star_rate_margin_top">8dp</dimen>
+    <dimen name="dimen_star_rate_margin_start">16dp</dimen>
+
+    <dimen name="dimen_number_of_reviews_margin_start">4dp</dimen>
+    <dimen name="dimen_number_of_reviews_height">12dp</dimen>
+    <dimen name="dimen_number_of_reviews_text_size">8sp</dimen>
+
+    <dimen name="dimen_headers_text_size">24sp</dimen>
+    <dimen name="dimen_short_description_text_size">12sp</dimen>
+</resources>

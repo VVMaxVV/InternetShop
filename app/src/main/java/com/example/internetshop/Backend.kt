@@ -1,6 +1,6 @@
 package com.example.internetshop
 
-fun getProductFromServer():ProductResponse {
+fun getProductFromServer(): ProductResponse {
     return ProductResponse(
         1,
         "Short dress",
@@ -12,4 +12,13 @@ fun getProductFromServer():ProductResponse {
         10,
         "Dress"
     )
+}
+
+fun getAuthTokenFromServer(login: String, password: String): Token {
+    val myToken = Token()
+    if (login == "123" && password == "123") {
+        val register = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        myToken.tokenValue = (1..10).map { register.random() }.joinToString("")
+    } else myToken.tokenValue = "Wrong"
+    return myToken
 }

@@ -1,7 +1,8 @@
-package com.example.internetshop.model
+package com.example.internetshop.model.implementation
 
 import com.example.internetshop.Product
 import com.example.internetshop.getProductFromServer
+import com.example.internetshop.model.interfaces.Repository
 
 class RepositoryImpl: Repository {
     override fun getProduct(): Product {
@@ -10,7 +11,7 @@ class RepositoryImpl: Repository {
             productResponse.id,
             productResponse.title,
             productResponse.brand,
-            productResponse.prise.toString(),
+            String.format("%.2f",productResponse.prise),
             productResponse.shortDescription,
             productResponse.description,
             productResponse.rating,

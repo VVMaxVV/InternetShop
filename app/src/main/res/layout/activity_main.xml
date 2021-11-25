@@ -12,16 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F9F9F9"
-        tools:context=".MainActivity">
+        tools:context=".presentation.MainActivity">
 
         <ImageView
             android:id="@+id/mainImage"
             android:layout_width="match_parent"
-            android:layout_height="412dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="H,375:413"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/photomodel" />
+            android:src="@drawable/photomodel"
+ />
 
         <ImageView
             android:id="@+id/favorite_bg"
@@ -46,7 +49,7 @@
 
         <TextView
             android:id="@+id/price"
-            android:layout_width="76dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/dimen_headers_height"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="@dimen/dimen_default_margin"
@@ -59,12 +62,10 @@
         <TextView
             android:id="@+id/brand"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dimen_headers_height"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_default_margin"
-            android:gravity="center"
             android:text="@string/brand"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dimen_headers_text_size"
+            style="@style/ProductHider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/price" />
 
@@ -123,6 +124,9 @@
             android:src="@drawable/orange_star"
             app:layout_constraintStart_toEndOf="@id/rate_4"
             app:layout_constraintTop_toTopOf="@id/rate_1" />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"/>
 
         <TextView
             android:id="@+id/numberOfReviews"
@@ -136,13 +140,15 @@
             app:layout_constraintTop_toTopOf="@id/rate_5" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_default_margin"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="20dp"
             android:text="@string/description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/numberOfReviews" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

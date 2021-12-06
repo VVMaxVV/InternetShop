@@ -1,4 +1,4 @@
-package com.example.internetshop.model
+package com.example.internetshop.model.interfaces
 
 import com.example.internetshop.Product
 

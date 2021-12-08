@@ -24,7 +24,7 @@ class AuthenticationActivityViewModel(private val auth: Auth):ViewModel() {
                     textResult.value = "Successful login"
                 }
                 else textResult.value = "Wrong login or/and password"
-            },10000)
+            },1000)
             progressBar.value = View.VISIBLE
 
         }

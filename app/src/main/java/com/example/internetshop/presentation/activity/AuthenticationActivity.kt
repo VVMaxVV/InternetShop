@@ -2,7 +2,6 @@ package com.example.internetshop.presentation.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,11 +28,11 @@ class AuthenticationActivity : AppCompatActivity() {
             viewModel?.tokenResult?.observe(this, Observer {
                 Toast.makeText(this, it.tokenValue, Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
+                //val intent = Intent(this, ProductsActvity::class.java)
                 startActivity(intent)
                 finish()
             })
             viewModel?.textResult?.observe(this, Observer {
-                Log.i("123","123")
                 binding.textError.text = it
                 binding.pb.visibility = View.INVISIBLE
             })

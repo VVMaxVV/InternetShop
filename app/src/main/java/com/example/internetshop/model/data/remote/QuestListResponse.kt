@@ -1,3 +1,3 @@
 package com.example.internetshop.model.data.remote
 
-data class QuestListResponse(val items: List<QuestListItems>)
+data class ProductListResponse(val items: List<ProductListItems>)

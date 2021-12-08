@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.internetshop">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetShop">
         <activity
-            android:name=".presentation.activity.Products"
+            android:name=".presentation.activity.ProductsActvity"
             android:exported="false" />
         <activity
             android:name=".presentation.activity.AuthenticationActivity"

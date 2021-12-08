@@ -2,6 +2,7 @@ package com.example.internetshop.model.implementation
 
 import com.example.internetshop.Product
 import com.example.internetshop.getProductFromServer
+import com.example.internetshop.model.interfaces.ProductListCallback
 import com.example.internetshop.model.interfaces.Repository
 
 class RepositoryImpl: Repository {
@@ -19,7 +20,7 @@ class RepositoryImpl: Repository {
         )
     }
 
-    override fun getProductList(): List<Product> {
+    override fun getProductList(productListCallback: ProductListCallback) {
         TODO("Not yet implemented")
     }
 }

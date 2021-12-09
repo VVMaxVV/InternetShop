@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             binding.numberOfReviews.text = "(${product.numberOfReviews})"
             binding.rating.rating = product.rating
         })
-        viewModel?.getProducts()
+        viewModel?.getProduct()
 
     }
 }

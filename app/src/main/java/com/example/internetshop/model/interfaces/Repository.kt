@@ -1,14 +1,30 @@
 package com.example.internetshop.model.interfaces
 
-import com.example.internetshop.Product
-import com.example.internetshop.model.data.remote.ProductListItems
+import com.example.internetshop.model.data.dataclass.ProductItem
+import com.example.internetshop.model.data.dataclass.ProductListItems
+import com.example.internetshop.model.data.dataclass.SingleRequestBody
+import com.example.internetshop.model.data.dataclass.Token
 
 interface Repository {
-    fun getProduct(): Product
+    fun getProduct(id: String, productCallback: ProductCallback)
     fun getProductList(productListCallback: ProductListCallback)
 }
 
+interface LoginRepository {
+    fun logIn(username: String, password: String, tokenCallback: TokenCallback)
+}
+
+interface TokenCallback {
+    fun onSuccess(token: Token)
+    fun onFail(throwable: Throwable)
+}
+
 interface ProductListCallback {
-    fun onSucses(product: List<ProductListItems>)
+    fun onSuccess(product: List<ProductListItems>)
+    fun onFail(throwable: Throwable)
+}
+
+interface ProductCallback {
+    fun onSuccess(product: ProductItem)
     fun onFail(throwable: Throwable)
 }

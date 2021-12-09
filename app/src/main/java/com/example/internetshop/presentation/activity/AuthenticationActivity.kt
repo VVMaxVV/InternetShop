@@ -18,6 +18,8 @@ class AuthenticationActivity : AppCompatActivity() {
         val binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        binding.login.setText("123")
+        binding.password.setText("123")
         val myButton = binding.button
         viewModel = ViewModelProvider(
             this,

@@ -67,9 +67,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_default_margin"
-                tools:text="@string/brand"
+                android:ellipsize="end"
+                android:maxWidth="180dp"
+                android:maxLines="1"
+                android:singleLine="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/price" />
+                app:layout_constraintTop_toTopOf="@id/price"
+                tools:text="@string/brand" />
 
             <!--        тут небольшое расхождение по размеру шприфта и высоте вьюхи (они оба = 12)-->
             <TextView

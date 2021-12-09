@@ -4,22 +4,21 @@ import android.os.Handler
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.internetshop.Token
-import com.example.internetshop.model.interfaces.Auth
+import com.example.internetshop.model.implementation.AuthImpl
 
-class AuthenticationActivityViewModel(private val auth: Auth):ViewModel() {
-    val tokenResult = MutableLiveData<Token>()
+class AuthenticationActivityViewModel(private val auth: AuthImpl):ViewModel() {
+    val tokenResult = MutableLiveData<com.example.internetshop.model.data.dataclass.Token>()
     val textResult = MutableLiveData<String>()
     val progressBar = MutableLiveData<Int>()
 
-    fun getToken(login: String, password: String) {
-        if (login.isEmpty() || password.isEmpty()) {
+    fun getToken(username: String, password: String) {
+        if (username.isEmpty() || password.isEmpty()) {
             textResult.value = "Fill in all the fields!"
         } else {
             val handler = Handler()
             handler.postDelayed(Runnable {
-                val myToken = auth.getAuthToken(login, password)
-                if (myToken.tokenValue != "Wrong") {
+                val myToken = auth.getAuthToken(username, password)
+                if (myToken.token != "Wrong") {
                     tokenResult.value = myToken
                     textResult.value = "Successful login"
                 }

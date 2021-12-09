@@ -10,7 +10,7 @@ class ViewModelFactory :ViewModelProvider.Factory {
         when(modelClass){
             AuthenticationActivityViewModel::class.java->{
                 return AuthenticationActivityViewModel(
-                    AuthImpl(username = "123", password = "123")
+                    AuthImpl()
                 ) as T
             }
             else-> throw IllegalArgumentException("No such view model")

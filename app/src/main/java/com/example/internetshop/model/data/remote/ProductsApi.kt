@@ -3,6 +3,7 @@ package com.example.internetshop.model.data.remote
 import com.example.internetshop.model.data.dataclass.ProductItem
 import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.data.dataclass.Token
+import com.example.internetshop.model.data.dataclass.User
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,5 +20,5 @@ interface ProductsApi {
     ) :Call<ProductItem>
 
     @POST("/auth/login")
-    fun login(@Body loginRequestBody: Any): Call<Token>
+    fun login(@Body user: User): Call<Token>
 }

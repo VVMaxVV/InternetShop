@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.internetshop.databinding.ActivityMainBinding
-import com.example.internetshop.model.implementation.ProductRepositoryServerImpl
+import com.example.internetshop.model.implementation.ProductProductRepositoryServerImpl
 import com.example.internetshop.presentation.ViewModel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         //val repository = RepositoryImpl()
-        val repository = ProductRepositoryServerImpl()
+        val repository = ProductProductRepositoryServerImpl()
         viewModel = MainActivityViewModel(repository)
 
         viewModel?.productLiveData?.observe(this, Observer { product ->

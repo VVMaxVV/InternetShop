@@ -1,13 +1,14 @@
 package com.example.internetshop.presentation.ViewModel
 
-import android.os.Handler
-import android.view.View
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.internetshop.model.implementation.AuthImpl
+import com.example.internetshop.model.data.dataclass.Token
+import com.example.internetshop.model.interfaces.LoginRepository
+import com.example.internetshop.model.interfaces.TokenCallback
 
-class AuthenticationActivityViewModel(private val auth: AuthImpl):ViewModel() {
-    val tokenResult = MutableLiveData<com.example.internetshop.model.data.dataclass.Token>()
+class AuthenticationActivityViewModel(private val loginRepository: LoginRepository):ViewModel() {
+    val tokenResult = MutableLiveData<Token>()
     val textResult = MutableLiveData<String>()
     val progressBar = MutableLiveData<Int>()
 
@@ -15,17 +16,15 @@ class AuthenticationActivityViewModel(private val auth: AuthImpl):ViewModel() {
         if (username.isEmpty() || password.isEmpty()) {
             textResult.value = "Fill in all the fields!"
         } else {
-            val handler = Handler()
-            handler.postDelayed(Runnable {
-                val myToken = auth.getAuthToken(username, password)
-                if (myToken.token != "Wrong") {
-                    tokenResult.value = myToken
-                    textResult.value = "Successful login"
-                }
-                else textResult.value = "Wrong login or/and password"
-            },1000)
-            progressBar.value = View.VISIBLE
+                val myToken = loginRepository.logIn(username, password, object : TokenCallback {
+                    override fun onSuccess(token: Token) {
+                        tokenResult.value = Token(token = token.token)
+                    }
 
+                    override fun onFail(throwable: Throwable) {
+                        Log.e("Error", "$throwable")
+                    }
+                })
         }
     }
 }

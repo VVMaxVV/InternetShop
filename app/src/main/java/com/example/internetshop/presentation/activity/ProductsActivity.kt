@@ -12,7 +12,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ProductsActvity : AppCompatActivity() {
+class ProductsActivity : AppCompatActivity() {
 
     lateinit var productsApi: ProductsApi
 
@@ -30,18 +30,7 @@ class ProductsActvity : AppCompatActivity() {
             .build()
 
         productsApi = retrofit.create(ProductsApi::class.java)
-//        productsApi.getProductList().enqueue(object : Callback<List<ProductListItems>>{
-//            override fun onResponse(
-//                call: Call<List<ProductListItems>>?,
-//                response: Response<List<ProductListItems>>?
-//            ) {
-//                Log.i("API123","${response?.body()}")
-//            }
-//
-//            override fun onFailure(call: Call<List<ProductListItems>>?, t: Throwable?) {
-//                Log.i("API123", "${t.toString()}")
-//            }
-//        })
+
         productsApi.getProduct("1").enqueue(object : Callback<ProductItem> {
             override fun onResponse(call: Call<ProductItem>?, response: Response<ProductItem>?) {
                 Log.i("API_SINGLE","${response.toString()}")

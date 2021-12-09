@@ -6,12 +6,12 @@ import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.data.remote.RetrofitProvider
 import com.example.internetshop.model.interfaces.ProductCallback
 import com.example.internetshop.model.interfaces.ProductListCallback
-import com.example.internetshop.model.interfaces.Repository
+import com.example.internetshop.model.interfaces.ProductRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProductRepositoryServerImpl: Repository {
+class ProductProductRepositoryServerImpl: ProductRepository {
     private val api = RetrofitProvider.getAPI()
     override fun getProduct(id: String, productCallback: ProductCallback) {
         api.getProduct(id).enqueue(object : Callback<ProductItem> {
@@ -21,7 +21,6 @@ class ProductRepositoryServerImpl: Repository {
                     productCallback.onSuccess(responseBody)
                 } else {productCallback.onFail(IllegalStateException("Empty body"))}
             }
-
             override fun onFailure(call: Call<ProductItem>?, t: Throwable?) {
                 productCallback.onFail(t?: NetworkErrorException())
             }

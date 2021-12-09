@@ -7,15 +7,15 @@ import com.example.internetshop.model.data.dataclass.ProductItem
 import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.interfaces.ProductCallback
 import com.example.internetshop.model.interfaces.ProductListCallback
-import com.example.internetshop.model.interfaces.Repository
+import com.example.internetshop.model.interfaces.ProductRepository
 
-class MainActivityViewModel(private val repository: Repository) {
+class MainActivityViewModel(private val productRepository: ProductRepository) {
     val productLiveData = MutableLiveData<Product>()
     val productsLifeData = MutableLiveData<List<ProductListItems>>()
 
 
     fun getProduct() {
-        val myProduct = repository.getProduct("1", object : ProductCallback {
+        val myProduct = productRepository.getProduct("1", object : ProductCallback {
             override fun onSuccess(product: ProductItem) {
                 productLiveData.value = Product(
                     id = product.id.toLong(),
@@ -36,7 +36,7 @@ class MainActivityViewModel(private val repository: Repository) {
     }
 
     fun getProducts() {
-        val myProducts = repository.getProductList(object : ProductListCallback {
+        val myProducts = productRepository.getProductList(object : ProductListCallback {
             override fun onSuccess(product: List<ProductListItems>) {
                 Log.i("API123","${product.toString()}")
             }

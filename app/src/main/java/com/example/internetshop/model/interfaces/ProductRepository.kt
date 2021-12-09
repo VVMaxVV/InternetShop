@@ -2,10 +2,9 @@ package com.example.internetshop.model.interfaces
 
 import com.example.internetshop.model.data.dataclass.ProductItem
 import com.example.internetshop.model.data.dataclass.ProductListItems
-import com.example.internetshop.model.data.dataclass.SingleRequestBody
 import com.example.internetshop.model.data.dataclass.Token
 
-interface Repository {
+interface ProductRepository {
     fun getProduct(id: String, productCallback: ProductCallback)
     fun getProductList(productListCallback: ProductListCallback)
 }

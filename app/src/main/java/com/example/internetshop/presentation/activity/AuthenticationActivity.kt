@@ -18,8 +18,8 @@ class AuthenticationActivity : AppCompatActivity() {
         val binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        binding.login.setText("123")
-        binding.password.setText("123")
+        binding.login.setText("mor_2314")
+        binding.password.setText("83r5^_")
         val myButton = binding.button
         viewModel = ViewModelProvider(
             this,
@@ -28,7 +28,7 @@ class AuthenticationActivity : AppCompatActivity() {
         myButton.setOnClickListener {
             binding.pb.visibility = View.VISIBLE
             viewModel?.tokenResult?.observe(this, Observer {
-                Toast.makeText(this, it.tokenValue, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it.token, Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 //val intent = Intent(this, ProductsActvity::class.java)
                 startActivity(intent)

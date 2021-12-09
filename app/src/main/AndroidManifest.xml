@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetShop">
         <activity
-            android:name=".presentation.activity.ProductsActvity"
+            android:name=".presentation.activity.ProductsActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.activity.AuthenticationActivity"

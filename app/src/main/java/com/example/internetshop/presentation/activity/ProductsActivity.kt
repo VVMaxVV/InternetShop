@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internetshop.R
 import com.example.internetshop.model.data.dataclass.ProductItem
-import com.example.internetshop.model.data.remote.ProductsApi
+import com.example.internetshop.model.data.remote.ProductApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ProductsActivity : AppCompatActivity() {
 
-    lateinit var productsApi: ProductsApi
+    lateinit var productApi: ProductApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +29,9 @@ class ProductsActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        productsApi = retrofit.create(ProductsApi::class.java)
+        productApi = retrofit.create(ProductApi::class.java)
 
-        productsApi.getProduct("1").enqueue(object : Callback<ProductItem> {
+        productApi.getProduct("1").enqueue(object : Callback<ProductItem> {
             override fun onResponse(call: Call<ProductItem>?, response: Response<ProductItem>?) {
                 Log.i("API_SINGLE","${response.toString()}")
             }

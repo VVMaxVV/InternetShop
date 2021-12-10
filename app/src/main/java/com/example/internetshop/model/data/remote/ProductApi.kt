@@ -2,15 +2,12 @@ package com.example.internetshop.model.data.remote
 
 import com.example.internetshop.model.data.dataclass.ProductItem
 import com.example.internetshop.model.data.dataclass.ProductListItems
-import com.example.internetshop.model.data.dataclass.Token
-import com.example.internetshop.model.data.dataclass.User
+import io.reactivex.rxjava3.core.Single
 import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface ProductsApi {
+interface ProductApi {
     @GET("/products")
     fun getProductList(): Call<List<ProductListItems>>
 
@@ -19,6 +16,8 @@ interface ProductsApi {
         @Path("id") id: String
     ) :Call<ProductItem>
 
-    @POST("/auth/login")
-    fun login(@Body user: User): Call<Token>
+    @GET("/products/{id}")
+    fun getProductRx(
+        @Path("id") id: String
+    ) :Single<ProductItem>
 }

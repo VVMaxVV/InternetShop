@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.internetshop.model.data.dataclass.Token
 import com.example.internetshop.model.interfaces.LoginRepository
 import com.example.internetshop.model.interfaces.TokenCallback
+import javax.inject.Inject
 
-class AuthenticationActivityViewModel(private val loginRepository: LoginRepository):ViewModel() {
+class AuthenticationActivityViewModel @Inject constructor(private val loginRepository: LoginRepository):ViewModel() {
     val tokenResult = MutableLiveData<Token>()
     val textResult = MutableLiveData<String>()
     val progressBar = MutableLiveData<Int>()

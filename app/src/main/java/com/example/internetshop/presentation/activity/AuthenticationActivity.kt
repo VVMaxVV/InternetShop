@@ -8,29 +8,40 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.internetshop.databinding.ActivityAuthenticationBinding
+import com.example.internetshop.model.interfaces.LoginRepository
+import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.ViewModel.AuthenticationActivityViewModel
 import com.example.internetshop.presentation.ViewModelFactory
-
+import javax.inject.Inject
 class AuthenticationActivity : AppCompatActivity() {
     var viewModel: AuthenticationActivityViewModel? = null
+
+    @Inject
+    lateinit var loginRepository: LoginRepository
+
+    @Inject
+    lateinit var viewModelProviderFactory: ViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        (applicationContext as InternetshopApplication).appComponent.inject(this)
+
         binding.login.setText("mor_2314")
         binding.password.setText("83r5^_")
         val myButton = binding.button
+
         viewModel = ViewModelProvider(
             this,
-            ViewModelFactory()
+            viewModelProviderFactory
         ).get(AuthenticationActivityViewModel::class.java)
         myButton.setOnClickListener {
             binding.pb.visibility = View.VISIBLE
             viewModel?.tokenResult?.observe(this, Observer {
                 Toast.makeText(this, it.token, Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
-                //val intent = Intent(this, ProductsActvity::class.java)
                 startActivity(intent)
                 finish()
             })

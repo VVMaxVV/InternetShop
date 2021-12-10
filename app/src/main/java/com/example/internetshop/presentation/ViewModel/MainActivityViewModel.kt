@@ -2,14 +2,17 @@ package com.example.internetshop.presentation.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.internetshop.Product
 import com.example.internetshop.model.data.dataclass.ProductItem
 import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.interfaces.ProductCallback
 import com.example.internetshop.model.interfaces.ProductListCallback
 import com.example.internetshop.model.interfaces.ProductRepository
+import javax.inject.Inject
 
-class MainActivityViewModel(private val productRepository: ProductRepository) {
+class MainActivityViewModel @Inject constructor(private val productRepository: ProductRepository):
+    ViewModel() {
     val productLiveData = MutableLiveData<Product>()
     val productsLifeData = MutableLiveData<List<ProductListItems>>()
 

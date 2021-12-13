@@ -1,12 +1,15 @@
 package com.example.internetshop.model.interfaces
 
+import com.example.internetshop.Product
 import com.example.internetshop.model.data.dataclass.ProductItem
 import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.data.dataclass.Token
+import io.reactivex.Single
 
 interface ProductRepository {
     fun getProduct(id: String, productCallback: ProductCallback)
     fun getProductList(productListCallback: ProductListCallback)
+    fun getProductRx(id: String):Single<Product>
 }
 
 interface LoginRepository {

@@ -9,6 +9,8 @@ import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.interfaces.ProductCallback
 import com.example.internetshop.model.interfaces.ProductListCallback
 import com.example.internetshop.model.interfaces.ProductRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(private val productRepository: ProductRepository):
@@ -49,5 +51,12 @@ class MainActivityViewModel @Inject constructor(private val productRepository: P
             }
 
         })
+    }
+
+    fun getProductRx() {
+        productRepository.getProductRx("1")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
     }
 }

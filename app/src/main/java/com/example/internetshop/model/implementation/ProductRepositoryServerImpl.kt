@@ -1,12 +1,14 @@
 package com.example.internetshop.model.implementation
 
 import android.accounts.NetworkErrorException
+import com.example.internetshop.Product
 import com.example.internetshop.model.data.dataclass.ProductItem
 import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.data.remote.ProductApi
 import com.example.internetshop.model.interfaces.ProductCallback
 import com.example.internetshop.model.interfaces.ProductListCallback
 import com.example.internetshop.model.interfaces.ProductRepository
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,6 +49,21 @@ class ProductRepositoryServerImpl @Inject constructor(private val productApi: Pr
         })
 
 
+    }
+
+    override fun getProductRx(id: String): Single<Product> {
+        return productApi.getProductRx(id).map {
+            Product(
+                it.id.toLong(),
+                it.title,
+                it.title,
+                it.prise,
+                "",
+                it.description,
+                4.7f,
+                12
+            )
+        }
     }
 
 }

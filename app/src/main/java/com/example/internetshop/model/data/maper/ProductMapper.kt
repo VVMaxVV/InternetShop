@@ -8,13 +8,15 @@ class ProductMapper @Inject constructor() {
     fun toDomain(it: ProductResponse): Product {
         return Product(
             it.id.toLong(),
+            it.image,
             it.title,
             it.title,
             it.price,
             "",
             it.description,
-            it.ratingResponse.rate.toFloat(),
-            it.ratingResponse.count
+            it.rating.rate.toFloat(),
+            it.rating.count,
+
         )
     }
 }

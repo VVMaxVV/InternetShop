@@ -2,6 +2,7 @@ package com.example.internetshop
 
 class Product(
     val id:Long,
+    val imageURL:String,
     val title:String,
     val brand:String,
     val prise:String,

@@ -6,4 +6,4 @@ data class ProductResponse(val id: Int,
                            val category: String,
                            val description: String,
                            val image: String,
-                           val ratingResponse: RatingResponse)
+                           val rating: RatingResponse)

@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         Log.i("Dagger", "$viewModel")
-
         viewModel.productLiveData?.observe(this, Observer { product ->
             binding.brand.text = product.brand
             binding.price.text = "${product.prise}$"
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             binding.numberOfReviews.text = "(${product.numberOfReviews})"
             binding.rating.rating = product.rating
         })
-        viewModel.getProduct()
-
+        viewModel.getProductRx("1")
     }
 }

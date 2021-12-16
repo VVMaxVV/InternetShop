@@ -10,11 +10,13 @@ interface ProductRepository {
     fun getProduct(id: String, productCallback: ProductCallback)
     fun getProductList(productListCallback: ProductListCallback)
     fun getProductRx(id: String):Single<Product>
+    fun getProductsRx():Single<List<Product>>
 }
 
 interface LoginRepository {
     fun logIn(username: String, password: String, tokenCallback: TokenCallback)
 }
+
 
 interface TokenCallback {
     fun onSuccess(token: Token)

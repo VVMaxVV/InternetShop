@@ -9,7 +9,9 @@ import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.interfaces.ProductCallback
 import com.example.internetshop.model.interfaces.ProductListCallback
 import com.example.internetshop.model.interfaces.ProductRepository
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -53,8 +55,26 @@ class MainActivityViewModel @Inject constructor(private val productRepository: P
         })
     }
 
-    fun getProductRx() {
-        productRepository.getProductRx("1")
+    fun getProductRx(id: String) {
+        productRepository.getProductRx(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : SingleObserver<Product> {
+                override fun onSubscribe(d: Disposable) {
+                    println()
+                }
+
+                override fun onSuccess(t: Product) {
+                    productLiveData.value = t
+                }
+                override fun onError(e: Throwable) {
+                    Log.e("Test", "${e.message}")
+                }
+            })
+    }
+
+    fun getProductsRx() {
+        productRepository.getProductsRx()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()

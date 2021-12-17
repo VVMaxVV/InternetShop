@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             binding.rating.rating = product.rating
             Picasso.with(this)
                 .load(product.imageURL)
-                .into(binding.mainImage);
+                .into(binding.mainImage)
        })
         viewModel.getProductRx("1")
     }

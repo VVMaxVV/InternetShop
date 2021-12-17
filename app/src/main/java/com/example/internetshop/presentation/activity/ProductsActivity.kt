@@ -1,46 +1,43 @@
 package com.example.internetshop.presentation.activity
 
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.R
-import com.example.internetshop.model.data.dataclass.ProductItem
-import com.example.internetshop.model.data.remote.ProductApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.internetshop.databinding.ActivityProductsBinding
+import com.example.internetshop.presentation.InternetshopApplication
+import com.example.internetshop.presentation.MultiViewModulFactory
+import com.example.internetshop.presentation.ViewModel.ProductsActivityViewModel
+import com.example.internetshop.presentation.adapter.SimpleProductsAdapter
+import javax.inject.Inject
 
 class ProductsActivity : AppCompatActivity() {
+    @Inject
+    lateinit var factory: MultiViewModulFactory
 
-    lateinit var productApi: ProductApi
+    val viewModel: ProductsActivityViewModel by viewModels {factory}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products)
+        (applicationContext as InternetshopApplication).appComponent.inject(this)
+        val binding = ActivityProductsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        configurateRetrofits()
-    }
+        val recyclerView = binding.recyclerViewProducts
+        val adapter = SimpleProductsAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-    private fun configurateRetrofits() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://fakestoreapi.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        viewModel.productsList.observe(this) {
+            adapter.productList.addAll(it)
+            adapter.notifyDataSetChanged()
+        }
 
-        productApi = retrofit.create(ProductApi::class.java)
 
-        productApi.getProduct("1").enqueue(object : Callback<ProductItem> {
-            override fun onResponse(call: Call<ProductItem>?, response: Response<ProductItem>?) {
-                Log.i("API_SINGLE","${response.toString()}")
-            }
 
-            override fun onFailure(call: Call<ProductItem>?, t: Throwable?) {
-                Log.i("API_SINGLE", "${t.toString()}")
-            }
-
-        })
-
+        viewModel.getProductsRx()
     }
 }

@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.internetshop.Product
-import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.interfaces.ProductRepository
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +16,6 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(private val productRepository: ProductRepository):
     ViewModel() {
     val productLiveData = MutableLiveData<Product>()
-    val productsLiveData = MutableLiveData<List<ProductListItems>>()
     private val compositeDisposable = CompositeDisposable()
 
 

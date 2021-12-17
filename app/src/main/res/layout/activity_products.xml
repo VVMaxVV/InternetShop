@@ -1,64 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9"
-    tools:context=".presentation.activity.ProductsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/mainImage"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_products"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/preview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_default_margin"
-        android:layout_marginBottom="26dp"
-        android:text="Street clothes"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@id/mainImage"
-        app:layout_constraintStart_toStartOf="@id/mainImage" />
-
-    <TextView
-        android:id="@+id/sale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_default_margin"
-        android:layout_marginTop="36dp"
-        android:text="Sale"
-        android:textColor="#222222"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainImage" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:text="View all"
-        android:textColor="#222222"
-        android:textSize="12sp"
-        android:layout_marginEnd="@dimen/dimen_default_margin"
-        app:layout_constraintBottom_toBottomOf="@id/sale"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Super summer sale"
-        android:textSize="12sp"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="@dimen/dimen_default_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sale"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_simple_product"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

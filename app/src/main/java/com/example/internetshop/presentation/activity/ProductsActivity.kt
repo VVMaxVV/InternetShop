@@ -1,5 +1,6 @@
 package com.example.internetshop.presentation.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.example.internetshop.presentation.MultiViewModulFactory
 import com.example.internetshop.presentation.ViewModel.ProductsActivityViewModel
 import com.example.internetshop.presentation.adapter.SimpleProductsAdapter
 import javax.inject.Inject
+
 
 class ProductsActivity : AppCompatActivity() {
     @Inject
@@ -27,17 +29,24 @@ class ProductsActivity : AppCompatActivity() {
         setContentView(view)
 
         val recyclerView = binding.recyclerViewProducts
-        val adapter = SimpleProductsAdapter()
+        val adapter = SimpleProductsAdapter {
+            openDetails(it.id)
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
 
         viewModel.productsList.observe(this) {
             adapter.productList.addAll(it)
             adapter.notifyDataSetChanged()
         }
-
-
-
         viewModel.getProductsRx()
+    }
+
+    fun openDetails(id: String) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra(MainActivity.EXTRA_ID, id)
+        }
+        startActivity(intent)
     }
 }

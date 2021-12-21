@@ -8,14 +8,17 @@
         <entry key="app/src/main/res/drawable/add_to_cart.xml" value="0.14912280701754385" />
         <entry key="app/src/main/res/drawable/add_to_cart_shape.xml" value="0.14912280701754385" />
         <entry key="app/src/main/res/drawable/add_to_favarite_bg.xml" value="0.25092592592592594" />
+        <entry key="app/src/main/res/drawable/black_rectangle_button.xml" value="0.270995670995671" />
         <entry key="app/src/main/res/drawable/green_trading_button.xml" value="0.14912280701754385" />
         <entry key="app/src/main/res/drawable/green_trading_button_effect.xml" value="0.14912280701754385" />
         <entry key="app/src/main/res/drawable/green_trading_button_selected.xml" value="0.14912280701754385" />
         <entry key="app/src/main/res/drawable/ic_image.xml" value="0.25555555555555554" />
         <entry key="app/src/main/res/drawable/modelphoto.xml" value="0.25555555555555554" />
+        <entry key="app/src/main/res/drawable/orange_star.xml" value="0.270995670995671" />
         <entry key="app/src/main/res/layout/activity_authentication.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2600297176820208" />
-        <entry key="app/src/main/res/layout/activity_products.xml" value="0.39711934156378603" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1988527724665392" />
+        <entry key="app/src/main/res/layout/activity_products.xml" value="0.32044198895027626" />
+        <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.1013157894736842" />
         <entry key="app/src/main/res/layout/item_simple_product.xml" value="0.39711934156378603" />
         <entry key="app/src/main/res/layout/layout_test.xml" value="0.12552083333333333" />
         <entry key="app/src/main/res/layout/test.xml" value="0.1" />

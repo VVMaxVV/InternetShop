@@ -51,7 +51,7 @@
         android:layout_marginStart="@dimen/dimen_default_margin"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="@dimen/dimen_default_margin"
-        android:background="@drawable/green_trading_button_selected"
+        android:background="@drawable/red_rectangle_button"
         android:gravity="center"
         android:text="@string/login"
         android:textColor="@color/white"

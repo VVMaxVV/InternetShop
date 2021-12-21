@@ -34,7 +34,6 @@ class ProductsActivityViewModel @Inject constructor(private val productRepositor
                 Consumer {
                     productsList.value = it
                 }, Consumer {
-
                 })
     }
 }

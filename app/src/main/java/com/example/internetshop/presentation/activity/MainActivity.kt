@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     val viewModel :MainActivityViewModel by viewModels { factory }
 
+    companion object {
+        const val EXTRA_ID = "id"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             Picasso.with(this)
                 .load(product.imageURL)
                 .into(binding.mainImage)
-       })
-        viewModel.getProductRx("1")
+        })
+        viewModel.getProductRx(intent.getStringExtra(EXTRA_ID)!!)
     }
 }

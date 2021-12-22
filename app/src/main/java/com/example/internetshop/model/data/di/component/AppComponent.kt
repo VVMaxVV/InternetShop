@@ -7,6 +7,7 @@ import com.example.internetshop.model.data.di.module.ViewModelModule
 import com.example.internetshop.presentation.activity.AuthenticationActivity
 import com.example.internetshop.presentation.activity.MainActivity
 import com.example.internetshop.presentation.activity.ProductsActivity
+import com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment
 import dagger.Component
 
 @Component(modules = [AppModule::class, AuthModule::class, ViewModelModule::class, ProductRepositoryModule::class])
@@ -14,4 +15,5 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(authenticationActivity: AuthenticationActivity)
     fun inject(productsActivity: ProductsActivity)
+    fun inject(productDetailsFragment: ProductDetailsFragment)
 }

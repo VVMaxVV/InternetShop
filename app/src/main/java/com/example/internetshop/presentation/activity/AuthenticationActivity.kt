@@ -10,9 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.internetshop.databinding.ActivityAuthenticationBinding
 import com.example.internetshop.model.interfaces.LoginRepository
 import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.ViewModel.AuthenticationActivityViewModel
 import com.example.internetshop.presentation.ViewModelFactory
+import com.example.internetshop.presentation.viewModel.AuthenticationActivityViewModel
 import javax.inject.Inject
+
 class AuthenticationActivity : AppCompatActivity() {
     var viewModel: AuthenticationActivityViewModel? = null
 

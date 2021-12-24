@@ -9,7 +9,7 @@ import com.example.internetshop.databinding.ItemSimpleProductBinding
 import com.example.internetshop.presentation.SimpleProduct
 import com.squareup.picasso.Picasso
 
-class SimpleProductsAdapter(val clickListenner : (SimpleProduct) -> Unit) : RecyclerView.Adapter<SimpleProductViewHolder>() {
+class SimpleProductsAdapter(val clickListener : (SimpleProduct) -> Unit) : RecyclerView.Adapter<SimpleProductViewHolder>() {
     var productList: MutableList<SimpleProduct> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleProductViewHolder {
@@ -19,7 +19,7 @@ class SimpleProductsAdapter(val clickListenner : (SimpleProduct) -> Unit) : Recy
     override fun onBindViewHolder(holder: SimpleProductViewHolder, position: Int) {
         holder.bind(productList.get(position))
         holder.itemView.setOnClickListener {
-            clickListenner(productList[position])
+            clickListener(productList[position])
         }
     }
 
@@ -43,12 +43,6 @@ class SimpleProductViewHolder(private val binding: ItemSimpleProductBinding) :
         binding.numberOfReviews.text = "(${simpleProduct.numberOfReviews})"
         binding.itemSimpleProdId.id = simpleProduct.id.toInt()
     }
-
-//    fun onClick(v: View?) {
-//        itemId
-//        Log.i("Test",(itemId.toString()))
-//    }
-
 
     fun onClick(v: View) {
         val parent = v.parent

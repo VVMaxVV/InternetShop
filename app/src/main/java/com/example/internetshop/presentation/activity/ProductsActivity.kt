@@ -9,8 +9,9 @@ import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityProductsBinding
 import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.MultiViewModulFactory
-import com.example.internetshop.presentation.ViewModel.ProductsActivityViewModel
+import com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment
 import com.example.internetshop.presentation.adapter.SimpleProductsAdapter
+import com.example.internetshop.presentation.viewModel.ProductsActivityViewModel
 import javax.inject.Inject
 
 
@@ -45,7 +46,7 @@ class ProductsActivity : AppCompatActivity() {
 
     fun openDetails(id: String) {
         val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra(MainActivity.EXTRA_ID, id)
+            putExtra(ProductDetailsFragment.EXTRA_ID, id)
         }
         startActivity(intent)
     }

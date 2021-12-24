@@ -5,29 +5,35 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.MultiViewModulFactory
-import com.example.internetshop.presentation.ViewModel.MainActivityViewModel
-import com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment
+import com.example.internetshop.presentation.activity.fragments.ProductsListFragment
+import com.example.internetshop.presentation.viewModel.MainActivityViewModel
 import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ContainerHolder {
     @Inject
     lateinit var factory: MultiViewModulFactory
 
     val viewModel :MainActivityViewModel by viewModels { factory }
 
-    companion object {
-        const val EXTRA_ID = "id"
-    }
+    var binding: ActivityMainBinding? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        val fragment = ProductDetailsFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(binding.fragmentContainer.id,fragment)
-            .commit()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
+        binding?.let {
+            val fragment = ProductsListFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(it.fragmentContainer.id,fragment)
+                .commit()
+        }
+    }
+
+    override fun getContainerId(): Int? {
+        return binding?.fragmentContainer?.id
     }
 
 //    override fun onCreate(savedInstanceState: Bundle?) {

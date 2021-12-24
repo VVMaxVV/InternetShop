@@ -1,4 +1,4 @@
-package com.example.internetshop.presentation.ViewModel
+package com.example.internetshop.presentation.viewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

@@ -3,7 +3,7 @@ package com.example.internetshop.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.internetshop.model.interfaces.LoginRepository
-import com.example.internetshop.presentation.ViewModel.AuthenticationActivityViewModel
+import com.example.internetshop.presentation.viewModel.AuthenticationActivityViewModel
 import javax.inject.Inject
 
 

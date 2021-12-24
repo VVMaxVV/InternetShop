@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.internetshop.databinding.FragmentProductDetailsBinding
 import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.MultiViewModulFactory
-import com.example.internetshop.presentation.ViewModel.MainActivityViewModel
+import com.example.internetshop.presentation.activity.ContainerHolder
+import com.example.internetshop.presentation.viewModel.MainActivityViewModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
@@ -31,6 +33,10 @@ class ProductDetailsFragment: Fragment() {
         return binding?.root
     }
 
+    companion object {
+        const val EXTRA_ID = "id"
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
@@ -41,6 +47,7 @@ class ProductDetailsFragment: Fragment() {
         (requireActivity().applicationContext as InternetshopApplication)
             .appComponent
             .inject(this)
+        val reviewButton = binding?.review
         viewModel.productLiveData?.observe(viewLifecycleOwner, Observer { product ->
             binding?.let {
                 it.brand.text = product.brand
@@ -54,6 +61,16 @@ class ProductDetailsFragment: Fragment() {
                     .into(it.mainImage)
             }
         })
-        viewModel.getProductRx("2")
+    }
+    private fun openReview(id: String) {
+        (requireActivity() as? ContainerHolder)?.let {
+            val fragment = ReviewFragment().apply {
+                this.arguments = bundleOf(EXTRA_ID to id)
+            }
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(it.getContainerId()?:throw IllegalStateException("Container id must not be null"),fragment)
+                .commit()
+        }
     }
 }

@@ -21,7 +21,7 @@ class AuthModule {
     }
 
     @Provides
-    fun getVievModelFactory(loginRepository: LoginRepository): ViewModelFactory {
+    fun getViewModelFactory(loginRepository: LoginRepository): ViewModelFactory {
         return ViewModelFactory(loginRepository)
     }
 

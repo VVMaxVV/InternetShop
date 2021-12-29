@@ -47,7 +47,7 @@ class ProductDetailsFragment: Fragment() {
         (requireActivity().applicationContext as InternetshopApplication)
             .appComponent
             .inject(this)
-        val reviewButton = binding?.review
+        val reviewButton = binding?.goToReview
         viewModel.productLiveData?.observe(viewLifecycleOwner, Observer { product ->
             binding?.let {
                 it.brand.text = product.brand
@@ -61,16 +61,18 @@ class ProductDetailsFragment: Fragment() {
                     .into(it.mainImage)
             }
         })
-    }
-    private fun openReview(id: String) {
-        (requireActivity() as? ContainerHolder)?.let {
-            val fragment = ReviewFragment().apply {
-                this.arguments = bundleOf(EXTRA_ID to id)
+        viewModel.getProductRx(requireArguments()!!.getString(ReviewFragment.EXTRA_ID)!!)
+
+        reviewButton?.setOnClickListener {
+            (requireActivity() as? ContainerHolder)?.let {
+                val fragment = ReviewFragment().apply {
+                    this.arguments = bundleOf(ReviewFragment.EXTRA_ID to id)
+                }
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .addToBackStack(null)
+                    .replace(it.getContainerId()?:throw IllegalStateException("Container id must not be null"),fragment)
+                    .commit()
             }
-            requireActivity().supportFragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .replace(it.getContainerId()?:throw IllegalStateException("Container id must not be null"),fragment)
-                .commit()
         }
     }
 }

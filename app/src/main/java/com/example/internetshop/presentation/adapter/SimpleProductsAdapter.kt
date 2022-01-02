@@ -1,8 +1,6 @@
 package com.example.internetshop.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.internetshop.databinding.ItemSimpleProductBinding
@@ -42,10 +40,5 @@ class SimpleProductViewHolder(private val binding: ItemSimpleProductBinding) :
         binding.ratingBar.rating = simpleProduct.rating
         binding.numberOfReviews.text = "(${simpleProduct.numberOfReviews})"
         binding.itemSimpleProdId.id = simpleProduct.id.toInt()
-    }
-
-    fun onClick(v: View) {
-        val parent = v.parent
-        Log.i("Test",((parent as RecyclerView).id).toString())
     }
 }

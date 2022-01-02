@@ -23,7 +23,7 @@ class ReviewFragment: Fragment() {
     private var binding: FragmentReviewBinding? = null
 
     companion object {
-        const val EXTRA_ID = "id"
+        const val EXTRA_ID_REVIEW = "id"
     }
 
     override fun onCreateView(
@@ -57,6 +57,7 @@ class ReviewFragment: Fragment() {
             adapter.reviews.addAll(it)
             adapter.notifyDataSetChanged()
         }
-        viewModel.getReviews("1")
+        viewModel.getReviews(requireArguments()!!.getString(EXTRA_ID_REVIEW)!!)
+
     }
 }

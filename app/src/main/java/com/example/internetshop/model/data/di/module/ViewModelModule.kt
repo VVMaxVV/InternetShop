@@ -5,6 +5,7 @@ import com.example.internetshop.presentation.ViewModelKey
 import com.example.internetshop.presentation.viewModel.AuthenticationActivityViewModel
 import com.example.internetshop.presentation.viewModel.MainActivityViewModel
 import com.example.internetshop.presentation.viewModel.ProductsActivityViewModel
+import com.example.internetshop.presentation.viewModel.ReviewViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -23,6 +24,7 @@ interface ViewModelModule {
     @[IntoMap ViewModelKey(ProductsActivityViewModel::class)]
     fun provideProductsActivityViewModule(authViewModule: ProductsActivityViewModel): ViewModel
 
-
-
+    @Binds
+    @[IntoMap ViewModelKey(ReviewViewModel::class)]
+    fun provideReviewViewModel(reviewViewModel: ReviewViewModel): ViewModel
 }

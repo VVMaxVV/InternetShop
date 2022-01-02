@@ -16,11 +16,11 @@ import com.example.internetshop.presentation.viewModel.MainActivityViewModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class ProductDetailsFragment: Fragment() {
+class ProductDetailsFragment : Fragment() {
     @Inject
     lateinit var factory: MultiViewModulFactory
 
-    val viewModel : MainActivityViewModel by viewModels { factory }
+    val viewModel: MainActivityViewModel by viewModels { factory }
 
     private var binding: FragmentProductDetailsBinding? = null
 
@@ -61,16 +61,21 @@ class ProductDetailsFragment: Fragment() {
                     .into(it.mainImage)
             }
         })
-        viewModel.getProductRx(requireArguments()!!.getString(ReviewFragment.EXTRA_ID)!!)
+        val productId = this.requireArguments().getString(EXTRA_ID)!!
+        viewModel.getProductRx(productId)
 
         reviewButton?.setOnClickListener {
             (requireActivity() as? ContainerHolder)?.let {
                 val fragment = ReviewFragment().apply {
-                    this.arguments = bundleOf(ReviewFragment.EXTRA_ID to id)
+                    this.arguments = bundleOf(ReviewFragment.EXTRA_ID_REVIEW to productId)
                 }
                 requireActivity().supportFragmentManager.beginTransaction()
                     .addToBackStack(null)
-                    .replace(it.getContainerId()?:throw IllegalStateException("Container id must not be null"),fragment)
+                    .replace(
+                        it.getContainerId()
+                            ?: throw IllegalStateException("Container id must not be null"),
+                        fragment
+                    )
                     .commit()
             }
         }

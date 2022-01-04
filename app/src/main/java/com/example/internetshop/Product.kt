@@ -5,7 +5,7 @@ class Product(
     val imageURL:String,
     val title:String,
     val brand:String,
-    val prise:String,
+    val price:String,
     val shortDescription: String,
     val description: String,
     val rating: Float,

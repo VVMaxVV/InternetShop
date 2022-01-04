@@ -28,7 +28,7 @@ class ProductsActivityViewModel @Inject constructor(private val productRepositor
                         it.title,
                         "Black",
                         "L",
-                        "${it.prise}$",
+                        "${it.price}$",
                         it.rating,
                         it.numberOfReviews,
                         it.id.toString()

@@ -3,7 +3,9 @@ package com.example.internetshop.presentation.activity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
 import com.example.internetshop.databinding.ActivityMainBinding
+import com.example.internetshop.model.data.InternetShopDB
 import com.example.internetshop.presentation.MultiViewModulFactory
 import com.example.internetshop.presentation.activity.fragments.ProductsListFragment
 import com.example.internetshop.presentation.viewModel.MainActivityViewModel
@@ -20,10 +22,16 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+        val db = Room.databaseBuilder(
+            applicationContext,
+            InternetShopDB::class.java,
+            "FavoriteProductList"
+        )
         binding?.let {
             val fragment = ProductsListFragment()
             supportFragmentManager.beginTransaction()

@@ -19,15 +19,15 @@
 
             <ImageView
                 android:id="@+id/mainImage"
-                android:paddingTop="150dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:paddingTop="150dp"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/photomodel"
                 app:layout_constraintDimensionRatio="H,375:413"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/photomodel" />
 
             <ImageView
                 android:id="@+id/favorite_bg"
@@ -42,10 +42,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/mainImage" />
 
             <ImageView
+                android:id="@+id/favorite"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="6dp"
+                android:clickable="true"
                 android:src="@drawable/add_to_favorites"
                 app:layout_constraintEnd_toEndOf="@+id/favorite_bg"
                 app:layout_constraintTop_toTopOf="@+id/favorite_bg" />
@@ -56,10 +58,10 @@
                 android:layout_height="@dimen/dimen_headers_height"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="@dimen/dimen_default_margin"
-                tools:text="@string/prise"
                 android:textSize="@dimen/dimen_headers_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favorite_bg" />
+                app:layout_constraintTop_toBottomOf="@+id/favorite_bg"
+                tools:text="@string/prise" />
 
             <TextView
                 android:id="@+id/brand"
@@ -80,10 +82,10 @@
                 android:id="@+id/short_description"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dimen_short_description_height"
-                tools:text="@string/short_description"
                 android:textSize="@dimen/dimen_short_description_text_size"
                 app:layout_constraintStart_toStartOf="@id/brand"
-                app:layout_constraintTop_toBottomOf="@id/brand" />
+                app:layout_constraintTop_toBottomOf="@id/brand"
+                tools:text="@string/short_description" />
 
             <RatingBar
                 android:id="@+id/rating"
@@ -104,10 +106,10 @@
                 android:layout_marginStart="@dimen/dimen_number_of_reviews_margin_start"
                 android:layout_marginTop="2dp"
                 android:gravity="center"
-                tools:text="@string/number_of_reviews"
                 android:textSize="@dimen/dimen_number_of_reviews_text_size"
                 app:layout_constraintStart_toEndOf="@id/rating"
-                app:layout_constraintTop_toTopOf="@id/rating" />
+                app:layout_constraintTop_toTopOf="@id/rating"
+                tools:text="@string/number_of_reviews" />
 
             <TextView
                 android:id="@+id/description"
@@ -116,19 +118,19 @@
                 android:layout_marginStart="@dimen/dimen_default_margin"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
-                tools:text="@string/description"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/numberOfReviews" />
+                app:layout_constraintTop_toBottomOf="@+id/numberOfReviews"
+                tools:text="@string/description" />
 
             <TextView
                 android:id="@+id/go_to_review"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:text="@string/watch_review"
                 app:layout_constraintBottom_toTopOf="@+id/description"
                 app:layout_constraintEnd_toEndOf="@+id/price"
-                app:layout_constraintTop_toBottomOf="@+id/price"
-                android:clickable="true"/>
+                app:layout_constraintTop_toBottomOf="@+id/price" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -142,13 +144,13 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/red_rectangle_button"
+            android:gravity="center"
             android:text="@string/addToCart"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="14sp" />
     </FrameLayout>
 </FrameLayout>

@@ -4,6 +4,7 @@ import com.example.internetshop.Product
 import com.example.internetshop.model.data.dataclass.ProductItem
 import com.example.internetshop.model.data.dataclass.ProductListItems
 import com.example.internetshop.model.data.dataclass.Token
+import io.reactivex.Completable
 import io.reactivex.Single
 
 interface ProductRepository {
@@ -11,6 +12,8 @@ interface ProductRepository {
     fun getProductList(productListCallback: ProductListCallback)
     fun getProductRx(id: String):Single<Product>
     fun getProductsRx():Single<List<Product>>
+    fun addToFavorite(product: Product): Completable
+    fun getFavoriteProductList(): Single<List<Product>>
 }
 
 interface LoginRepository {

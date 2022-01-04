@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.internetshop.Product
 import com.example.internetshop.model.interfaces.ProductRepository
+import com.example.internetshop.presentation.SingleLiveEvent
+import io.reactivex.CompletableObserver
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,42 +18,8 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(private val productRepository: ProductRepository):
     ViewModel() {
     val productLiveData = MutableLiveData<Product>()
+    val toastEventLiveData = SingleLiveEvent<String>()
     private val compositeDisposable = CompositeDisposable()
-
-
-//    fun getProduct() {
-//        val myProduct = productRepository.getProduct("1", object : ProductCallback {
-//            override fun onSuccess(product: ProductItem) {
-//                productLiveData.value = Product(
-//                    id = product.id.toLong(),
-//                    title = product.title,
-//                    brand = product.title,
-//                    prise = product.price,
-//                    imageURL =  product.image,
-//                    description = product.description,
-//                    rating = 4.0f,
-//                    numberOfReviews = 10
-//                )
-//            }
-//
-//            override fun onFail(throwable: Throwable) {
-//                Log.e("Error", "$throwable")
-//            }
-//        })
-//    }
-
-//    fun getProducts() {
-//        val myProducts = productRepository.getProductList(object : ProductListCallback {
-//            override fun onSuccess(product: List<ProductListItems>) {
-//                Log.i("API123","${product.toString()}")
-//            }
-//
-//            override fun onFail(throwable: Throwable) {
-//                Log.i("API123","$throwable")
-//            }
-//
-//        })
-//    }
 
     fun getProductRx(id: String) {
      productRepository.getProductRx(id)
@@ -70,15 +38,31 @@ class MainActivityViewModel @Inject constructor(private val productRepository: P
             })
     }
 
+    fun addToFavorite() {
+        productRepository.addToFavorite(productLiveData.value!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CompletableObserver {
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onComplete() {
+                    toastEventLiveData.value = "Date in db"
+                }
+
+                override fun onError(e: Throwable) {
+                    toastEventLiveData.value = "Error: ${e.message}"
+                }
+            })
+    }
+
+    fun getFromFavorite() {
+        productRepository.getFavoriteProductList()
+    }
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
-    }
-
-    fun getProductsRx() {
-        productRepository.getProductsRx()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
     }
 }

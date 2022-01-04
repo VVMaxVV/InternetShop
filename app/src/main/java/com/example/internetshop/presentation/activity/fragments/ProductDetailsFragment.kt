@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.internetshop.databinding.FragmentProductDetailsBinding
+import com.example.internetshop.model.data.InternetShopDB
 import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.MultiViewModulFactory
 import com.example.internetshop.presentation.activity.ContainerHolder
@@ -19,6 +21,9 @@ import javax.inject.Inject
 class ProductDetailsFragment : Fragment() {
     @Inject
     lateinit var factory: MultiViewModulFactory
+
+    @Inject
+    lateinit var db: InternetShopDB
 
     val viewModel: MainActivityViewModel by viewModels { factory }
 
@@ -48,10 +53,11 @@ class ProductDetailsFragment : Fragment() {
             .appComponent
             .inject(this)
         val reviewButton = binding?.goToReview
+        val favoriteButton = binding?.favorite
         viewModel.productLiveData?.observe(viewLifecycleOwner, Observer { product ->
             binding?.let {
                 it.brand.text = product.brand
-                it.price.text = "${product.prise}$"
+                it.price.text = "${product.price}$"
                 it.shortDescription.text = product.shortDescription
                 it.description.text = product.description
                 it.numberOfReviews.text = "(${product.numberOfReviews})"
@@ -78,6 +84,14 @@ class ProductDetailsFragment : Fragment() {
                     )
                     .commit()
             }
+        }
+
+        viewModel.toastEventLiveData.observe(viewLifecycleOwner, {
+            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+        })
+
+        favoriteButton?.setOnClickListener {
+            viewModel.addToFavorite()
         }
     }
 }

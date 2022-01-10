@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.internetshop.databinding.ActivityAuthenticationBinding
 import com.example.internetshop.domain.data.repository.LoginRepository
 import com.example.internetshop.presentation.InternetshopApplication
@@ -19,8 +18,8 @@ class AuthenticationActivity : AppCompatActivity() {
     @Inject
     lateinit var loginRepository: LoginRepository
 
-    @Inject
-    lateinit var viewModelProviderFactory: ViewModelFactory
+//    @Inject
+//    lateinit var viewModelProviderFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +31,11 @@ class AuthenticationActivity : AppCompatActivity() {
         binding.login.setText("mor_2314")
         binding.password.setText("83r5^_")
         val myButton = binding.button
-
-        viewModel = ViewModelProvider(
-            this,
-            viewModelProviderFactory
-        ).get(AuthenticationActivityViewModel::class.java)
+//
+//        viewModel = ViewModelProvider(
+//            this,
+//            viewModelProviderFactory
+//        ).get(AuthenticationActivityViewModel::class.java)
         myButton.setOnClickListener {
             binding.pb.visibility = View.VISIBLE
             viewModel?.tokenResult?.observe(this, Observer {

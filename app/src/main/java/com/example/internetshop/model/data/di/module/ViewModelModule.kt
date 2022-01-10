@@ -30,5 +30,5 @@ interface ViewModelModule {
 
     @Binds
     @[IntoMap ViewModelKey(ProductDetailServerViewModel::class)]
-    fun provideProductDetaolServerViewModel(productDetailServerViewModel: ProductDetailServerViewModel)
+    fun provideProductDetaolServerViewModel(productDetailServerViewModel: ProductDetailServerViewModel): ViewModel
 }

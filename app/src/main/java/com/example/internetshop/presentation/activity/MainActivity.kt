@@ -4,19 +4,19 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
+import com.example.internetshop.data.cache.InternetShopDB
 import com.example.internetshop.databinding.ActivityMainBinding
-import com.example.internetshop.model.data.InternetShopDB
-import com.example.internetshop.presentation.MultiViewModulFactory
 import com.example.internetshop.presentation.activity.fragments.ProductsListFragment
-import com.example.internetshop.presentation.viewModel.MainActivityViewModel
+import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
+import com.example.internetshop.presentation.viewModel.ProductDetailsViewModel
 import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity(), ContainerHolder {
     @Inject
-    lateinit var factory: MultiViewModulFactory
+    lateinit var factory: MultiViewModuleFactory
 
-    val viewModel :MainActivityViewModel by viewModels { factory }
+    val viewModel :ProductDetailsViewModel by viewModels { factory }
 
     var binding: ActivityMainBinding? = null
 

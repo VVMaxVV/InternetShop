@@ -5,21 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.databinding.FragmentProductsListBinding
-import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.MultiViewModulFactory
+import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.activity.ContainerHolder
-import com.example.internetshop.presentation.adapter.SimpleProductsAdapter
+import com.example.internetshop.presentation.adapters.SimpleProductsAdapter
 import com.example.internetshop.presentation.viewModel.ProductsActivityViewModel
-import javax.inject.Inject
 
-class ProductsListFragment: Fragment() {
-    @Inject
-    lateinit var factory: MultiViewModulFactory
-
+class ProductsListFragment: BaseFragment() {
     val viewModel : ProductsActivityViewModel by viewModels { factory }
 
     private var binding: FragmentProductsListBinding? = null
@@ -40,9 +34,6 @@ class ProductsListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().applicationContext as InternetshopApplication)
-            .appComponent
-            .inject(this)
 
         val recyclerView = binding?.recyclerViewProducts
         val adapter = SimpleProductsAdapter {
@@ -62,6 +53,15 @@ class ProductsListFragment: Fragment() {
         viewModel.openDetailsEvent.observe(viewLifecycleOwner) {
             openDetails(it)
         }
+
+
+        binding?.goFavorite?.setOnClickListener {
+            val fragment = FavoriteListFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(this.id,fragment)
+                .commit()
+        }
     }
 
     private fun openDetails(id: String) {
@@ -74,5 +74,9 @@ class ProductsListFragment: Fragment() {
                 .replace(it.getContainerId()?:throw IllegalStateException("Container id must not be null"),fragment)
                 .commit()
         }
+    }
+
+    override fun inject(component: AppComponent) {
+        component.inject(this)
     }
 }

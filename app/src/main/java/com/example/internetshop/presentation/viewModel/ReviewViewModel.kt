@@ -2,8 +2,8 @@ package com.example.internetshop.presentation.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.internetshop.model.data.dataclass.Review
-import com.example.internetshop.model.interfaces.ReviewRepository
+import com.example.internetshop.domain.data.model.Review
+import com.example.internetshop.domain.data.repository.ReviewRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer

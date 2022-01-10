@@ -1,6 +1,6 @@
 package com.example.internetshop.model.data.di.module
 
-import com.example.internetshop.model.data.remote.ProductApi
+import com.example.internetshop.data.retrofitapi.ProductApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

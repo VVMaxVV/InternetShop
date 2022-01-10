@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityProductsBinding
 import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.MultiViewModulFactory
 import com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment
-import com.example.internetshop.presentation.adapter.SimpleProductsAdapter
+import com.example.internetshop.presentation.adapters.SimpleProductsAdapter
+import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.ProductsActivityViewModel
 import javax.inject.Inject
 
 
 class ProductsActivity : AppCompatActivity() {
     @Inject
-    lateinit var factory: MultiViewModulFactory
+    lateinit var factory: MultiViewModuleFactory
 
     val viewModel: ProductsActivityViewModel by viewModels {factory}
 

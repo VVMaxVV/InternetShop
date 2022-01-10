@@ -1,9 +1,9 @@
 package com.example.internetshop.model.data.di.module
 
-import com.example.internetshop.model.data.remote.AuthApi
-import com.example.internetshop.model.implementation.AuthImpl
-import com.example.internetshop.model.interfaces.LoginRepository
-import com.example.internetshop.presentation.ViewModelFactory
+import com.example.internetshop.data.repository.AuthImpl
+import com.example.internetshop.data.response.mapper.UserCredentialsMapper
+import com.example.internetshop.data.retrofitapi.AuthApi
+import com.example.internetshop.domain.data.repository.LoginRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -11,19 +11,17 @@ import retrofit2.Retrofit
 @Module
 class AuthModule {
     @Provides
-    fun getAuthApi(retrofit: Retrofit): AuthApi{
+    fun getAuthApi(retrofit: Retrofit): AuthApi {
         return retrofit.create(AuthApi::class.java)
     }
 
     @Provides
-    fun getAuthRepository(authApi: AuthApi): LoginRepository {
-        return AuthImpl(authApi)
+    fun getUserCredentialsMapper(): UserCredentialsMapper{
+        return UserCredentialsMapper()
     }
 
     @Provides
-    fun getViewModelFactory(loginRepository: LoginRepository): ViewModelFactory {
-        return ViewModelFactory(loginRepository)
+    fun getAuthRepository(authApi: AuthApi, userCredentialsMapper: UserCredentialsMapper): LoginRepository {
+        return AuthImpl(authApi, userCredentialsMapper)
     }
-
-
 }

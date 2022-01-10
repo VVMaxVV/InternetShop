@@ -1,11 +1,7 @@
 package com.example.internetshop.model.data.di.module
 
 import androidx.lifecycle.ViewModel
-import com.example.internetshop.presentation.ViewModelKey
-import com.example.internetshop.presentation.viewModel.AuthenticationActivityViewModel
-import com.example.internetshop.presentation.viewModel.MainActivityViewModel
-import com.example.internetshop.presentation.viewModel.ProductsActivityViewModel
-import com.example.internetshop.presentation.viewModel.ReviewViewModel
+import com.example.internetshop.presentation.viewModel.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -13,8 +9,8 @@ import dagger.multibindings.IntoMap
 @Module
 interface ViewModelModule {
     @Binds
-    @[IntoMap ViewModelKey(MainActivityViewModel::class)]
-    fun provideMainActivityViewModel(mainViewModel: MainActivityViewModel): ViewModel
+    @[IntoMap ViewModelKey(ProductDetailsViewModel::class)]
+    fun provideMainActivityViewModel(mainViewModel: ProductDetailsViewModel): ViewModel
 
     @Binds
     @[IntoMap ViewModelKey(AuthenticationActivityViewModel::class)]
@@ -27,4 +23,12 @@ interface ViewModelModule {
     @Binds
     @[IntoMap ViewModelKey(ReviewViewModel::class)]
     fun provideReviewViewModel(reviewViewModel: ReviewViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(FavoriteListViewModel::class)]
+    fun provideFavoriteListViewModel(favoriteListViewModel: FavoriteListViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(ProductDetailServerViewModel::class)]
+    fun provideProductDetaolServerViewModel(productDetailServerViewModel: ProductDetailServerViewModel)
 }

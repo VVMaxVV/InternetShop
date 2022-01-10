@@ -1,14 +1,18 @@
 package com.example.internetshop.model.data.di.component
 
 import android.content.Context
-import com.example.internetshop.model.data.di.module.*
+import com.example.internetshop.data.di.module.DBModule
+import com.example.internetshop.data.di.module.ProductRepositoryModule
+import com.example.internetshop.data.di.module.ReviewModule
+import com.example.internetshop.domain.di.module.FavoritesUseCaseModule
+import com.example.internetshop.model.data.di.module.AppModule
+import com.example.internetshop.model.data.di.module.AuthModule
+import com.example.internetshop.model.data.di.module.ViewModelModule
 import com.example.internetshop.presentation.activity.AuthenticationActivity
+import com.example.internetshop.presentation.activity.BaseProductDetailFragment
 import com.example.internetshop.presentation.activity.MainActivity
 import com.example.internetshop.presentation.activity.ProductsActivity
-import com.example.internetshop.presentation.activity.fragments.FavoriteListFragment
-import com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment
-import com.example.internetshop.presentation.activity.fragments.ProductsListFragment
-import com.example.internetshop.presentation.activity.fragments.ReviewFragment
+import com.example.internetshop.presentation.activity.fragments.*
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -19,7 +23,8 @@ import javax.inject.Singleton
     ViewModelModule::class,
     ProductRepositoryModule::class,
     ReviewModule::class,
-    DBModule::class])
+    DBModule::class,
+    FavoritesUseCaseModule::class])
 interface AppComponent {
     @Component.Factory
     interface Factory {
@@ -32,4 +37,6 @@ interface AppComponent {
     fun inject(productsListFragment: ProductsListFragment)
     fun inject(reviewFragment: ReviewFragment)
     fun inject(favoriteListFragment: FavoriteListFragment)
+    fun inject(baseFragment: BaseFragment)
+    fun inject(baseProductDetailsFragment: BaseProductDetailFragment)
 }

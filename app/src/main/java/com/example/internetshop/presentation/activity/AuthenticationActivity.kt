@@ -8,9 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.internetshop.databinding.ActivityAuthenticationBinding
-import com.example.internetshop.model.interfaces.LoginRepository
+import com.example.internetshop.domain.data.repository.LoginRepository
 import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.ViewModelFactory
 import com.example.internetshop.presentation.viewModel.AuthenticationActivityViewModel
 import javax.inject.Inject
 

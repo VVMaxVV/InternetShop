@@ -9,14 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.databinding.FragmentReviewBinding
 import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.MultiViewModulFactory
-import com.example.internetshop.presentation.adapter.ReviewsAdapter
+import com.example.internetshop.presentation.adapters.ReviewsAdapter
+import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.ReviewViewModel
 import javax.inject.Inject
 
 class ReviewFragment: Fragment() {
     @Inject
-    lateinit var factory: MultiViewModulFactory
+    lateinit var factory: MultiViewModuleFactory
 
     val viewModel: ReviewViewModel by viewModels { factory }
 

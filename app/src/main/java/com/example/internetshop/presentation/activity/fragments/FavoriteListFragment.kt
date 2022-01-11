@@ -28,11 +28,6 @@ class FavoriteListFragment: BaseFragment() {
         return binding?.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
-    }
-
     override fun inject(component: AppComponent) {
         component.inject(this)
     }

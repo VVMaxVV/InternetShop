@@ -6,6 +6,8 @@
         <variable
             name="product"
             type="com.example.internetshop.domain.data.model.product.Product" />
+
+        <import type="android.view.View"/>
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -66,7 +68,8 @@
                     android:layout_height="@dimen/dimen_headers_height"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="@dimen/dimen_default_margin"
-                    android:text="@{product.price}"
+                    android:text='@{product.price + "$"}'
+                    android:visibility="@{product.price != null ?View.VISIBLE : View.INVISIBLE}"
                     android:textSize="@dimen/dimen_headers_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/favorite_bg"
@@ -74,7 +77,7 @@
 
                 <TextView
                     android:id="@+id/brand"
-                    style="@style/ProductHider"
+                    style="@style/ProductHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_default_margin"
@@ -162,7 +165,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/red_rectangle_button"
                 android:gravity="center"
-                android:text="@string/addToCart"
+                android:text="@string/add_to_cart"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </FrameLayout>

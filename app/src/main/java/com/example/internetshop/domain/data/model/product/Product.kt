@@ -1,6 +1,6 @@
 package com.example.internetshop.domain.data.model.product
 
-class Product(
+data class Product(
     val id:Long,
     val imageURL:String,
     val title:String,

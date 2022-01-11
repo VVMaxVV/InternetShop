@@ -36,7 +36,7 @@ class SimpleProductViewHolder(private val binding: ItemSimpleProductBinding) :
         binding.title.text = simpleProduct.title
         binding.colorValue.text = "Black"
         binding.sizeValue.text = "L"
-        binding.price.text = simpleProduct.price
+        binding.price.text = simpleProduct.price + "$"
         binding.ratingBar.rating = simpleProduct.rating
         binding.numberOfReviews.text = "(${simpleProduct.numberOfReviews})"
         binding.itemSimpleProdId.id = simpleProduct.id.toInt()

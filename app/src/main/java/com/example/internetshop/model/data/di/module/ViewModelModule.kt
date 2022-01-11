@@ -13,8 +13,8 @@ interface ViewModelModule {
     fun provideMainActivityViewModel(mainViewModel: ProductDetailsViewModel): ViewModel
 
     @Binds
-    @[IntoMap ViewModelKey(AuthenticationActivityViewModel::class)]
-    fun provideAuthViewModel(authViewModule: AuthenticationActivityViewModel): ViewModel
+    @[IntoMap ViewModelKey(AuthenticationViewModel::class)]
+    fun provideAuthViewModel(authViewModule: AuthenticationViewModel): ViewModel
 
     @Binds
     @[IntoMap ViewModelKey(ProductsActivityViewModel::class)]

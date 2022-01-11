@@ -11,8 +11,8 @@ class ProductMapper @Inject constructor() {
             product.title,
             "black",
             "L,XL",
-            "${product.price}$",
-            product.rating.toFloat(),
+            product.price,
+            product.rating,
             product.numberOfReviews.toInt(),
             product.id.toString()
         )

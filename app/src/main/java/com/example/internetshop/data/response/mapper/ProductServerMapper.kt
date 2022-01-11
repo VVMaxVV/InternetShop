@@ -11,7 +11,7 @@ class ProductServerMapper @Inject constructor() {
             it.image,
             it.title,
             it.title,
-            "${it.price}$",
+            it.price,
             "",
             it.description,
             it.rating.rate.toFloat(),

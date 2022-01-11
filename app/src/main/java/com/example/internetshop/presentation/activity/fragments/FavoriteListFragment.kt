@@ -24,6 +24,7 @@ class FavoriteListFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentFavoriteListBinding.inflate(inflater, container, false)
         return binding?.root
     }

@@ -7,7 +7,7 @@
     <string name="number_of_reviews">(10)</string>
     <string name="title_activity_authentication">AuthenticationActivity</string>
 
-    <string name="email">E-mail</string>
+    <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot your password?</string>
 

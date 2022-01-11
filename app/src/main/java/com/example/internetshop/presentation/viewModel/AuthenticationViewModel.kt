@@ -14,15 +14,14 @@ class AuthenticationViewModel @Inject constructor(private val loginRepository: L
     val tokenResult = MutableLiveData<Token>()
     val textResult = MutableLiveData<String>()
 
-    val password = ObservableField<String>()
-    val username = ObservableField<String>()
+    val password = ObservableField<String>("83r5^_")
+    val username = ObservableField<String>("mor_2314")
 
     fun getToken() {
-        if (username.get().isNullOrEmpty().not() || password.get().isNullOrEmpty().not()) {
+        if (username.get().isNullOrEmpty() || password.get().isNullOrEmpty()) {
             textResult.value = "Fill in all the fields!"
         } else {
-
-            val myToken = loginRepository.logIn(UserCredentials(username.get()!!, password.get()!!), object : TokenCallback {
+            loginRepository.logIn(UserCredentials(username.get()!!, password.get()!!), object : TokenCallback {
                 override fun onSuccess(token: Token) {
                     tokenResult.value = Token(token.token)
                 }

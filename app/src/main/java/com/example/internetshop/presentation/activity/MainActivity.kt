@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import com.example.internetshop.data.cache.InternetShopDB
 import com.example.internetshop.databinding.ActivityMainBinding
-import com.example.internetshop.presentation.activity.fragments.ProductsListFragment
+import com.example.internetshop.presentation.activity.fragments.AuthenticationFragment
+import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
-import com.example.internetshop.presentation.viewModel.ProductDetailsViewModel
 import javax.inject.Inject
 
 
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     @Inject
     lateinit var factory: MultiViewModuleFactory
 
-    val viewModel :ProductDetailsViewModel by viewModels { factory }
+    val viewModel :AuthenticationViewModel by viewModels { factory }
 
     var binding: ActivityMainBinding? = null
 
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
             "FavoriteProductList"
         )
         binding?.let {
-            val fragment = ProductsListFragment()
+            val fragment = AuthenticationFragment()
             supportFragmentManager.beginTransaction()
                 .replace(it.fragmentContainer.id,fragment)
                 .commit()

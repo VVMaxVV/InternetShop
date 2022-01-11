@@ -1,7 +1,9 @@
 package com.example.internetshop.presentation.activity.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.InternetshopApplication
@@ -15,9 +17,13 @@ abstract class BaseFragment: Fragment() {
 
     abstract fun inject(component: AppComponent)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         inject(getAppComponent())
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     private fun getAppComponent(): AppComponent {

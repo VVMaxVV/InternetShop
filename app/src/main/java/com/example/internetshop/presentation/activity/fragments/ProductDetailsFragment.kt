@@ -8,23 +8,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.internetshop.R
 import com.example.internetshop.data.cache.InternetShopDB
 import com.example.internetshop.databinding.FragmentProductDetailsBinding
-import com.example.internetshop.presentation.InternetshopApplication
+import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.activity.ContainerHolder
-import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.ProductDetailsViewModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class ProductDetailsFragment : Fragment() {
-    @Inject
-    lateinit var factory: MultiViewModuleFactory
-
+class ProductDetailsFragment : BaseFragment() {
     @Inject
     lateinit var db: InternetShopDB
 
@@ -37,6 +32,7 @@ class ProductDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding =
             DataBindingUtil.inflate(
                 inflater,
@@ -56,11 +52,12 @@ class ProductDetailsFragment : Fragment() {
         binding = null
     }
 
+    override fun inject(component: AppComponent) {
+        component.inject(this)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().applicationContext as InternetshopApplication)
-            .appComponent
-            .inject(this)
         val reviewButton = binding?.goToReview
         val favoriteButton = binding?.favorite
 

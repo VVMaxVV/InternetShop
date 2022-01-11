@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.databinding.FragmentReviewBinding
+import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.adapters.ReviewsAdapter
-import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.ReviewViewModel
-import javax.inject.Inject
 
-class ReviewFragment: Fragment() {
-    @Inject
-    lateinit var factory: MultiViewModuleFactory
+class ReviewFragment: BaseFragment() {
+    override fun inject(component: AppComponent) {
+        component.inject(this)
+    }
 
     val viewModel: ReviewViewModel by viewModels { factory }
 

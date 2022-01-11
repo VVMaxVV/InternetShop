@@ -23,6 +23,7 @@ class ProductsListFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentProductsListBinding.inflate(inflater,container,false)
         return binding?.root
     }

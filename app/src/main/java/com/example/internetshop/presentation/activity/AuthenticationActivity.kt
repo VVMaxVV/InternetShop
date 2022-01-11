@@ -31,13 +31,13 @@ class AuthenticationActivity : AppCompatActivity() {
         binding.login.setText("mor_2314")
         binding.password.setText("83r5^_")
         val myButton = binding.button
-//
+
 //        viewModel = ViewModelProvider(
 //            this,
 //            viewModelProviderFactory
 //        ).get(AuthenticationActivityViewModel::class.java)
         myButton.setOnClickListener {
-            binding.pb.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
             viewModel?.tokenResult?.observe(this, Observer {
                 Toast.makeText(this, it.token, Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
@@ -46,7 +46,7 @@ class AuthenticationActivity : AppCompatActivity() {
             })
             viewModel?.textResult?.observe(this, Observer {
                 binding.textError.text = it
-                binding.pb.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
             })
             viewModel?.getToken(binding.login.text.toString(),binding.password.text.toString())
         }

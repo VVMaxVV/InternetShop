@@ -15,10 +15,7 @@ class ProductServerMapper @Inject constructor() {
             "",
             it.description,
             it.rating.rate.toFloat(),
-            it.rating.count,
+            it.rating.count.toString(),
         )
     }
-
-
-
 }

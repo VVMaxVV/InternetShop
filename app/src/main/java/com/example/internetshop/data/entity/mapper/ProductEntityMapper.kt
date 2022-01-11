@@ -15,7 +15,7 @@ class ProductEntityMapper @Inject constructor() {
             product.shortDescription,
             product.description,
             product.rating,
-            product.numberOfReviews
+            product.numberOfReviews.toString()
         )
     }
 
@@ -28,8 +28,8 @@ class ProductEntityMapper @Inject constructor() {
             "${product.price}$",
             product.shortDescription,
             product.description,
-            product.rating,
-            product.numberOfReviews
+            product.rating.toFloat(),
+            product.numberOfReviews.toInt()
         )
     }
 }

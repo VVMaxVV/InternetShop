@@ -9,5 +9,5 @@ class Product(
     val shortDescription: String,
     val description: String,
     val rating: Float,
-    val numberOfReviews: Int
+    val numberOfReviews: String
 )

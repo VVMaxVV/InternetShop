@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.internetshop.R
 import com.example.internetshop.data.cache.InternetShopDB
 import com.example.internetshop.databinding.FragmentProductDetailsBinding
 import com.example.internetshop.presentation.InternetshopApplication
@@ -35,7 +37,13 @@ class ProductDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
+        binding =
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_product_details,
+                container,
+                false
+            )
         return binding?.root
     }
 
@@ -55,14 +63,10 @@ class ProductDetailsFragment : Fragment() {
             .inject(this)
         val reviewButton = binding?.goToReview
         val favoriteButton = binding?.favorite
+
         viewModel.productLiveData?.observe(viewLifecycleOwner, Observer { product ->
             binding?.let {
-                it.brand.text = product.brand
-                it.price.text = "${product.price}$"
-                it.shortDescription.text = product.shortDescription
-                it.description.text = product.description
-                it.numberOfReviews.text = "(${product.numberOfReviews})"
-                it.rating.rating = product.rating
+                it.product = product
                 Picasso.with(requireContext())
                     .load(product.imageURL)
                     .into(it.mainImage)
@@ -88,11 +92,11 @@ class ProductDetailsFragment : Fragment() {
         }
 
         viewModel.toastEventLiveData.observe(viewLifecycleOwner, {
-            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
         viewModel.favoriteProductsLiveData.observe(viewLifecycleOwner, {
-            Log.i("123","Title: ${it[0].title}")
+            Log.i("123", "Title: ${it[0].title}")
         })
 
         favoriteButton?.setOnClickListener {

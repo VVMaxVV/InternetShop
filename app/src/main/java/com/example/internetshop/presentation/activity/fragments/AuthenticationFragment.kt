@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.internetshop.databinding.FragmentAuthBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
+import java.util.*
 
 class AuthenticationFragment : BaseFragment() {
 
@@ -34,15 +34,18 @@ class AuthenticationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.textResult.observe(viewLifecycleOwner, {
-            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+        viewModel.navEventLiveData.observe(viewLifecycleOwner, {
+            when (it) {
+                is AuthenticationViewModel.Event.OpenProductListEvent -> openProductList()
+                is AuthenticationViewModel.Event.ToastEvent -> showToast(it.text)
+            }
         })
-        viewModel.tokenResult.observe(viewLifecycleOwner, {
-            Toast.makeText(activity,it.token,Toast.LENGTH_LONG).show()
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(this.id,ProductsListFragment())
-                .commit()
-        })
+        viewModel.onScreenStart()
+    }
+
+    private fun openProductList() {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(this.id, ProductsListFragment()).commit()
     }
 }

@@ -1,3 +1,5 @@
 package com.example.internetshop.domain.data.model
 
-data class Token(val token: String)
+import java.util.*
+
+data class Token(val token: String?, val calendar: Calendar)

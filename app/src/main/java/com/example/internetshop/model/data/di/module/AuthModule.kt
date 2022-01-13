@@ -1,6 +1,7 @@
 package com.example.internetshop.model.data.di.module
 
 import com.example.internetshop.data.repository.AuthImpl
+import com.example.internetshop.data.response.mapper.TokenMapper
 import com.example.internetshop.data.response.mapper.UserCredentialsMapper
 import com.example.internetshop.data.retrofitapi.AuthApi
 import com.example.internetshop.domain.data.repository.LoginRepository
@@ -21,7 +22,13 @@ class AuthModule {
     }
 
     @Provides
-    fun getAuthRepository(authApi: AuthApi, userCredentialsMapper: UserCredentialsMapper): LoginRepository {
-        return AuthImpl(authApi, userCredentialsMapper)
+    fun getTokenMapper(): TokenMapper {
+        return TokenMapper()
     }
+
+    @Provides
+    fun getAuthRepository(authApi: AuthApi, userCredentialsMapper: UserCredentialsMapper, tokenMapper: TokenMapper): LoginRepository {
+        return AuthImpl(authApi, userCredentialsMapper,tokenMapper)
+    }
+
 }

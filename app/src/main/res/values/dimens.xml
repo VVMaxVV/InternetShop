@@ -2,7 +2,19 @@
 <resources>
     <dimen name="dimen_default_margin">16dp</dimen>
 
+    <!--Login layout-->
     <dimen name="dimen_headers_height">28dp</dimen>
+    <dimen name="dimen_text_forgot_password_layout_margin">8dp</dimen>
+    <dimen name="dimen_forgot_password_margin_end">20dp</dimen>
+    <dimen name="dimen_forgot_password_margin_top">16dp</dimen>
+    <dimen name="dimen_margin_top_login_button">32dp</dimen>
+    <dimen name="dimen_social_account_width">92dp</dimen>
+    <dimen name="dimen_social_account_height">64dp</dimen>
+    <dimen name="dimen_social_account_margin_bottom">58dp</dimen>
+    <dimen name="dimen_social_account_margin_between">16dp</dimen>
+
+    <dimen name="dimen_categories_text_size">16sp</dimen>
+
     <dimen name="dimen_short_description_height">16dp</dimen>
 
     <dimen name="dimen_star_rate_margin_between">4dp</dimen>
@@ -18,4 +30,13 @@
     <dimen name="dimen_headers_text_size">24sp</dimen>
     <dimen name="dimen_short_description_text_size">12sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dimen_forgot_password_text_size">14sp</dimen>
+    <dimen name="dimens_drawable_padding_forgot_password">8dp</dimen>
+    <dimen name="dimen_categories_height">44dp</dimen>
+    <dimen name="dimen_line_under_categories_height">4dp</dimen>
+    <dimen name="dimens_category_padding">14dp</dimen>
+    <dimen name="dimen_item_category_height">100dp</dimen>
+    <dimen name="dimen_item_category_name_padding_start">24dp</dimen>
+    <dimen name="dimen_item_category_text_size">18sp</dimen>
+    <dimen name="dimen_item_category_image_width">172dp</dimen>
 </resources>

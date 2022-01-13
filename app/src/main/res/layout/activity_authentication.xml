@@ -7,7 +7,7 @@
     android:background="#E5E5E5">
 
     <TextView
-        android:id="@+id/signIn"
+        android:id="@+id/textview_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_default_margin"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/login"
+        android:id="@+id/layout_login"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginStart="@dimen/dimen_default_margin"
@@ -29,10 +29,10 @@
         android:background="@color/purple_200"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signIn" />
+        app:layout_constraintTop_toBottomOf="@id/textview_login" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/layout_password"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginStart="@dimen/dimen_default_margin"
@@ -42,7 +42,7 @@
         android:background="@color/purple_200"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login" />
+        app:layout_constraintTop_toBottomOf="@id/layout_login" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
@@ -51,9 +51,9 @@
         android:layout_marginStart="@dimen/dimen_default_margin"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="@dimen/dimen_default_margin"
-        android:background="@drawable/green_trading_button_selected"
+        android:background="@drawable/red_rectangle_button"
         android:gravity="center"
-        android:text="@string/addToCart"
+        android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,11 +69,11 @@
         android:textAlignment="center"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintTop_toBottomOf="@id/layout_password"
         tools:text="123" />
     
     <ProgressBar
-        android:id="@+id/pb"
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/button"

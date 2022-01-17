@@ -16,7 +16,7 @@ class AuthenticationViewModel @Inject constructor(
     private val getAuthUseCaseImpl: GetAuthUseCaseImpl
 ) :
     BaseViewModel() {
-    val navEventLiveData = SingleLiveEvent<Event>()
+    val navEventLiveData = SingleLiveEvent<AuthenticationEvent>()
 
     val password = ObservableField("83r5^_")
     val username = ObservableField("mor_2314")
@@ -24,13 +24,13 @@ class AuthenticationViewModel @Inject constructor(
     fun onScreenStart() {
         val token = tokenPreference.getToken()
         if (token.token.isNullOrEmpty().not()) {
-            navEventLiveData.value = Event.OpenProductListEvent
+            navEventLiveData.value = AuthenticationEvent.OpenProductListAuthenticationEvent
         }
     }
 
     fun getToken() {
         if (username.get().isNullOrEmpty() || password.get().isNullOrEmpty()) {
-            Event.ToastEvent("Fill in all the fields!")
+            AuthenticationEvent.ToastAuthenticationEvent("Fill in all the fields!")
         } else {
             compositeDisposable.add(
                 getAuthUseCaseImpl.execute(UserCredentials(username.get()!!, password.get()!!))
@@ -38,21 +38,21 @@ class AuthenticationViewModel @Inject constructor(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         tokenPreference.setToken(it)
-                        navEventLiveData.value = Event.OpenProductListEvent
+                        navEventLiveData.value = AuthenticationEvent.OpenProductListAuthenticationEvent
                     },
                         {
-                            Event.ToastEvent(it.message ?: "Error")
+                            AuthenticationEvent.ToastAuthenticationEvent(it.message ?: "Error")
                         })
             )
         }
     }
 
-    sealed class Event {
-        object OpenProductListEvent : Event()
-        data class ToastEvent(val text: String) : Event()
+    sealed class AuthenticationEvent {
+        object OpenProductListAuthenticationEvent : AuthenticationEvent()
+        data class ToastAuthenticationEvent(val text: String) : AuthenticationEvent()
     }
 
     fun onGoogleClick() {
-        Event.ToastEvent("Google clicked")
+        AuthenticationEvent.ToastAuthenticationEvent("Google clicked")
     }
 }

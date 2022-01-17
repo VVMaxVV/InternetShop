@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.databinding.FragmentCategoriesBinding
 import com.example.internetshop.model.data.di.component.AppComponent
+import com.example.internetshop.presentation.adapters.CategoryAdapter
 import com.example.internetshop.presentation.viewModel.CategoriesViewModel
 
 class CategoriesFragment : BaseFragment() {
@@ -26,20 +27,37 @@ class CategoriesFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentCategoriesBinding.inflate(inflater,container,false)
+        binding = FragmentCategoriesBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = binding?.recyclerViewCategory
+        val adapter = CategoryAdapter {
+            CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent(it.category)
+        }
         recyclerView?.let {
-            it.adapter = viewModel.adapter
+            it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
             it.setHasFixedSize(true)
         }
 
+        viewModel.navEventLiveData.observe(requireActivity(), {
+            when (it) {
+                is CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent -> openCategory()
+                is CategoriesViewModel.CategoryEvent.ToastCategoryEvent -> showToast(it.text)
+            }
+        })
+
+        viewModel.categoriesLiveData.observe(requireActivity(), {
+            adapter.categoryList.add(it)
+            adapter.notifyDataSetChanged()
+        })
+        viewModel.getCategory()
     }
 
-
+    private fun openCategory() {
+        showToast("Go to next fragment")
+    }
 }

@@ -4,9 +4,11 @@ import android.content.Context
 import com.example.internetshop.data.di.module.DBModule
 import com.example.internetshop.data.di.module.ProductRepositoryModule
 import com.example.internetshop.data.di.module.ReviewModule
+import com.example.internetshop.domain.di.module.CategoryUseCaseModule
 import com.example.internetshop.domain.di.module.FavoritesUseCaseModule
 import com.example.internetshop.model.data.di.module.AppModule
 import com.example.internetshop.model.data.di.module.AuthModule
+import com.example.internetshop.model.data.di.module.CategoryModule
 import com.example.internetshop.model.data.di.module.ViewModelModule
 import com.example.internetshop.presentation.activity.BaseProductDetailFragment
 import com.example.internetshop.presentation.activity.MainActivity
@@ -24,7 +26,9 @@ import javax.inject.Singleton
         ProductRepositoryModule::class,
         ReviewModule::class,
         DBModule::class,
-        FavoritesUseCaseModule::class]
+        FavoritesUseCaseModule::class,
+        CategoryModule::class,
+        CategoryUseCaseModule::class]
 )
 interface AppComponent {
     @Component.Factory

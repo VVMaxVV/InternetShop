@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.internetshop.R
 import com.example.internetshop.data.cache.InternetShopDB
 import com.example.internetshop.databinding.FragmentProductDetailsBinding
@@ -61,7 +60,7 @@ class ProductDetailsFragment : BaseFragment() {
         val reviewButton = binding?.goToReview
         val favoriteButton = binding?.favorite
 
-        viewModel.productLiveData?.observe(viewLifecycleOwner, Observer { product ->
+        viewModel.productLiveData?.observe(viewLifecycleOwner, { product ->
             binding?.let {
                 it.product = product
                 Picasso.with(requireContext())

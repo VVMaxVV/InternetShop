@@ -17,18 +17,21 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class,
-    AuthModule::class,
-    ViewModelModule::class,
-    ProductRepositoryModule::class,
-    ReviewModule::class,
-    DBModule::class,
-    FavoritesUseCaseModule::class])
+@Component(
+    modules = [AppModule::class,
+        AuthModule::class,
+        ViewModelModule::class,
+        ProductRepositoryModule::class,
+        ReviewModule::class,
+        DBModule::class,
+        FavoritesUseCaseModule::class]
+)
 interface AppComponent {
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
+
     fun inject(mainActivity: MainActivity)
     fun inject(productsActivity: ProductsActivity)
     fun inject(productDetailsFragment: ProductDetailsFragment)
@@ -38,4 +41,5 @@ interface AppComponent {
     fun inject(authenticationFragment: AuthenticationFragment)
     fun inject(baseFragment: BaseFragment)
     fun inject(baseProductDetailsFragment: BaseProductDetailFragment)
+    fun inject(categoriesFragment: CategoriesFragment)
 }

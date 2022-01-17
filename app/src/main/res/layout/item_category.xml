@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dimen_item_category_height"
-    android:weightSum="2"
-    android:orientation="horizontal">
+<layout>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/dimen_item_category_text_size"
-        android:paddingStart="@dimen/dimen_item_category_name_padding_start"
-        android:paddingEnd="0dp"
-        android:layout_weight="1"
-        android:textStyle="bold"
-        tools:text="New" />
+    <data>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        tools:src="@drawable/photo"/>
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <variable
+            name="data"
+            type="com.example.internetshop.domain.data.model.Category" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_item_category_height"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dimen_item_category_name_padding_start"
+            android:paddingEnd="0dp"
+            android:text="@{data.category}"
+            android:textSize="@dimen/dimen_item_category_text_size"
+            android:textStyle="bold"
+            tools:text="New" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:src="@drawable/photo" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

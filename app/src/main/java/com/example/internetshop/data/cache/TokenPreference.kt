@@ -25,7 +25,6 @@ class TokenPreference @Inject constructor(context: Context) {
     }
 
     fun setToken(value: Token) {
-        value.calendar.add(Calendar.DATE,10)
         val tokenJson = Gson().toJson(value)
         preference.edit().putString(tokenKey,tokenJson).apply()
     }

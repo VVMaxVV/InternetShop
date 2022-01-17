@@ -6,11 +6,11 @@ import com.example.internetshop.domain.data.model.product.SimpleProduct
 import com.example.internetshop.domain.data.repository.ProductRepository
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ProductsActivityViewModel @Inject constructor(private val productRepository: ProductRepository) :
+class ProductsListViewModel @Inject
+constructor(private val productRepository: ProductRepository) :
     ViewModel() {
     val productsList = MutableLiveData<List<SimpleProduct>>()
     val openDetailsEvent = SingleLiveEvent<String>()
@@ -38,9 +38,9 @@ class ProductsActivityViewModel @Inject constructor(private val productRepositor
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                Consumer {
+                {
                     productsList.value = it
-                }, Consumer {
+                }, {
                 })
     }
 }

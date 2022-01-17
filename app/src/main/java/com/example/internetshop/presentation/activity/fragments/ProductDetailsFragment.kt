@@ -69,6 +69,7 @@ class ProductDetailsFragment : BaseFragment() {
                     .into(it.mainImage)
             }
         })
+
         val productId = this.requireArguments().getString(EXTRA_ID)!!
         viewModel.getProductRx(productId)
 

@@ -1,25 +1,21 @@
 package com.example.internetshop.presentation.viewModel
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import com.example.internetshop.data.cache.TokenPreference
-import com.example.internetshop.domain.data.model.Token
 import com.example.internetshop.domain.data.model.UserCredentials
-import com.example.internetshop.domain.data.repository.LoginRepository
+import com.example.internetshop.domain.data.repository.AuthRepository
+import com.example.internetshop.domain.data.usecase.impl.GetAuthUseCaseImpl
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class AuthenticationViewModel @Inject constructor(
-    private val loginRepository: LoginRepository,
-    private val tokenPreference: TokenPreference
+    private val authRepository: AuthRepository,
+    private val tokenPreference: TokenPreference,
+    private val getAuthUseCaseImpl: GetAuthUseCaseImpl
 ) :
     BaseViewModel() {
-    private val tokenResultLiveData = MutableLiveData<Token>()
-    private val textResultLiveData = MutableLiveData<String>()
-
     val navEventLiveData = SingleLiveEvent<Event>()
 
     val password = ObservableField("83r5^_")
@@ -34,20 +30,20 @@ class AuthenticationViewModel @Inject constructor(
 
     fun getToken() {
         if (username.get().isNullOrEmpty() || password.get().isNullOrEmpty()) {
-            textResultLiveData.value = "Fill in all the fields!"
+            Event.ToastEvent("Fill in all the fields!")
         } else {
-            loginRepository.logIn(
-                UserCredentials(username.get()!!, password.get()!!)
+            compositeDisposable.add(
+                getAuthUseCaseImpl.execute(UserCredentials(username.get()!!, password.get()!!))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        tokenPreference.setToken(it)
+                        navEventLiveData.value = Event.OpenProductListEvent
+                    },
+                        {
+                            Event.ToastEvent(it.message ?: "Error")
+                        })
             )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(Consumer {
-                    tokenPreference.setToken(it)
-                    navEventLiveData.value = Event.OpenProductListEvent
-                },
-                    Consumer {
-                        Event.ToastEvent(it.message ?: "Error")
-                    })
         }
     }
 

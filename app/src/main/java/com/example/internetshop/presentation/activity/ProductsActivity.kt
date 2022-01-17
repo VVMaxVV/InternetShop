@@ -11,7 +11,7 @@ import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment
 import com.example.internetshop.presentation.adapters.SimpleProductsAdapter
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
-import com.example.internetshop.presentation.viewModel.ProductsActivityViewModel
+import com.example.internetshop.presentation.viewModel.ProductsListViewModel
 import javax.inject.Inject
 
 
@@ -19,7 +19,7 @@ class ProductsActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: MultiViewModuleFactory
 
-    val viewModel: ProductsActivityViewModel by viewModels {factory}
+    val viewModel: ProductsListViewModel by viewModels {factory}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

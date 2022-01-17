@@ -4,7 +4,7 @@ import com.example.internetshop.data.repository.AuthImpl
 import com.example.internetshop.data.response.mapper.TokenMapper
 import com.example.internetshop.data.response.mapper.UserCredentialsMapper
 import com.example.internetshop.data.retrofitapi.AuthApi
-import com.example.internetshop.domain.data.repository.LoginRepository
+import com.example.internetshop.domain.data.repository.AuthRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -27,7 +27,7 @@ class AuthModule {
     }
 
     @Provides
-    fun getAuthRepository(authApi: AuthApi, userCredentialsMapper: UserCredentialsMapper, tokenMapper: TokenMapper): LoginRepository {
+    fun getAuthRepository(authApi: AuthApi, userCredentialsMapper: UserCredentialsMapper, tokenMapper: TokenMapper): AuthRepository {
         return AuthImpl(authApi, userCredentialsMapper,tokenMapper)
     }
 

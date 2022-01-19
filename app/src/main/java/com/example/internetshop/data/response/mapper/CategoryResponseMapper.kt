@@ -1,27 +1,29 @@
 package com.example.internetshop.data.response.mapper
 
+import com.example.internetshop.data.response.CategoryResponse
 import com.example.internetshop.domain.data.model.Category
 import javax.inject.Inject
 
 class CategoryResponseMapper @Inject constructor(){
-    fun toCategory(categoryResponseList: List<String>): List<Category> {
-        return categoryResponseList.map {
-             when (it) {
+    fun toCategory(categoryResponseList: CategoryResponse): List<Category> {
+        return categoryResponseList.categoryName.map {
+            val nameOfCategory = it.capitalize()
+            when (it) {
                 "electronics" -> Category(
-                    it,
+                    nameOfCategory,
                     "https://upload.wikimedia.org/wikipedia/commons/d/d9/Arduino_ftdi_chip-1.jpg"
                 )
                 "jewelery" -> Category(
-                    it,
-                    "https://www.anitolia.com/wp-content/uploads/2021/02/oval-red-big-agate-stone-men-ring-vintage-handcarved-men-jewelery-quality-fashionable-ring-mens-ring-anitolia-0-6024-16-B.jpg"
+                    nameOfCategory,
+                    "https://cache.net-a-porter.com/content/images/story-head-content-1stFebruary2021-1611749733226.jpeg/w1900_q65.jpeg"
                 )
                 "men's clothing" -> Category(
-                    it,
-                    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.next.ua%2Fen%2Fmen&psig=AOvVaw36AIi2PsB82R2uqvgr27TX&ust=1642514766725000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjb0776uPUCFQAAAAAdAAAAABAD"
+                    nameOfCategory,
+                    "https://www.farmers.co.nz/INTERSHOP/static/WFS/Farmers-Shop-Site/-/Farmers-Shop/en_NZ/2021/September/FTC4030-New-Season-Cat-Tiles-7-Oct/Mens-Cat-Tiles/02-Mens-Clothing/03-Mens-Clothing-Coats-Jackets.jpg"
                 )
                 "women's clothing" -> Category(
-                    it,
-                    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Ferinlisa1%2Fwomens-clothing%2F&psig=AOvVaw0ThFRAIWoFkSDexL-NnLrb&ust=1642514804084000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKie-M_6uPUCFQAAAAAdAAAAABAJ"
+                    nameOfCategory,
+                    "https://media.4rgos.it/i/Argos/4221-m007-25-01-women-sweatcoat?maxW=768&qlt=75&fmt.jpeg.interlaced=true"
                 )
                 else -> Category("", "")
 

@@ -12,6 +12,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_item_category_height"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -32,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             tools:src="@drawable/photo" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

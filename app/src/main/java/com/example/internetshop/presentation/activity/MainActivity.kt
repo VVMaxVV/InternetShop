@@ -3,8 +3,6 @@ package com.example.internetshop.presentation.activity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
-import com.example.internetshop.data.cache.InternetShopDB
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.activity.fragments.AuthenticationFragment
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
@@ -27,11 +25,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        val db = Room.databaseBuilder(
-            applicationContext,
-            InternetShopDB::class.java,
-            "FavoriteProductList"
-        )
         binding?.let {
             val fragment = AuthenticationFragment()
             supportFragmentManager.beginTransaction()

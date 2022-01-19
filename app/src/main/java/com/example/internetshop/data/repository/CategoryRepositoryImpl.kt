@@ -1,5 +1,6 @@
 package com.example.internetshop.data.repository
 
+import com.example.internetshop.data.response.CategoryResponse
 import com.example.internetshop.data.response.mapper.CategoryResponseMapper
 import com.example.internetshop.data.retrofitapi.CategoryApi
 import com.example.internetshop.domain.data.model.Category
@@ -14,7 +15,7 @@ class CategoryRepositoryImpl @Inject constructor(
     CategoryRepository {
     override fun getCategoryList(): Single<List<Category>> {
         return categoryApi.getCategoryList().map {
-            categoryResponseMapper.toCategory(it)
+            categoryResponseMapper.toCategory(CategoryResponse(it))
         }
     }
 }

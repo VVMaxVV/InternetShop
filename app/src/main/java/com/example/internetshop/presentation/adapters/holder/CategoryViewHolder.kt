@@ -12,5 +12,6 @@ class CategoryViewHolder(private val binding: ItemCategoryBinding) :
             Picasso.with(binding.root.context)
                 .load(category.imageUri)
                 .into(binding.imageviewCategoryImage)
+            binding.executePendingBindings()
         }
 }

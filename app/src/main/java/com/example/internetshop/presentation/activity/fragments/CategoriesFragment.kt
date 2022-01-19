@@ -1,5 +1,6 @@
 package com.example.internetshop.presentation.activity.fragments
 
+import VerticalSpaceItemDecoration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class CategoriesFragment : BaseFragment() {
             CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent(it.category)
         }
         recyclerView?.let {
+            it.addItemDecoration(VerticalSpaceItemDecoration(16))
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
             it.setHasFixedSize(true)

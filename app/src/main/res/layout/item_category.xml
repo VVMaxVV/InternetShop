@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,32 +8,44 @@
             type="com.example.internetshop.domain.data.model.Category" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_item_category_height"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:background="@android:color/transparent"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingStart="@dimen/dimen_item_category_name_padding_start"
-            android:paddingEnd="0dp"
-            android:text="@{data.category}"
-            android:textSize="@dimen/dimen_item_category_text_size"
-            android:textStyle="bold"
-            tools:text="New" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_item_category_height"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageview_category_image"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/photo" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dimen_item_category_name_padding_start"
+                android:paddingEnd="0dp"
+                android:text="@{data.category}"
+                android:textSize="@dimen/dimen_item_category_text_size"
+                android:textStyle="bold"
+                tools:text="New" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_category_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/photo" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+
 </layout>

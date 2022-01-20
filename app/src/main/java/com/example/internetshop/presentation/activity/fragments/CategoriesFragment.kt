@@ -39,7 +39,7 @@ class CategoriesFragment : BaseFragment() {
             CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent(it.category)
         }
         recyclerView?.let {
-            it.addItemDecoration(VerticalSpaceItemDecoration(16))
+            it.addItemDecoration(VerticalSpaceItemDecoration(32))
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
             it.setHasFixedSize(true)

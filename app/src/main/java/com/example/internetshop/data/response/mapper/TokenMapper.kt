@@ -7,8 +7,6 @@ import javax.inject.Inject
 
 class TokenMapper @Inject constructor() {
     fun toToken(token: TokenResponse): Token {
-        return Token(token.token, Calendar.getInstance().apply {
-            add(Calendar.DATE,10)
-        })
+        return Token(token.token, Date())
     }
 }

@@ -11,9 +11,9 @@ import javax.inject.Inject
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryApi: CategoryApi,
     private val categoryResponseMapper: CategoryResponseMapper
-) :
-    CategoryRepository {
+) : CategoryRepository {
     override fun getCategoryList(): Single<List<Category>> {
+
         return categoryApi.getCategoryList().map {
             categoryResponseMapper.toCategory(CategoryResponse(it))
         }

@@ -1,3 +1,3 @@
 package com.example.internetshop.data.response
 
-data class CategoryResponse(var categoryName: List<String>)
+data class CategoryResponse(val categoryName: List<String>)

@@ -1,5 +1,6 @@
 package com.example.internetshop.presentation.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.internetshop.domain.data.model.Category
 import com.example.internetshop.domain.data.usecase.GetCategoryUseCase
@@ -25,7 +26,7 @@ class CategoriesViewModel @Inject constructor(private val categoryUseCase: GetCa
                     }
                 },
                     {
-                        CategoryEvent.ToastCategoryEvent(it.message ?: "Unknown error. Try again")
+                        Log.e("Error", it.message ?: "Unknown error")
                     })
         )
     }

@@ -4,6 +4,6 @@ import com.example.internetshop.domain.data.model.Token
 import com.example.internetshop.domain.data.model.UserCredentials
 import io.reactivex.Single
 
-interface GetAuthUseCase {
+interface AuthUseCase {
     fun execute(userCredentials: UserCredentials): Single<Token>
 }

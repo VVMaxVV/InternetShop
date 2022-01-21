@@ -9,11 +9,4 @@ abstract class BaseDatabindingFragment<V:ViewModel>(private val aClass: Class<V>
 
     @Inject
     protected lateinit var factory: MultiViewModuleFactory
-
-//    protected val viewModel by lazy {
-//        createVm()
-//    }
-
-
-
 }

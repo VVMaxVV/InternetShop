@@ -28,7 +28,12 @@ class CategoriesFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentCategoriesBinding.inflate(inflater, container, false)
+        binding = FragmentCategoriesBinding.inflate(
+            inflater,
+            container,
+            false
+        )
+        binding?.viewModel = viewModel
         return binding?.root
     }
 
@@ -36,7 +41,7 @@ class CategoriesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = binding?.recyclerViewCategory
         val adapter = CategoryAdapter {
-            CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent(it.category)
+            CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent(it.name)
         }
         recyclerView?.let {
             it.addItemDecoration(VerticalSpaceItemDecoration(32))
@@ -53,7 +58,7 @@ class CategoriesFragment : BaseFragment() {
         })
 
         viewModel.categoriesLiveData.observe(requireActivity(), {
-            adapter.categoryList.add(it)
+            adapter.addData(it)
             adapter.notifyDataSetChanged()
         })
         viewModel.getCategory()

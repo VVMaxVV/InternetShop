@@ -8,7 +8,7 @@ import dagger.Provides
 @Module
 class ReviewModule {
     @Provides
-    fun getReviewRepository() : ReviewRepository {
+    fun getReviewRepository(): ReviewRepository {
         return ReviewRepositoryImpl()
     }
 }

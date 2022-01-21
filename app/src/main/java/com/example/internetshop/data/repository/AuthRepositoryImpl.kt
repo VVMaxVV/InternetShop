@@ -9,7 +9,7 @@ import com.example.internetshop.domain.data.usecase.GetTokenUseCase
 import io.reactivex.Single
 import javax.inject.Inject
 
-class AuthImpl @Inject constructor(
+class AuthRepositoryImpl @Inject constructor(
     private val authApi: AuthApi,
     private val userCredentialsMapper: UserCredentialsMapper,
     private val tokenUseCase: GetTokenUseCase

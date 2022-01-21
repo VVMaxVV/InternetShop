@@ -3,19 +3,16 @@ package com.example.internetshop.presentation.viewModel
 import androidx.databinding.ObservableField
 import com.example.internetshop.data.cache.TokenPreference
 import com.example.internetshop.domain.data.model.UserCredentials
-import com.example.internetshop.domain.data.repository.AuthRepository
-import com.example.internetshop.domain.data.usecase.impl.GetAuthUseCaseImpl
+import com.example.internetshop.domain.data.usecase.impl.AuthUseCaseImpl
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class AuthenticationViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
     private val tokenPreference: TokenPreference,
-    private val getAuthUseCaseImpl: GetAuthUseCaseImpl
-) :
-    BaseViewModel() {
+    private val getAuthUseCaseImpl: AuthUseCaseImpl
+) : BaseViewModel() {
     val navEventLiveData = SingleLiveEvent<AuthenticationEvent>()
 
     val password = ObservableField("83r5^_")
@@ -38,7 +35,8 @@ class AuthenticationViewModel @Inject constructor(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         tokenPreference.setToken(it)
-                        navEventLiveData.value = AuthenticationEvent.OpenProductListAuthenticationEvent
+                        navEventLiveData.value =
+                            AuthenticationEvent.OpenProductListAuthenticationEvent
                     },
                         {
                             AuthenticationEvent.ToastAuthenticationEvent(it.message ?: "Error")
@@ -53,6 +51,6 @@ class AuthenticationViewModel @Inject constructor(
     }
 
     fun onGoogleClick() {
-        AuthenticationEvent.ToastAuthenticationEvent("Google clicked")
+        navEventLiveData.value = AuthenticationEvent.ToastAuthenticationEvent("Google clicked")
     }
 }

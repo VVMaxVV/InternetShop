@@ -8,7 +8,7 @@ import com.example.internetshop.domain.data.model.Category
 import com.example.internetshop.presentation.adapters.holder.CategoryViewHolder
 
 class CategoryAdapter(val clickListener: (Category) -> Unit) : RecyclerView.Adapter<CategoryViewHolder>() {
-    val categoryList = mutableListOf<Category>()
+    private val categoryList = mutableListOf<Category>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
             ItemCategoryBinding.inflate(
@@ -28,5 +28,9 @@ class CategoryAdapter(val clickListener: (Category) -> Unit) : RecyclerView.Adap
 
     override fun getItemCount(): Int {
         return categoryList.size
+    }
+
+    fun addData(category: Category) {
+        categoryList.add(category)
     }
 }

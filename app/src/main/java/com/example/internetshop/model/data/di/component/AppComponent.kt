@@ -4,12 +4,11 @@ import android.content.Context
 import com.example.internetshop.data.di.module.DBModule
 import com.example.internetshop.data.di.module.ProductRepositoryModule
 import com.example.internetshop.data.di.module.ReviewModule
-import com.example.internetshop.domain.di.module.CategoryUseCaseModule
-import com.example.internetshop.domain.di.module.FavoritesUseCaseModule
-import com.example.internetshop.model.data.di.module.AppModule
-import com.example.internetshop.model.data.di.module.AuthModule
-import com.example.internetshop.model.data.di.module.CategoryModule
-import com.example.internetshop.model.data.di.module.ViewModelModule
+import com.example.internetshop.domain.di.module.usecase.AuthUseCaseModule
+import com.example.internetshop.domain.di.module.usecase.CategoryUseCaseModule
+import com.example.internetshop.domain.di.module.usecase.FavoritesUseCaseModule
+import com.example.internetshop.domain.di.module.usecase.TokenUseCaseModule
+import com.example.internetshop.model.data.di.module.*
 import com.example.internetshop.presentation.activity.BaseProductDetailFragment
 import com.example.internetshop.presentation.activity.MainActivity
 import com.example.internetshop.presentation.activity.ProductsActivity
@@ -28,7 +27,10 @@ import javax.inject.Singleton
         DBModule::class,
         FavoritesUseCaseModule::class,
         CategoryModule::class,
-        CategoryUseCaseModule::class]
+        CategoryUseCaseModule::class,
+        AuthUseCaseModule::class,
+        TokenUseCaseModule::class,
+        RepositoriesModule::class]
 )
 interface AppComponent {
     @Component.Factory
@@ -45,5 +47,4 @@ interface AppComponent {
     fun inject(authenticationFragment: AuthenticationFragment)
     fun inject(baseFragment: BaseFragment)
     fun inject(baseProductDetailsFragment: BaseProductDetailFragment)
-    fun inject(categoriesFragment: CategoriesFragment)
 }

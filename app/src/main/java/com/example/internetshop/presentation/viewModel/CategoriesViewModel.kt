@@ -13,7 +13,7 @@ class CategoriesViewModel @Inject constructor(private val categoriesUseCase: Get
     BaseViewModel() {
 
     val navEventLiveData = SingleLiveEvent<CategoryEvent>()
-    val categoriesLiveData = MutableLiveData<Category>()
+    val categoriesLiveData = MutableLiveData<List<Category>>()
 
     fun getCategory() {
         compositeDisposable.add(
@@ -21,9 +21,8 @@ class CategoriesViewModel @Inject constructor(private val categoriesUseCase: Get
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    it.map {
-                        categoriesLiveData.value = it
-                    }
+                    categoriesLiveData.value = it
+
                 },
                     {
                         Log.e("Error", it.message ?: "Unknown error")
@@ -32,7 +31,7 @@ class CategoriesViewModel @Inject constructor(private val categoriesUseCase: Get
     }
 
     fun onClick() {
-         navEventLiveData.value = CategoryEvent.ToastCategoryEvent("123")
+        navEventLiveData.value = CategoryEvent.ToastCategoryEvent("123")
     }
 
     sealed class CategoryEvent {

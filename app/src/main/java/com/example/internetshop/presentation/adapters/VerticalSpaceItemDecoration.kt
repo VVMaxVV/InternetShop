@@ -1,3 +1,4 @@
+package com.example.internetshop.presentation.adapters
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

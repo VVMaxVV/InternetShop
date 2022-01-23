@@ -1,6 +1,5 @@
 package com.example.internetshop.presentation.activity.fragments
 
-import VerticalSpaceItemDecoration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.databinding.FragmentCategoriesBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.adapters.CategoryAdapter
+import com.example.internetshop.presentation.adapters.VerticalSpaceItemDecoration
 import com.example.internetshop.presentation.viewModel.CategoriesViewModel
 
 class CategoriesFragment : BaseFragment() {
@@ -33,6 +33,8 @@ class CategoriesFragment : BaseFragment() {
             container,
             false
         )
+//        binding = DataBindingUtil.setContentView(requireActivity(),R.layout.fragment_categories)
+
         binding?.viewModel = viewModel
         return binding?.root
     }

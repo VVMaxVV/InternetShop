@@ -30,7 +30,8 @@ class CategoryAdapter(val clickListener: (Category) -> Unit) : RecyclerView.Adap
         return categoryList.size
     }
 
-    fun addData(category: Category) {
-        categoryList.add(category)
+
+    fun addData(categories: List<Category>) {
+        categoryList.addAll(categories)
     }
 }

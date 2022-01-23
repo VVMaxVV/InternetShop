@@ -39,4 +39,6 @@
     <dimen name="dimen_item_category_name_padding_start">24dp</dimen>
     <dimen name="dimen_item_category_text_size">18sp</dimen>
     <dimen name="dimen_item_category_image_width">172dp</dimen>
+    <dimen name="dimen_item_category_card_corner_radius">8dp</dimen>
+    <dimen name="dimen_item_category_card_elevation">8dp</dimen>
 </resources>

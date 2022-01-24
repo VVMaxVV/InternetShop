@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internetshop.databinding.ActivityMainBinding
-import com.example.internetshop.presentation.activity.fragments.AuthenticationFragment
+import com.example.internetshop.presentation.activity.fragments.CategoriesFragment
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import javax.inject.Inject
@@ -14,11 +14,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     @Inject
     lateinit var factory: MultiViewModuleFactory
 
-    val viewModel :AuthenticationViewModel by viewModels { factory }
+    val viewModel: AuthenticationViewModel by viewModels { factory }
 
     var binding: ActivityMainBinding? = null
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,9 +24,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         binding?.let {
-            val fragment = AuthenticationFragment()
+            val fragment = CategoriesFragment()
             supportFragmentManager.beginTransaction()
-                .replace(it.fragmentContainer.id,fragment)
+                .replace(it.fragmentContainer.id, fragment)
                 .commit()
         }
     }
@@ -36,25 +34,4 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun getContainerId(): Int? {
         return binding?.fragmentContainer?.id
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        (applicationContext as InternetshopApplication).appComponent.inject(this)
-//        val binding = ActivityMainBinding.inflate(layoutInflater)
-//        val view = binding.root
-//        setContentView(view)
-//        Log.i("Dagger", "$viewModel")
-//        viewModel.productLiveData?.observe(this, Observer { product ->
-//            binding.brand.text = product.brand
-//            binding.price.text = "${product.prise}$"
-//            binding.shortDescription.text = product.shortDescription
-//            binding.description.text = product.description
-//            binding.numberOfReviews.text = "(${product.numberOfReviews})"
-//            binding.rating.rating = product.rating
-//            Picasso.with(this)
-//                .load(product.imageURL)
-//                .into(binding.mainImage)
-//        })
-//        viewModel.getProductRx(intent.getStringExtra(EXTRA_ID)!!)
-//    }
-    }
+}

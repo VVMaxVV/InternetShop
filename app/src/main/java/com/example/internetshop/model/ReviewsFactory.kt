@@ -6,7 +6,7 @@ import com.example.internetshop.domain.data.model.Review
 class ReviewsFactory {
     fun create(id: String): List<Review> {
         val reviewList = mutableListOf<Review>()
-        return when(id) {
+        when(id) {
             "1"-> {
                 reviewList.add(
                     Review("1",

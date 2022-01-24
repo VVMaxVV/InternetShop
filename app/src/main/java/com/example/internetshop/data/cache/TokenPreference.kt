@@ -8,17 +8,18 @@ import java.util.*
 import javax.inject.Inject
 
 private const val PREFERENCE_NAME = "TokenPreference"
+private const val tokenKey: String = "SessionToken"
 
 class TokenPreference @Inject constructor(context: Context) {
-    private val preference: SharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-    private var tokenKey: String = "SessionToken"
+    private val gson = Gson()
+    private val preference: SharedPreferences =
+        context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
     fun getToken(): Token {
-        setToken(Token(null,Date()))
         val tokenJson = preference.getString(tokenKey, null)
-        if(tokenJson.isNullOrEmpty().not()) {
-            val tokenDate = Gson().fromJson(tokenJson, Token::class.java)
-            if(Date().before(tokenDate.date)) {
+        if (tokenJson.isNullOrEmpty().not()) {
+            val tokenDate = gson.fromJson(tokenJson, Token::class.java)
+            if (Date().before(tokenDate.date)) {
                 return Token(tokenDate.token, tokenDate.date)
             }
         }
@@ -26,7 +27,7 @@ class TokenPreference @Inject constructor(context: Context) {
     }
 
     fun setToken(value: Token) {
-        val tokenJson = Gson().toJson(value)
-        preference.edit().putString(tokenKey,tokenJson).apply()
+        val tokenJson = gson.toJson(value)
+        preference.edit().putString(tokenKey, tokenJson).apply()
     }
 }

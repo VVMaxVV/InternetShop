@@ -17,8 +17,8 @@ interface ViewModelModule {
     fun provideAuthViewModel(authViewModule: AuthenticationViewModel): ViewModel
 
     @Binds
-    @[IntoMap ViewModelKey(ProductsActivityViewModel::class)]
-    fun provideProductsActivityViewModule(authViewModule: ProductsActivityViewModel): ViewModel
+    @[IntoMap ViewModelKey(ProductsListViewModel::class)]
+    fun provideProductsActivityViewModule(authViewModule: ProductsListViewModel): ViewModel
 
     @Binds
     @[IntoMap ViewModelKey(ReviewViewModel::class)]
@@ -31,4 +31,8 @@ interface ViewModelModule {
     @Binds
     @[IntoMap ViewModelKey(ProductDetailServerViewModel::class)]
     fun provideProductDetaolServerViewModel(productDetailServerViewModel: ProductDetailServerViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(CategoriesViewModel::class)]
+    fun provideCategoriesViewModel(categoriesViewModel: CategoriesViewModel): ViewModel
 }

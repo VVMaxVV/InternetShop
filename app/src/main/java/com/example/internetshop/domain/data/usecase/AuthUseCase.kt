@@ -1,9 +1,9 @@
-package com.example.internetshop.domain.data.repository
+package com.example.internetshop.domain.data.usecase
 
 import com.example.internetshop.domain.data.model.Token
 import com.example.internetshop.domain.data.model.UserCredentials
 import io.reactivex.Single
 
-interface LoginRepository {
-    fun logIn(userCredentials: UserCredentials): Single<Token>
+interface AuthUseCase {
+    fun execute(userCredentials: UserCredentials): Single<Token>
 }

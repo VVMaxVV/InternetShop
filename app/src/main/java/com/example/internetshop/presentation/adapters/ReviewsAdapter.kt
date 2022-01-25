@@ -5,11 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.internetshop.databinding.ItemReviewBinding
 import com.example.internetshop.domain.data.model.Review
+import com.example.internetshop.presentation.adapters.holder.ReviewViewHolder
 
-class ReviewsAdapter: RecyclerView.Adapter<ReviewViewHolder>() {
+class ReviewsAdapter : RecyclerView.Adapter<ReviewViewHolder>() {
     val reviews = mutableListOf<Review>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
-        return ReviewViewHolder(ItemReviewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ReviewViewHolder(
+            ItemReviewBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
@@ -21,12 +28,3 @@ class ReviewsAdapter: RecyclerView.Adapter<ReviewViewHolder>() {
     }
 
 }
-
-class ReviewViewHolder(private val binding: ItemReviewBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-    fun bind(review: Review) {
-        binding.userName.text = review.userName
-        binding.data.text = review.date.getData()
-        binding.rating.rating = review.rating.toFloat()
-        binding.textReview.text = review.reviewText
-    }}

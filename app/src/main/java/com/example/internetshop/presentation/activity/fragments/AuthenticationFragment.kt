@@ -26,7 +26,11 @@ class AuthenticationFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentAuthBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAuthBinding.inflate(
+            inflater,
+            container,
+            false
+        ).apply {
             viewModel = this@AuthenticationFragment.viewModel
         }
         return binding?.root
@@ -36,8 +40,12 @@ class AuthenticationFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.navEventLiveData.observe(viewLifecycleOwner, {
             when (it) {
-                is AuthenticationViewModel.Event.OpenProductListEvent -> openProductList()
-                is AuthenticationViewModel.Event.ToastEvent -> showToast(it.text)
+                is AuthenticationViewModel.AuthenticationEvent.OpenProductListAuthenticationEvent
+                -> openProductList()
+                is AuthenticationViewModel.AuthenticationEvent.ToastAuthenticationEvent
+                -> showToast(
+                    it.text
+                )
             }
         })
         viewModel.onScreenStart()
@@ -46,6 +54,6 @@ class AuthenticationFragment : BaseFragment() {
     private fun openProductList() {
         requireActivity().supportFragmentManager
             .beginTransaction()
-            .replace(this.id, ProductsListFragment()).commit()
+            .replace(this.id, CategoriesFragment()).commit()
     }
 }

@@ -11,10 +11,10 @@ import com.example.internetshop.databinding.FragmentProductsListBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.activity.ContainerHolder
 import com.example.internetshop.presentation.adapters.SimpleProductsAdapter
-import com.example.internetshop.presentation.viewModel.ProductsActivityViewModel
+import com.example.internetshop.presentation.viewModel.ProductsListViewModel
 
 class ProductsListFragment: BaseFragment() {
-    val viewModel : ProductsActivityViewModel by viewModels { factory }
+    val viewModel : ProductsListViewModel by viewModels { factory }
 
     private var binding: FragmentProductsListBinding? = null
 

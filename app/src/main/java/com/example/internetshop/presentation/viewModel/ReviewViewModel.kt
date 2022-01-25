@@ -6,7 +6,6 @@ import com.example.internetshop.domain.data.model.Review
 import com.example.internetshop.domain.data.repository.ReviewRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -17,9 +16,9 @@ class ReviewViewModel @Inject constructor(private val reviewRepository: ReviewRe
        val disposable=reviewRepository.getReviews(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(Consumer {
+            .subscribe({
                 reviewsList.value = it
-            }, Consumer {
+            }, {
 
             })
 

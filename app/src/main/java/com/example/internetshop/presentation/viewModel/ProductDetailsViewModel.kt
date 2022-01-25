@@ -15,23 +15,28 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class ProductDetailsViewModel @Inject constructor(private val productRepository: ProductRepository, private val productRepositoryCash: ProductRepositoryCash):
+class ProductDetailsViewModel @Inject constructor(
+    private val productRepository: ProductRepository,
+    private val productRepositoryCash: ProductRepositoryCash
+) :
     BaseViewModel() {
     val productLiveData = MutableLiveData<Product>()
     val toastEventLiveData = SingleLiveEvent<String>()
     val favoriteProductsLiveData = MutableLiveData<List<Product>>()
 
     fun getProductRx(id: String) {
-     productRepository.getProductRx(id)
+        productRepository.getProductRx(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : SingleObserver<Product> {
                 override fun onSubscribe(d: Disposable) {
                     compositeDisposable.add(d)
                 }
+
                 override fun onSuccess(t: Product) {
                     productLiveData.value = t
                 }
+
                 override fun onError(e: Throwable) {
                     Log.e("Test", "${e.message}")
                 }

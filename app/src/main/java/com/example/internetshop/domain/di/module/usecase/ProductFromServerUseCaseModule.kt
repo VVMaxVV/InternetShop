@@ -1,4 +1,4 @@
-package com.example.internetshop.domain.di.module
+package com.example.internetshop.domain.di.module.usecase
 
 import com.example.internetshop.domain.data.repository.ProductRepository
 import com.example.internetshop.domain.data.usecase.GetProductFromServerUseCase

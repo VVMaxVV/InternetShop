@@ -35,4 +35,8 @@ interface ViewModelModule {
     @Binds
     @[IntoMap ViewModelKey(CategoriesViewModel::class)]
     fun provideCategoriesViewModel(categoriesViewModel: CategoriesViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(TitleViewModel::class)]
+    fun provideTitleViewModel(titleViewModel: TitleViewModel): ViewModel
 }

@@ -7,6 +7,7 @@ import com.example.internetshop.domain.data.usecase.AuthUseCase
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class AuthenticationViewModel @Inject constructor(
@@ -31,6 +32,7 @@ class AuthenticationViewModel @Inject constructor(
         } else {
             compositeDisposable.add(
                 getAuthUseCase.execute(UserCredentials(username.get()!!, password.get()!!))
+                    .timeout(10, TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({

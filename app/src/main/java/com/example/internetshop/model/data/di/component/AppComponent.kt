@@ -9,7 +9,6 @@ import com.example.internetshop.domain.di.module.usecase.CategoryUseCaseModule
 import com.example.internetshop.domain.di.module.usecase.FavoritesUseCaseModule
 import com.example.internetshop.domain.di.module.usecase.TokenUseCaseModule
 import com.example.internetshop.model.data.di.module.*
-import com.example.internetshop.presentation.activity.BaseProductDetailFragment
 import com.example.internetshop.presentation.activity.MainActivity
 import com.example.internetshop.presentation.activity.ProductsActivity
 import com.example.internetshop.presentation.activity.fragments.*
@@ -46,5 +45,4 @@ interface AppComponent {
     fun inject(favoriteListFragment: FavoriteListFragment)
     fun inject(authenticationFragment: AuthenticationFragment)
     fun inject(baseFragment: BaseFragment)
-    fun inject(baseProductDetailsFragment: BaseProductDetailFragment)
 }

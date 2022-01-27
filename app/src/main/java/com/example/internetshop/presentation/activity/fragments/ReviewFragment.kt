@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentReviewBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.InternetshopApplication
@@ -15,6 +16,18 @@ import com.example.internetshop.presentation.viewModel.ReviewViewModel
 class ReviewFragment: BaseFragment() {
     override fun inject(component: AppComponent) {
         component.inject(this)
+    }
+
+    override fun getTitle(): String {
+        return context?.resources?.getString(R.string.reviews)?:""
+    }
+
+    override fun getHomeVisibility(): Boolean {
+        return true
+    }
+
+    override fun getIsScrollingView(): Boolean {
+        return true
     }
 
     val viewModel: ReviewViewModel by viewModels { factory }

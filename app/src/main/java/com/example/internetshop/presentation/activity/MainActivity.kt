@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.activity.fragments.AuthenticationFragment
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
@@ -17,16 +21,16 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     @Inject
     lateinit var factory: MultiViewModuleFactory
 
-    val viewModel :AuthenticationViewModel by viewModels { factory }
+    val viewModel: AuthenticationViewModel by viewModels { factory }
 
     var binding: ActivityMainBinding? = null
 
-    var offSetListener : AppBarOffsetChangedListener? = null
+    var offSetListener: AppBarOffsetChangedListener? = null
 
     override fun onStart() {
         super.onStart()
         binding?.let {
-            offSetListener = AppBarOffsetChangedListener(it.fragmentContainer)
+            offSetListener = AppBarOffsetChangedListener(it.fragmentContainer, it.coordinator)
             it.appbar.addOnOffsetChangedListener(offSetListener)
         }
     }
@@ -42,12 +46,25 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         binding?.let {
             val fragment = AuthenticationFragment()
             supportFragmentManager.beginTransaction()
-                .replace(it.fragmentContainer.id,fragment)
+                .replace(it.fragmentContainer.id, fragment)
                 .commit()
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(binding?.appbar!!) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures())
+            // Apply the insets as padding to the view. Here we're setting all of the
+            // dimensions, but apply as appropriate to your layout. You could also
+            // update the views margin if more appropriate.
+            val params = view.layoutParams as CoordinatorLayout.LayoutParams
+            params.topMargin = insets.top
+            view.layoutParams = params
+            offSetListener?.updateInsets(insets)
+            WindowInsetsCompat.CONSUMED
         }
     }
 
@@ -58,11 +75,17 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
 class AppBarOffsetChangedListener(
     private val contentView: View,
+    private val coordinatorView: View,
     private val divider: View? = null
 ) : AppBarLayout.OnOffsetChangedListener {
+    private var windowInsets: Insets? = null
+    fun updateInsets(windowInsets: Insets) {
+        this.windowInsets = windowInsets
+    }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         val bottomPadding = appBarLayout.totalScrollRange + verticalOffset
+        val topPadding = appBarLayout.totalScrollRange - verticalOffset
         divider?.let {
             val dividerVisibility =
                 if (bottomPadding <= 0)
@@ -70,22 +93,17 @@ class AppBarOffsetChangedListener(
 
             it.visibility = dividerVisibility
         }
-
+        val insets = windowInsets?.top?: 0
         contentView.apply {
             setPadding(
                 this.paddingLeft,
                 this.paddingTop,
                 this.paddingRight,
-                bottomPadding
+                bottomPadding + insets
             )
         }
-        appBarLayout.apply {
-            setPadding(
-                this.paddingLeft,
-                bottomPadding,
-                this.paddingRight,
-                this.paddingBottom
-            )
-        }
+//
+//        if (contentView.paddingBottom == 0) coordinatorView.setBackgroundColor(Color.WHITE)
+//        else coordinatorView.setBackgroundColor(Color.parseColor("#F9F9F9"))
     }
 }

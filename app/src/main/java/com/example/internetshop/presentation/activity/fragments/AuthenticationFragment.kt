@@ -1,9 +1,11 @@
 package com.example.internetshop.presentation.activity.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import com.example.internetshop.databinding.FragmentAuthBinding
 import com.example.internetshop.model.data.di.component.AppComponent
@@ -18,6 +20,11 @@ class AuthenticationFragment : BaseFragment() {
 
     override fun inject(component: AppComponent) {
         component.inject(this)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context as? AppCompatActivity)?.supportActionBar?.title = "Login2"
     }
 
     override fun onCreateView(

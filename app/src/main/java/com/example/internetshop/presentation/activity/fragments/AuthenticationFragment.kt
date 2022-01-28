@@ -24,7 +24,7 @@ class AuthenticationFragment : BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (context as? AppCompatActivity)?.supportActionBar?.title = "Login2"
+        (context as? AppCompatActivity)?.title = "Login"
     }
 
     override fun onCreateView(
@@ -61,6 +61,7 @@ class AuthenticationFragment : BaseFragment() {
     private fun openProductList() {
         requireActivity().supportFragmentManager
             .beginTransaction()
-            .replace(this.id, CategoriesFragment()).commit()
+            .replace(this.id, CategoriesFragment())
+            .commit()
     }
 }

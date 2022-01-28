@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onStart() {
         super.onStart()
         binding?.let {
-            offSetListener = AppBarOffsetChangedListener(it.fragmentContainer, it.coordinator)
+            offSetListener = AppBarOffsetChangedListener(it.fragmentContainer)
             it.appbar.addOnOffsetChangedListener(offSetListener)
         }
     }
@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         setSupportActionBar(binding?.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-
         binding?.let {
             val fragment = AuthenticationFragment()
             supportFragmentManager.beginTransaction()
@@ -57,9 +56,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         }
         ViewCompat.setOnApplyWindowInsetsListener(binding?.appbar!!) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures())
-            // Apply the insets as padding to the view. Here we're setting all of the
-            // dimensions, but apply as appropriate to your layout. You could also
-            // update the views margin if more appropriate.
             val params = view.layoutParams as CoordinatorLayout.LayoutParams
             params.topMargin = insets.top
             view.layoutParams = params
@@ -75,7 +71,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
 class AppBarOffsetChangedListener(
     private val contentView: View,
-    private val coordinatorView: View,
     private val divider: View? = null
 ) : AppBarLayout.OnOffsetChangedListener {
     private var windowInsets: Insets? = null
@@ -85,7 +80,6 @@ class AppBarOffsetChangedListener(
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         val bottomPadding = appBarLayout.totalScrollRange + verticalOffset
-        val topPadding = appBarLayout.totalScrollRange - verticalOffset
         divider?.let {
             val dividerVisibility =
                 if (bottomPadding <= 0)
@@ -93,7 +87,7 @@ class AppBarOffsetChangedListener(
 
             it.visibility = dividerVisibility
         }
-        val insets = windowInsets?.top?: 0
+        val insets = windowInsets?.top ?: 0
         contentView.apply {
             setPadding(
                 this.paddingLeft,
@@ -102,8 +96,5 @@ class AppBarOffsetChangedListener(
                 bottomPadding + insets
             )
         }
-//
-//        if (contentView.paddingBottom == 0) coordinatorView.setBackgroundColor(Color.WHITE)
-//        else coordinatorView.setBackgroundColor(Color.parseColor("#F9F9F9"))
     }
 }

@@ -33,6 +33,10 @@ class FavoriteListFragment: BaseFragment() {
         component.inject(this)
     }
 
+    override fun getTitle(): String {
+        return "Favorite"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = binding?.recyclerViewProducts

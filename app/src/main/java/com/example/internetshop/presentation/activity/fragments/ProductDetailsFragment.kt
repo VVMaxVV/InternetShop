@@ -55,6 +55,10 @@ class ProductDetailsFragment : BaseFragment() {
         component.inject(this)
     }
 
+    override fun getTitle(): String {
+        return "Product #${this.requireArguments().getString(EXTRA_ID)}"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val reviewButton = binding?.goToReview

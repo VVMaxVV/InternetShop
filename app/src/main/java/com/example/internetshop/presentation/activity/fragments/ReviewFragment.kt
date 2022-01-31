@@ -17,6 +17,10 @@ class ReviewFragment: BaseFragment() {
         component.inject(this)
     }
 
+    override fun getTitle(): String {
+        return "Reviews"
+    }
+
     val viewModel: ReviewViewModel by viewModels { factory }
 
     private var binding: FragmentReviewBinding? = null

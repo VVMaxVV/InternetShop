@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.databinding.FragmentCategoriesBinding
@@ -24,9 +23,12 @@ class CategoriesFragment : BaseFragment() {
         component.inject(this)
     }
 
+    override fun getTitle(): String {
+        return "Categories123"
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (context as? AppCompatActivity)?.supportActionBar?.title = "Categories"
     }
 
     override fun onCreateView(

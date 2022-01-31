@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
+//    private val titleViewModel: TitleViewModel by viewModels { factory }
+
     var binding: ActivityMainBinding? = null
 
     var offSetListener: AppBarOffsetChangedListener? = null

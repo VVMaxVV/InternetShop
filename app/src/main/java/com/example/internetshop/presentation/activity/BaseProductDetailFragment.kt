@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.activity.fragments.BaseFragment
+import com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment
 
 open class BaseProductDetailFragment: BaseFragment() {
 
@@ -15,6 +16,10 @@ open class BaseProductDetailFragment: BaseFragment() {
 
     override fun inject(component: AppComponent) {
         component.inject(this)
+    }
+
+    override fun getTitle(): String {
+        return "Product #${this.requireArguments().getString(ProductDetailsFragment.EXTRA_ID)}"
     }
 
     override fun onCreateView(

@@ -80,4 +80,8 @@ class ProductsListFragment: BaseFragment() {
     override fun inject(component: AppComponent) {
         component.inject(this)
     }
+
+    override fun getTitle(): String {
+        return "Products"
+    }
 }

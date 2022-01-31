@@ -10,9 +10,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.internetshop.databinding.ActivityMainBinding
+import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.activity.fragments.AuthenticationFragment
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
+import com.example.internetshop.presentation.viewModel.TitleViewModel
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
-//    private val titleViewModel: TitleViewModel by viewModels { factory }
+    private val titleViewModel: TitleViewModel by viewModels { factory }
 
     var binding: ActivityMainBinding? = null
 
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        (this.applicationContext as InternetshopApplication).appComponent.inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolbar)
@@ -64,6 +67,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
             offSetListener?.updateInsets(insets)
             WindowInsetsCompat.CONSUMED
         }
+        titleViewModel.titleLiveData.observe(this, {
+            binding?.collapsingLayout?.title = it
+        })
     }
 
     override fun getContainerId(): Int? {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentCategoriesBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.adapters.CategoryAdapter
@@ -24,7 +25,7 @@ class CategoriesFragment : BaseFragment() {
     }
 
     override fun getTitle(): String {
-        return "Categories123"
+        return context?.resources?.getString(R.string.categories)?:""
     }
 
     override fun onAttach(context: Context) {
@@ -42,7 +43,6 @@ class CategoriesFragment : BaseFragment() {
             container,
             false
         )
-//        binding = DataBindingUtil.setContentView(requireActivity(),R.layout.fragment_categories)
 
         binding?.viewModel = viewModel
         return binding?.root

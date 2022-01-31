@@ -19,4 +19,14 @@
     <style name="SocialAccountButton" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">@drawable/social_account_shape</item>
     </style>
+
+    <style name="ExpandedToolBar" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textSize">34sp</item>
+        <item name="fontFamily">@font/metropolis_bold</item>
+    </style>
+    
+    <style name="CollapsingToolbar" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/metropolis_regular</item>
+    </style>
 </resources>

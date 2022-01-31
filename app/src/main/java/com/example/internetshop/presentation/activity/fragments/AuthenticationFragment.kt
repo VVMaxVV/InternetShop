@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentAuthBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
@@ -21,7 +22,15 @@ class AuthenticationFragment : BaseFragment() {
     }
 
     override fun getTitle(): String {
-        return "Login"
+        return context?.resources?.getString(R.string.login)?:""
+    }
+
+    override fun getHomeVisibility(): Boolean {
+        return false
+    }
+
+    override fun getIsScrollingView(): Boolean {
+        return false
     }
 
     override fun onCreateView(

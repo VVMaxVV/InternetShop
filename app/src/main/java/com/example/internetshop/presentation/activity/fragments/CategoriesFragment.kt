@@ -1,6 +1,5 @@
 package com.example.internetshop.presentation.activity.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,8 +27,12 @@ class CategoriesFragment : BaseFragment() {
         return context?.resources?.getString(R.string.categories)?:""
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun getHomeVisibility(): Boolean {
+        return true
+    }
+
+    override fun getIsScrollingView(): Boolean {
+        return true
     }
 
     override fun onCreateView(
@@ -78,4 +81,6 @@ class CategoriesFragment : BaseFragment() {
     private fun openCategory() {
         showToast("Go to next fragment")
     }
+
+
 }

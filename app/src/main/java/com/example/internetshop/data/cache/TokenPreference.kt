@@ -14,6 +14,7 @@ class TokenPreference @Inject constructor(context: Context) {
     private var tokenKey: String = "SessionToken"
 
     fun getToken(): Token {
+        setToken(Token(null, Date()))
         val tokenJson = preference.getString(tokenKey, null)
         if(tokenJson.isNullOrEmpty().not()) {
             val tokenDate = Gson().fromJson(tokenJson, Token::class.java)

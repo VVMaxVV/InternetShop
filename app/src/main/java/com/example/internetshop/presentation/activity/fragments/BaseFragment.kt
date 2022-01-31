@@ -18,8 +18,6 @@ abstract class BaseFragment : Fragment() {
     @Inject
     protected lateinit var factory: MultiViewModuleFactory
 
-//    private val titleViewModel: TitleViewModel by activityViewModels { factory }
-
     private val titleViewModel: TitleViewModel by lazy {
         ViewModelProvider(requireActivity(), factory).get(TitleViewModel::class.java)
     }
@@ -27,6 +25,10 @@ abstract class BaseFragment : Fragment() {
     abstract fun inject(component: AppComponent)
 
     abstract fun getTitle(): String
+
+    abstract fun getHomeVisibility(): Boolean
+
+    abstract fun getIsScrollingView(): Boolean
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +42,8 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         titleViewModel.titleLiveData.value = getTitle()
+        titleViewModel.backArrowVisible.value = getHomeVisibility()
+        titleViewModel.isScrollingView.value = getIsScrollingView()
     }
 
     private fun getAppComponent(): AppComponent {

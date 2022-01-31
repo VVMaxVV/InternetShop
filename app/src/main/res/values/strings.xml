@@ -34,4 +34,6 @@
     <string name="kids">Kids</string>
 
     <string name="categories">Categories</string>
+    <string name="products">Products</string>
+    <string name="reviews">Reviews</string>
 </resources>

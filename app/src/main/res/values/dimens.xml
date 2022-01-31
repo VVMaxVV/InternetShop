@@ -41,4 +41,5 @@
     <dimen name="dimen_item_category_image_width">172dp</dimen>
     <dimen name="dimen_item_category_card_corner_radius">8dp</dimen>
     <dimen name="dimen_item_category_card_elevation">8dp</dimen>
+    <dimen name="dimen_collapsing_tool_bar_height">140dp</dimen>
 </resources>

@@ -59,6 +59,14 @@ class ProductDetailsFragment : BaseFragment() {
         return "Product #${this.requireArguments().getString(EXTRA_ID)}"
     }
 
+    override fun getHomeVisibility(): Boolean {
+        return true
+    }
+
+    override fun getIsScrollingView(): Boolean {
+        return true
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val reviewButton = binding?.goToReview

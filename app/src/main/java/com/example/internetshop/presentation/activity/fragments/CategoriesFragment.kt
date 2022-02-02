@@ -23,17 +23,11 @@ class CategoriesFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String {
-        return context?.resources?.getString(R.string.categories)?:""
-    }
+    override fun getTitle(): String = context?.resources?.getString(R.string.label_categories)?:""
 
-    override fun getHomeVisibility(): Boolean {
-        return true
-    }
+    override fun getHomeVisibility(): Boolean = true
 
-    override fun getIsScrollingView(): Boolean {
-        return true
-    }
+    override fun getIsScrollingView(): Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,

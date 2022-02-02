@@ -41,7 +41,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        titleViewModel.titleLiveData.value = getTitle()
+        titleViewModel.title.value = getTitle()
         titleViewModel.backArrowVisible.value = getHomeVisibility()
         titleViewModel.isScrollingView.value = getIsScrollingView()
     }

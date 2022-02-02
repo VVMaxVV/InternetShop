@@ -42,4 +42,7 @@
     <dimen name="dimen_item_category_card_corner_radius">8dp</dimen>
     <dimen name="dimen_item_category_card_elevation">8dp</dimen>
     <dimen name="dimen_collapsing_tool_bar_height">140dp</dimen>
+
+    <dimen name="dimen_expanded_tool_bar_text_size">34sp</dimen>
+    <dimen name="dimen_collapsing_tool_bar_text_size">18sp</dimen>
 </resources>

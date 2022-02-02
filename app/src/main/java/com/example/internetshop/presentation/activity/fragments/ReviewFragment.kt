@@ -18,17 +18,11 @@ class ReviewFragment: BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String {
-        return context?.resources?.getString(R.string.reviews)?:""
-    }
+    override fun getTitle(): String = context?.resources?.getString(R.string.label_reviews)?:""
 
-    override fun getHomeVisibility(): Boolean {
-        return true
-    }
+    override fun getHomeVisibility(): Boolean = true
 
-    override fun getIsScrollingView(): Boolean {
-        return true
-    }
+    override fun getIsScrollingView(): Boolean = true
 
     val viewModel: ReviewViewModel by viewModels { factory }
 

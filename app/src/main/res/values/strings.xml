@@ -33,7 +33,7 @@
     <string name="men">Men</string>
     <string name="kids">Kids</string>
 
-    <string name="categories">Categories</string>
-    <string name="products">Products</string>
-    <string name="reviews">Reviews</string>
+    <string name="label_categories">Categories</string>
+    <string name="label_products">Products</string>
+    <string name="label_reviews">Reviews</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.databinding.DataBindingUtil
 import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.AppBarOffsetChangedListener
@@ -41,48 +42,57 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (this.applicationContext as InternetshopApplication).appComponent.inject(this)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        setContentView(binding?.root)
+        binding?.let {
+            it.viewModel = titleViewModel
+            it.lifecycleOwner = this
+        }
+
+        setupAppBar()
+        setupBackArrowVisibility()
+        setScrollingView()
+        updateLayoutParams()
+        startFragment()
+    }
+
     override fun onStop() {
         super.onStop()
         binding?.appBar?.removeOnOffsetChangedListener(offSetListener)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        (this.applicationContext as InternetshopApplication).appComponent.inject(this)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.home -> {
+                supportFragmentManager.popBackStack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun startFragment() {
+        binding?.let {
+            supportFragmentManager.beginTransaction()
+                .replace(it.fragmentContainer.id, AuthenticationFragment())
+                .commit()
+        }
+    }
+
+    private fun setupBackArrowVisibility() {
+        titleViewModel.backArrowVisible.observe(this, {
+            supportActionBar?.setDisplayHomeAsUpEnabled(it)
+        })
+    }
+
+    private fun setScrollingView() {
         val appBarLayoutParams = binding?.appBar?.layoutParams as CoordinatorLayout.LayoutParams
         if (appBarLayoutParams.behavior == null) {
             appBarLayoutParams.behavior = AppBarLayout.Behavior()
         }
-        setContentView(binding?.root)
-        setSupportActionBar(binding?.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(
-            (ResourcesCompat.getDrawable(resources, R.drawable.ic_back_arrow, null))
-        )
-        binding?.let {
-            val fragment = AuthenticationFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(it.fragmentContainer.id, fragment)
-                .commit()
-        }
-        ViewCompat.setOnApplyWindowInsetsListener(binding?.appBar!!) { view, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures())
-            val params = view.layoutParams as CoordinatorLayout.LayoutParams
-            params.topMargin = insets.top
-            view.layoutParams = params
-            offSetListener?.updateInsets(insets)
-            WindowInsetsCompat.CONSUMED
-        }
-        titleViewModel.titleLiveData.observe(this, {
-            binding?.collapsingLayout?.title = it
-        })
-        titleViewModel.backArrowVisible.observe(this, {
-            supportActionBar?.setDisplayHomeAsUpEnabled(it)
-            supportActionBar?.setDisplayShowHomeEnabled(it)
-        })
         titleViewModel.isScrollingView.observe(this, {
             (appBarLayoutParams.behavior as AppBarLayout.Behavior)
                 .setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
@@ -93,13 +103,22 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.home -> {
-                supportFragmentManager.popBackStack()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    private fun setupAppBar() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        setSupportActionBar(binding?.toolbar)
+        supportActionBar?.setHomeAsUpIndicator(
+            (ResourcesCompat.getDrawable(resources, R.drawable.ic_back_arrow, null))
+        )
+    }
+
+    private fun updateLayoutParams() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding?.appBar!!) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures())
+            val params = view.layoutParams as CoordinatorLayout.LayoutParams
+            params.topMargin = insets.top
+            view.layoutParams = params
+            offSetListener?.updateInsets(insets)
+            WindowInsetsCompat.CONSUMED
         }
     }
 

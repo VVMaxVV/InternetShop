@@ -21,12 +21,12 @@
     </style>
 
     <style name="ExpandedToolBar" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
-        <item name="android:textSize">34sp</item>
+        <item name="android:textSize">@dimen/dimen_expanded_tool_bar_text_size</item>
         <item name="fontFamily">@font/metropolis_bold</item>
     </style>
     
     <style name="CollapsingToolbar" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/dimen_collapsing_tool_bar_text_size</item>
         <item name="fontFamily">@font/metropolis_regular</item>
     </style>
 </resources>

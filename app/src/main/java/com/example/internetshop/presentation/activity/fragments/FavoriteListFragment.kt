@@ -34,17 +34,11 @@ class FavoriteListFragment: BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String {
-        return context?.resources?.getString(R.string.favorite)?:""
-    }
+    override fun getTitle(): String = context?.resources?.getString(R.string.favorite)?:""
 
-    override fun getHomeVisibility(): Boolean {
-        return true
-    }
+    override fun getHomeVisibility(): Boolean = true
 
-    override fun getIsScrollingView(): Boolean {
-        return true
-    }
+    override fun getIsScrollingView(): Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

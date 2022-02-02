@@ -55,17 +55,11 @@ class ProductDetailsFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String {
-        return "Product #${this.requireArguments().getString(EXTRA_ID)}"
-    }
+    override fun getTitle(): String = "Product #${this.requireArguments().getString(EXTRA_ID)}"
 
-    override fun getHomeVisibility(): Boolean {
-        return true
-    }
+    override fun getHomeVisibility(): Boolean = true
 
-    override fun getIsScrollingView(): Boolean {
-        return true
-    }
+    override fun getIsScrollingView(): Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

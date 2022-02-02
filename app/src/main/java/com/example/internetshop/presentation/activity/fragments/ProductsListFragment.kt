@@ -82,15 +82,9 @@ class ProductsListFragment: BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String {
-        return context?.resources?.getString(R.string.products)?:""
-    }
+    override fun getTitle(): String = context?.resources?.getString(R.string.label_products)?:""
 
-    override fun getHomeVisibility(): Boolean {
-        return true
-    }
+    override fun getHomeVisibility(): Boolean = true
 
-    override fun getIsScrollingView(): Boolean {
-        return true
-    }
+    override fun getIsScrollingView(): Boolean = true
 }

@@ -21,17 +21,11 @@ class AuthenticationFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String {
-        return context?.resources?.getString(R.string.login)?:""
-    }
+    override fun getTitle(): String = context?.resources?.getString(R.string.login)?:""
 
-    override fun getHomeVisibility(): Boolean {
-        return false
-    }
+    override fun getHomeVisibility(): Boolean = false
 
-    override fun getIsScrollingView(): Boolean {
-        return false
-    }
+    override fun getIsScrollingView(): Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,

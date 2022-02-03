@@ -39,11 +39,20 @@
     <dimen name="dimen_item_category_name_padding_start">24dp</dimen>
     <dimen name="dimen_item_category_text_size">18sp</dimen>
     <dimen name="dimen_item_category_image_width">172dp</dimen>
+    <dimen name="dimen_category_name_padding_start">14dp</dimen>
+    <dimen name="dimen_item_product_category_rating_bar_top_margin">24dp</dimen>
+    <dimen name="dimen_item_product_category_price_top_margin">8dp</dimen>
+    <dimen name="dimen_item_product_category_image_size">104dp</dimen>
+    <dimen name="dimen_item_product_category_number_of_review_text_size">10sp</dimen>
+    <dimen name="dimen_item_product_category_title_max_width">200dp</dimen>
+    <dimen name="dimen_item_product_category_title_text_size">16sp</dimen>
+    <dimen name="dimen_item_product_category_price_text_size">14sp</dimen>
+    <dimen name="dimen_item_product_category_brand_margin_start">12dp</dimen>
     <dimen name="dimen_item_category_card_corner_radius">8dp</dimen>
     <dimen name="dimen_item_category_card_elevation">8dp</dimen>
     <dimen name="dimen_collapsing_tool_bar_height">140dp</dimen>
-
     <dimen name="dimen_expanded_tool_bar_text_size">34sp</dimen>
     <dimen name="dimen_collapsing_tool_bar_text_size">18sp</dimen>
     <dimen name="dimen_main_activity_collapsing_layout_expanded_margin_start_title">16dp</dimen>
+    <dimen name="dimen_item_category_margin_between_cards">16dp</dimen>
 </resources>

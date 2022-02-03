@@ -14,9 +14,9 @@ import com.example.internetshop.presentation.activity.ContainerHolder
 import com.example.internetshop.presentation.adapters.SimpleProductsAdapter
 import com.example.internetshop.presentation.viewModel.FavoriteListViewModel
 
-class FavoriteListFragment: BaseFragment() {
+class FavoriteListFragment : BaseFragment() {
 
-    private var binding : FragmentFavoriteListBinding? = null
+    private var binding: FragmentFavoriteListBinding? = null
 
     val viewModel: FavoriteListViewModel by viewModels { factory }
 
@@ -55,12 +55,11 @@ class FavoriteListFragment: BaseFragment() {
             openDetails(it)
         }
         viewModel.productsLiveData.observe(viewLifecycleOwner, {
-            adapter.productList.clear()
-            adapter.productList.addAll(it)
-            adapter.notifyDataSetChanged()
+            adapter.addData(it)
         })
         viewModel.getProductsList()
     }
+
     private fun openDetails(id: String) {
         (requireActivity() as? ContainerHolder)?.let {
             val fragment = ProductDetailsFragment().apply {
@@ -68,7 +67,10 @@ class FavoriteListFragment: BaseFragment() {
             }
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
-                .replace(it.getContainerId()?:throw IllegalStateException("Container id must not be null"),fragment)
+                .replace(
+                    it.getContainerId()
+                        ?: throw IllegalStateException("Container id must not be null"), fragment
+                )
                 .commit()
         }
     }

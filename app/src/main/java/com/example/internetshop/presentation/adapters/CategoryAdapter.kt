@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.internetshop.databinding.ItemCategoryBinding
-import com.example.internetshop.domain.data.model.Category
+import com.example.internetshop.model.data.viewStates.CategoryViewState
 import com.example.internetshop.presentation.adapters.holder.CategoryViewHolder
+import javax.inject.Inject
 
-class CategoryAdapter(val clickListener: (Category) -> Unit) :
+class CategoryAdapter @Inject constructor():
     RecyclerView.Adapter<CategoryViewHolder>() {
-    private val categoryList = mutableListOf<Category>()
+    private val categoryList = mutableListOf<CategoryViewState>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
             ItemCategoryBinding.inflate(
@@ -22,16 +23,15 @@ class CategoryAdapter(val clickListener: (Category) -> Unit) :
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(categoryList[position])
-        holder.itemView.setOnClickListener {
-            clickListener(categoryList[position])
-        }
     }
 
     override fun getItemCount(): Int {
         return categoryList.size
     }
 
-    fun addData(categories: List<Category>) {
+    fun addData(categories: List<CategoryViewState>) {
+        categoryList.clear()
         categoryList.addAll(categories)
+        this.notifyDataSetChanged()
     }
 }

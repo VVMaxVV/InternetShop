@@ -66,7 +66,7 @@ class ProductDetailsFragment : BaseFragment() {
         val reviewButton = binding?.goToReview
         val favoriteButton = binding?.favorite
 
-        viewModel.productLiveData?.observe(viewLifecycleOwner, { product ->
+        viewModel.productLiveData.observe(viewLifecycleOwner, { product ->
             binding?.let {
                 it.product = product
                 Picasso.with(requireContext())
@@ -74,7 +74,6 @@ class ProductDetailsFragment : BaseFragment() {
                     .into(it.mainImage)
             }
         })
-
         val productId = this.requireArguments().getString(EXTRA_ID)!!
         viewModel.getProductRx(productId)
 

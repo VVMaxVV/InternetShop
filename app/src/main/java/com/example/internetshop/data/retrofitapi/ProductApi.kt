@@ -13,6 +13,4 @@ interface ProductApi {
 
     @GET("/products")
     fun getProductsRx(): Single<List<ProductResponse>>
-
-
 }

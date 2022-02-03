@@ -47,8 +47,7 @@ class ProductsListFragment: BaseFragment() {
         }
 
         viewModel.productsList.observe(viewLifecycleOwner) {
-            adapter.productList.addAll(it)
-            adapter.notifyDataSetChanged()
+            adapter.addData(it)
         }
         viewModel.getProductsRx()
         viewModel.openDetailsEvent.observe(viewLifecycleOwner) {

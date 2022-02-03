@@ -52,11 +52,11 @@ class ReviewFragment: BaseFragment() {
             it.layoutManager = LinearLayoutManager(requireContext())
         }
 
-        viewModel?.reviewsList.observe(viewLifecycleOwner) {
+        viewModel.reviewsList.observe(viewLifecycleOwner) {
             adapter.reviews.addAll(it)
             adapter.notifyDataSetChanged()
         }
-        viewModel.getReviews(requireArguments()!!.getString(EXTRA_ID_REVIEW)!!)
+        viewModel.getReviews(requireArguments().getString(EXTRA_ID_REVIEW)!!)
 
     }
 }

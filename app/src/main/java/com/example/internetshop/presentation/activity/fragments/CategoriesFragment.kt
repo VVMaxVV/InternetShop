@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentCategoriesBinding
 import com.example.internetshop.model.data.di.component.AppComponent
+import com.example.internetshop.presentation.activity.ContainerHolder
 import com.example.internetshop.presentation.adapters.CategoryAdapter
 import com.example.internetshop.presentation.adapters.VerticalSpaceItemDecoration
 import com.example.internetshop.presentation.viewModel.CategoriesViewModel
@@ -33,8 +36,6 @@ class CategoriesFragment : BaseFragment() {
             container,
             false
         )
-//        binding = DataBindingUtil.setContentView(requireActivity(),R.layout.fragment_categories)
-
         binding?.viewModel = viewModel
         return binding?.root
     }
@@ -42,31 +43,53 @@ class CategoriesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = binding?.recyclerViewCategory
-        val adapter = CategoryAdapter {
-            CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent(it.name)
-        }
+        binding?.viewModel = viewModel
+        val adapter = CategoryAdapter()
         recyclerView?.let {
-            it.addItemDecoration(VerticalSpaceItemDecoration(32))
+            it.addItemDecoration(
+                VerticalSpaceItemDecoration(
+                    context
+                        ?.resources
+                        ?.getDimension(R.dimen.dimen_item_category_margin_between_cards)
+                        ?.toInt() ?: 0
+                )
+            )
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
             it.setHasFixedSize(true)
         }
 
-        viewModel.navEventLiveData.observe(requireActivity(), {
+        viewModel.categoriesLiveData.observe(viewLifecycleOwner, {
+            adapter.addData(it)
+        })
+        viewModel.getCategory()
+
+        viewModel.navEventLiveData.observe(viewLifecycleOwner, {
             when (it) {
-                is CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent -> openCategory()
-                is CategoriesViewModel.CategoryEvent.ToastCategoryEvent -> showToast(it.text)
+                is CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent
+                -> openCategory(it.categoryName)
+                is CategoriesViewModel.CategoryEvent.ToastCategoryEvent
+                -> showToast(it.text)
             }
         })
 
-        viewModel.categoriesLiveData.observe(requireActivity(), {
-            adapter.addData(it)
-            adapter.notifyDataSetChanged()
-        })
-        viewModel.getCategory()
     }
 
-    private fun openCategory() {
-        showToast("Go to next fragment")
+    private fun openCategory(id: String) {
+        (requireActivity() as? ContainerHolder)?.let {
+            val fragment = ProductsFromCategoryFragment().apply {
+                this.arguments =
+                    bundleOf(
+                        ProductsFromCategoryFragment.EXTRA_CATEGORY_NAME to id.lowercase()
+                    )
+            }
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(
+                    it.getContainerId()
+                        ?: throw IllegalStateException("Container id must not be null"), fragment
+                )
+                .commit()
+        }
     }
 }

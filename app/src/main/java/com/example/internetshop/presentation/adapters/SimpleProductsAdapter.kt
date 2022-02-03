@@ -31,4 +31,10 @@ class SimpleProductsAdapter(val clickListener: (SimpleProduct) -> Unit) :
     override fun getItemCount(): Int {
         return productList.size
     }
+
+    fun addData(simpleProducts: List<SimpleProduct>) {
+        productList.clear()
+        productList.addAll(simpleProducts)
+        this.notifyDataSetChanged()
+    }
 }

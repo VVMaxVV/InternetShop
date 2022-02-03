@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentCategoriesBinding
 import com.example.internetshop.model.data.di.component.AppComponent
-import com.example.internetshop.presentation.activity.ContainerHolder
 import com.example.internetshop.presentation.adapters.CategoryAdapter
 import com.example.internetshop.presentation.adapters.VerticalSpaceItemDecoration
 import com.example.internetshop.presentation.viewModel.CategoriesViewModel
@@ -25,7 +24,7 @@ class CategoriesFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String = context?.resources?.getString(R.string.label_categories)?:""
+    override fun getTitle(): String = context?.resources?.getString(R.string.label_categories) ?: ""
 
     override fun getHomeVisibility(): Boolean = true
 
@@ -74,29 +73,17 @@ class CategoriesFragment : BaseFragment() {
         viewModel.navEventLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent
-                -> openCategory(it.categoryName)
+                -> openProducts(it.categoryName)
                 is CategoriesViewModel.CategoryEvent.ToastCategoryEvent
                 -> showToast(it.text)
             }
         })
-
     }
 
-    private fun openCategory(id: String) {
-        (requireActivity() as? ContainerHolder)?.let {
-            val fragment = ProductsFromCategoryFragment().apply {
-                this.arguments =
-                    bundleOf(
-                        ProductsFromCategoryFragment.EXTRA_CATEGORY_NAME to id.lowercase()
-                    )
-            }
-            requireActivity().supportFragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .replace(
-                    it.getContainerId()
-                        ?: throw IllegalStateException("Container id must not be null"), fragment
-                )
-                .commit()
-        }
+    private fun openProducts(categoryName: String) {
+        val action =
+            CategoriesFragmentDirections
+                .actionCategoriesFragmentToProductsFromCategoryFragment(categoryName.lowercase())
+        findNavController().navigate(action)
     }
 }

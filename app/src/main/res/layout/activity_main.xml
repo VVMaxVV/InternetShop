@@ -1,5 +1,7 @@
 <layout>
+
     <data>
+
         <variable
             name="viewModel"
             type="com.example.internetshop.presentation.viewModel.TitleViewModel" />
@@ -28,9 +30,9 @@
                 app:contentScrim="@color/white"
                 app:expandedTitleGravity="start|bottom"
                 app:expandedTitleMarginStart="@dimen/dimen_main_activity_collapsing_layout_expanded_margin_start_title"
-                app:title="@{viewModel.title}"
                 app:expandedTitleTextAppearance="@style/ExpandedToolBar"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{viewModel.title}"
                 tools:title="@string/login">
 
                 <androidx.appcompat.widget.Toolbar
@@ -49,11 +51,15 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
+
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            app:defaultNavHost="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:navGraph="@navigation/main_nav_graph" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -19,7 +19,7 @@
         <entry key="app/src/main/res/drawable/red_rectangle_button.xml" value="0.21774891774891775" />
         <entry key="app/src/main/res/drawable/social_account_shape.xml" value="0.21774891774891775" />
         <entry key="app/src/main/res/layout/activity_authentication.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1988527724665392" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_products.xml" value="0.32044198895027626" />
         <entry key="app/src/main/res/layout/favorite_list_fragment.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.2692307692307692" />
@@ -29,9 +29,8 @@
         <entry key="app/src/main/res/layout/fragment_favorite_list.xml" value="0.32998176722792794" />
         <entry key="app/src/main/res/layout/fragment_product_details.xml" value="0.2412121212121212" />
         <entry key="app/src/main/res/layout/fragment_products_list.xml" value="0.217789591298249" />
-        <entry key="app/src/main/res/layout/fragment_review.xml" value="0.4149797570850202" />
+        <entry key="app/src/main/res/layout/fragment_review.xml" value="0.22954822954822954" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.20380434782608695" />
-        <entry key="app/src/main/res/layout/item_product_category.xml" value="0.32545454545454544" />
         <entry key="app/src/main/res/layout/item_product_category.xml" value="0.10111396743787489" />
         <entry key="app/src/main/res/layout/item_review.xml" value="0.20701754385964913" />
         <entry key="app/src/main/res/layout/item_simple_product.xml" value="0.39711934156378603" />

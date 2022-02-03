@@ -5,26 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentReviewBinding
 import com.example.internetshop.model.data.di.component.AppComponent
-import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.adapters.ReviewsAdapter
 import com.example.internetshop.presentation.viewModel.ReviewViewModel
 
-class ReviewFragment: BaseFragment() {
+class ReviewFragment : BaseFragment() {
     override fun inject(component: AppComponent) {
         component.inject(this)
     }
 
-    override fun getTitle(): String = context?.resources?.getString(R.string.label_reviews)?:""
+    override fun getTitle(): String = context?.resources?.getString(R.string.label_reviews) ?: ""
 
     override fun getHomeVisibility(): Boolean = true
 
     override fun getIsScrollingView(): Boolean = true
 
-    val viewModel: ReviewViewModel by viewModels { factory }
+    private val viewModel: ReviewViewModel by viewModels { factory }
 
     private var binding: FragmentReviewBinding? = null
 
@@ -37,7 +37,8 @@ class ReviewFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentReviewBinding.inflate(inflater,container,false)
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentReviewBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -48,9 +49,6 @@ class ReviewFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().applicationContext as InternetshopApplication)
-            .appComponent
-            .inject(this)
         val recyclerView = binding?.recyclerViewReview
         val adapter = ReviewsAdapter()
 
@@ -63,7 +61,9 @@ class ReviewFragment: BaseFragment() {
             adapter.reviews.addAll(it)
             adapter.notifyDataSetChanged()
         }
-        viewModel.getReviews(requireArguments().getString(EXTRA_ID_REVIEW)!!)
 
+        val argument = arguments?.getString(EXTRA_ID_REVIEW)
+        if (argument == null) findNavController().popBackStack()
+        else viewModel.getReviews(argument)
     }
 }

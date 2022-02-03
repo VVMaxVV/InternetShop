@@ -21,7 +21,6 @@ class CategoriesViewModel @Inject constructor(
     val categoriesLiveData = MutableLiveData<List<CategoryViewState>>()
 
     fun getCategory() {
-        compositeDisposable.add(
             categoriesUseCase.execute()
                 .timeout(60, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
@@ -42,8 +41,7 @@ class CategoriesViewModel @Inject constructor(
                 },
                     {
                         Log.e("Error", it.message ?: "Unknown error")
-                    })
-        )
+                    }).run(compositeDisposable::add)
     }
 
     fun map(category: Category): CategoryViewState {

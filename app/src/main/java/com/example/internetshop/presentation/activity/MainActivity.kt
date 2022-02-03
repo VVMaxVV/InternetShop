@@ -53,9 +53,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         }
 
         setupAppBar()
-        setupBackArrowVisibility()
+        subscribeToBackArrowVisibility()
         setScrollingView()
-        updateLayoutParams()
+        applyInsetsToAppBar()
         startFragment()
     }
 
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         }
     }
 
-    private fun setupBackArrowVisibility() {
+    private fun subscribeToBackArrowVisibility() {
         titleViewModel.backArrowVisible.observe(this, {
             supportActionBar?.setDisplayHomeAsUpEnabled(it)
         })
@@ -111,9 +111,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         )
     }
 
-    private fun updateLayoutParams() {
+    private fun applyInsetsToAppBar() {
         ViewCompat.setOnApplyWindowInsetsListener(binding?.appBar!!) { view, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures())
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             val params = view.layoutParams as CoordinatorLayout.LayoutParams
             params.topMargin = insets.top
             view.layoutParams = params

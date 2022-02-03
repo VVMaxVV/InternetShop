@@ -45,4 +45,5 @@
 
     <dimen name="dimen_expanded_tool_bar_text_size">34sp</dimen>
     <dimen name="dimen_collapsing_tool_bar_text_size">18sp</dimen>
+    <dimen name="dimen_main_activity_collapsing_layout_expanded_margin_start_title">16dp</dimen>
 </resources>

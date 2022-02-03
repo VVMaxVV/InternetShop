@@ -27,7 +27,7 @@
                 app:collapsedTitleTextAppearance="@style/CollapsingToolbar"
                 app:contentScrim="@color/white"
                 app:expandedTitleGravity="start|bottom"
-                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginStart="@dimen/dimen_main_activity_collapsing_layout_expanded_margin_start_title"
                 app:title="@{viewModel.title}"
                 app:expandedTitleTextAppearance="@style/ExpandedToolBar"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"

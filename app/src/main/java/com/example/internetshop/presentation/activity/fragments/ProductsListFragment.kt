@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentProductsListBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.activity.ContainerHolder
@@ -79,4 +80,10 @@ class ProductsListFragment: BaseFragment() {
     override fun inject(component: AppComponent) {
         component.inject(this)
     }
+
+    override fun getTitle(): String = context?.resources?.getString(R.string.label_products)?:""
+
+    override fun getHomeVisibility(): Boolean = true
+
+    override fun getIsScrollingView(): Boolean = true
 }

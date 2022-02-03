@@ -13,6 +13,7 @@ import com.example.internetshop.presentation.activity.ContainerHolder
 import com.example.internetshop.presentation.adapters.ProductsAdapter
 import com.example.internetshop.presentation.adapters.VerticalSpaceItemDecoration
 import com.example.internetshop.presentation.viewModel.ProductListViewModel
+import java.util.*
 
 class ProductsFromCategoryFragment : BaseFragment() {
 
@@ -27,6 +28,20 @@ class ProductsFromCategoryFragment : BaseFragment() {
     override fun inject(component: AppComponent) {
         component.inject(this)
     }
+
+    override fun getTitle(): String =
+        this.requireArguments().getString(
+            EXTRA_CATEGORY_NAME
+        ).toString()
+            .replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault())
+                else it.toString()
+            }
+
+
+    override fun getHomeVisibility(): Boolean = true
+
+    override fun getIsScrollingView(): Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +69,7 @@ class ProductsFromCategoryFragment : BaseFragment() {
         })
         val categoryName = this.requireArguments().getString(EXTRA_CATEGORY_NAME)
 
-        if (categoryName==null) requireActivity().supportFragmentManager.popBackStack()
+        if (categoryName == null) requireActivity().supportFragmentManager.popBackStack()
         else productListViewModel.getCategoryProductList(categoryName)
 
 

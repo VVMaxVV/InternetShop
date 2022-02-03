@@ -46,7 +46,5 @@ interface AppComponent {
     fun inject(favoriteListFragment: FavoriteListFragment)
     fun inject(authenticationFragment: AuthenticationFragment)
     fun inject(baseFragment: BaseFragment)
-    fun inject(baseProductDetailsFragment: BaseProductDetailFragment)
     fun inject(productsFromCategoryFragment: ProductsFromCategoryFragment)
-
 }

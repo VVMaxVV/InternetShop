@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.home -> {
+            android.R.id.home -> {
                 supportFragmentManager.popBackStack()
                 true
             }
@@ -93,14 +93,14 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         if (appBarLayoutParams.behavior == null) {
             appBarLayoutParams.behavior = AppBarLayout.Behavior()
         }
-        titleViewModel.isScrollingView.observe(this, {
-            (appBarLayoutParams.behavior as AppBarLayout.Behavior)
-                .setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
-                    override fun canDrag(appBarLayout: AppBarLayout): Boolean {
-                        return it
-                    }
-                })
-        })
+//        titleViewModel.isScrollingView.observe(this, {
+//            (appBarLayoutParams.behavior as AppBarLayout.Behavior)
+//                .setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+//                    override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+//                        return it
+//                    }
+//                })
+//        })
     }
 
     private fun setupAppBar() {

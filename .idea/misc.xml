@@ -13,13 +13,16 @@
         <entry key="app/src/main/res/drawable/green_trading_button_effect.xml" value="0.14912280701754385" />
         <entry key="app/src/main/res/drawable/green_trading_button_selected.xml" value="0.14912280701754385" />
         <entry key="app/src/main/res/drawable/ic_back_arrow.xml" value="0.16296296296296298" />
+        <entry key="app/src/main/res/drawable/ic_favorite.xml" value="0.21203703703703702" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.21203703703703702" />
         <entry key="app/src/main/res/drawable/ic_image.xml" value="0.25555555555555554" />
+        <entry key="app/src/main/res/drawable/ic_shop.xml" value="0.21203703703703702" />
         <entry key="app/src/main/res/drawable/modelphoto.xml" value="0.25555555555555554" />
         <entry key="app/src/main/res/drawable/orange_star.xml" value="0.270995670995671" />
         <entry key="app/src/main/res/drawable/red_rectangle_button.xml" value="0.21774891774891775" />
         <entry key="app/src/main/res/drawable/social_account_shape.xml" value="0.21774891774891775" />
         <entry key="app/src/main/res/layout/activity_authentication.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.38582748306768044" />
         <entry key="app/src/main/res/layout/activity_products.xml" value="0.32044198895027626" />
         <entry key="app/src/main/res/layout/favorite_list_fragment.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.2692307692307692" />
@@ -37,6 +40,7 @@
         <entry key="app/src/main/res/layout/item_view.xml" value="0.20701754385964913" />
         <entry key="app/src/main/res/layout/layout_test.xml" value="0.12552083333333333" />
         <entry key="app/src/main/res/layout/test.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/botom_nav_menu.xml" value="0.20701754385964913" />
       </map>
     </option>
   </component>

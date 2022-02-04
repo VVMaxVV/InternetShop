@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding?.root)
         binding?.let {
             it.viewModel = titleViewModel

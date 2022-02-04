@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentAuthBinding
 import com.example.internetshop.model.data.di.component.AppComponent
@@ -40,6 +41,7 @@ class AuthenticationFragment : BaseFragment() {
         ).apply {
             viewModel = this@AuthenticationFragment.viewModel
         }
+
         return binding?.root
     }
 
@@ -59,9 +61,6 @@ class AuthenticationFragment : BaseFragment() {
     }
 
     private fun openProductList() {
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .replace(this.id, CategoriesFragment())
-            .commit()
+        findNavController().navigate(R.id.action_authenticationFragment_to_categoriesFragment)
     }
 }

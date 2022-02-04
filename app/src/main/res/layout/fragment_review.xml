@@ -8,17 +8,6 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_default_margin"
-        android:text="@string/rating_and_review"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/number_of_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,8 +15,8 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/textView"
-        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="8 review" />
 
     <androidx.recyclerview.widget.RecyclerView

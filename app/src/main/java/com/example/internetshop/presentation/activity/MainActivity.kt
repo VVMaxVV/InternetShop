@@ -10,11 +10,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.AppBarOffsetChangedListener
 import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.activity.fragments.AuthenticationFragment
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.TitleViewModel
@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         subscribeToBackArrowVisibility()
         setScrollingView()
         applyInsetsToAppBar()
-        startFragment()
     }
 
     override fun onStop() {
@@ -67,18 +66,12 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                supportFragmentManager.popBackStack()
+                if (!findNavController(R.id.fragment_container).popBackStack()) {
+                    onBackPressed()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun startFragment() {
-        binding?.let {
-            supportFragmentManager.beginTransaction()
-                .replace(it.fragmentContainer.id, AuthenticationFragment())
-                .commit()
         }
     }
 

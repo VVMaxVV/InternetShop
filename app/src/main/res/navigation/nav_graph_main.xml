@@ -2,9 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@+id/tab_shop">
+    app:startDestination="@+id/authenticationFragment">
 
     <include app:graph="@navigation/nav_graph_favorite" />
     <include app:graph="@navigation/nav_graph_categories" />
     <include app:graph="@navigation/nav_graph_cart" />
+
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.example.internetshop.presentation.activity.fragments.AuthenticationFragment"
+        android:label="@string/label_auth" >
+        <action
+            android:id="@+id/action_authenticationFragment_to_tab_shop"
+            app:destination="@id/tab_shop"
+            app:popUpTo="@+id/nav_graph_main"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

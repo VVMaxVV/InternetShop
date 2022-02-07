@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/favoriteListFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.FavoriteListFragment"
-        android:label="FavoriteListFragment" >
+        android:label="Favorite" >
         <action
             android:id="@+id/action_favoriteListFragment_to_productDetailsFragment2"
             app:destination="@id/productDetailsFragment2" />

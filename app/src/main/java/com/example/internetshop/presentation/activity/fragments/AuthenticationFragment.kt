@@ -61,6 +61,8 @@ class AuthenticationFragment : BaseFragment() {
     }
 
     private fun openProductList() {
-        findNavController().navigate(R.id.action_authenticationFragment_to_categoriesFragment)
+        val action =
+            AuthenticationFragmentDirections.actionAuthenticationFragmentToTabShop()
+        findNavController().navigate(action)
     }
 }

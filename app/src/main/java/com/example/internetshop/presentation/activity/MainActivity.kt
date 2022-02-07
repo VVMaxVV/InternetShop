@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -36,6 +37,10 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     var offSetListener: AppBarOffsetChangedListener? = null
 
+    private var navController: NavController? = null
+
+    private var appBarConfig: AppBarConfiguration? = null
+
     override fun onStart() {
         super.onStart()
         binding?.let {
@@ -51,29 +56,20 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
         setContentView(binding?.root)
+
+        setupAppBar()
         binding?.let {
             it.viewModel = titleViewModel
             it.lifecycleOwner = this
-            it.bottomNavBar.setupWithNavController(navController)
-            val appBarConfiguration = AppBarConfiguration.Builder(
-                setOf(
-                    R.id.authenticationFragment,
-                    R.id.categoriesFragment,
-                    R.id.favoriteListFragment,
-                    R.id.cartFragment
-                )
-            ).build()
+            it.bottomNavBar.setupWithNavController(navController!!)
             it.collapsingLayout.setupWithNavController(
                 it.toolbar,
-                navController,
-                appBarConfiguration
+                navController!!,
+                appBarConfig!!
             )
         }
-
-        setupAppBar()
-        subscribeToBackArrowVisibility()
         setScrollingView()
         applyInsetsToAppBar()
     }
@@ -95,25 +91,11 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         }
     }
 
-    private fun subscribeToBackArrowVisibility() {
-        titleViewModel.backArrowVisible.observe(this, {
-            supportActionBar?.setDisplayHomeAsUpEnabled(it)
-        })
-    }
-
     private fun setScrollingView() {
         val appBarLayoutParams = binding?.appBar?.layoutParams as CoordinatorLayout.LayoutParams
         if (appBarLayoutParams.behavior == null) {
             appBarLayoutParams.behavior = AppBarLayout.Behavior()
         }
-//        titleViewModel.isScrollingView.observe(this, {
-//            (appBarLayoutParams.behavior as AppBarLayout.Behavior)
-//                .setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
-//                    override fun canDrag(appBarLayout: AppBarLayout): Boolean {
-//                        return it
-//                    }
-//                })
-//        })
     }
 
     private fun setupAppBar() {
@@ -122,6 +104,14 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         supportActionBar?.setHomeAsUpIndicator(
             (ResourcesCompat.getDrawable(resources, R.drawable.ic_back_arrow, null))
         )
+        appBarConfig = AppBarConfiguration.Builder(
+            setOf(
+                R.id.authenticationFragment,
+                R.id.categoriesFragment,
+                R.id.favoriteListFragment,
+                R.id.cartFragment
+            )
+        ).build()
     }
 
     private fun applyInsetsToAppBar() {

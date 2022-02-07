@@ -7,5 +7,5 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.CartFragment"
-        android:label="CartFragment" />
+        android:label="@string/label_cart" />
 </navigation>

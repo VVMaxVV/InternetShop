@@ -2,25 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tab_shop"
-    app:startDestination="@id/authenticationFragment">
+    app:startDestination="@id/categoriesFragment">
 
-    <fragment
-        android:id="@+id/authenticationFragment"
-        android:name="com.example.internetshop.presentation.activity.fragments.AuthenticationFragment"
-        android:label="AuthenticationFragment" >
-        <action
-            android:id="@+id/action_authenticationFragment_to_categoriesFragment"
-            app:destination="@id/categoriesFragment"
-            app:popUpTo="@id/authenticationFragment"
-            app:popUpToInclusive="true"/>
-    </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.CategoriesFragment"
-        android:label="CategoriesFragment" >
+        android:label="@string/label_categories" >
         <action
             android:id="@+id/action_categoriesFragment_to_productsFromCategoryFragment"
-            app:destination="@id/productsFromCategoryFragment" />
+            app:destination="@id/productsFromCategoryFragment"/>
     </fragment>
     <fragment
         android:id="@+id/productsFromCategoryFragment"
@@ -46,7 +36,7 @@
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.ReviewFragment"
-        android:label="ReviewFragment" >
+        android:label="@string/review_label" >
         <argument
             android:name="id"
             app:argType="string" />

@@ -16,6 +16,7 @@ class TokenPreference @Inject constructor(context: Context) {
         context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
     fun getToken(): Token {
+        setToken(Token(null,Date()))
         val tokenJson = preference.getString(tokenKey, null)
         if (tokenJson.isNullOrEmpty().not()) {
             val tokenDate = gson.fromJson(tokenJson, Token::class.java)

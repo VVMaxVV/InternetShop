@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/shop"
+        android:id="@+id/tab_shop"
         android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="@string/label_shop"
         app:showAsAction="always|withText" />
     <item
-        android:id="@+id/favorite"
+        android:id="@+id/tab_favorite"
         android:enabled="true"
         android:icon="@drawable/ic_favorite"
         android:title="@string/label_favorites"
         app:showAsAction="always|withText" />
 
     <item
-        android:id="@+id/card"
+        android:id="@+id/tab_cart"
         android:enabled="true"
-        android:icon="@drawable/ic_card"
-        android:title="@string/label_card"
+        android:icon="@drawable/ic_cart"
+        android:title="@string/label_cart"
         app:showAsAction="always|withText" />
 </menu>

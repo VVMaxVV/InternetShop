@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
+    android:id="@+id/tab_shop"
     app:startDestination="@id/authenticationFragment">
 
     <fragment
@@ -11,7 +11,7 @@
         <action
             android:id="@+id/action_authenticationFragment_to_categoriesFragment"
             app:destination="@id/categoriesFragment"
-            app:popUpTo="@id/nav_graph"
+            app:popUpTo="@id/authenticationFragment"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tab_shop"
     app:startDestination="@id/categoriesFragment">
 
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.CategoriesFragment"
-        android:label="@string/label_categories" >
+        android:label="@string/label_categories"
+        tools:layout="@layout/fragment_categories">
         <action
             android:id="@+id/action_categoriesFragment_to_productsFromCategoryFragment"
             app:destination="@id/productsFromCategoryFragment"/>
@@ -15,7 +17,8 @@
     <fragment
         android:id="@+id/productsFromCategoryFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.ProductsListFragment"
-        android:label="ProductsFromCategoryFragment" >
+        android:label="{category}"
+        tools:layout="@layout/fragment_category_product_list">
         <action
             android:id="@+id/action_productsFromCategoryFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
@@ -26,7 +29,8 @@
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment"
-        android:label="ProductDetailsFragment" >
+        android:label='@string/label_product'
+        tools:layout="@layout/fragment_product_details">
         <action
             android:id="@+id/action_productDetailsFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />
@@ -36,7 +40,8 @@
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.ReviewFragment"
-        android:label="@string/review_label" >
+        android:label="@string/review_label"
+        tools:layout="@layout/fragment_review">
         <argument
             android:name="id"
             app:argType="string" />

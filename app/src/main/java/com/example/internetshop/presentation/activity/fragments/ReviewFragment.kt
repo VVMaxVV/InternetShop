@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentReviewBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.adapters.ReviewsAdapter
@@ -18,11 +17,7 @@ class ReviewFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String = context?.resources?.getString(R.string.label_reviews) ?: ""
-
-    override fun getHomeVisibility(): Boolean = true
-
-    override fun getIsScrollingView(): Boolean = true
+    override fun setBottomNavVisibility(): Boolean = true
 
     private val viewModel: ReviewViewModel by viewModels { factory }
 

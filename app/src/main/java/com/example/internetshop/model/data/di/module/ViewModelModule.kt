@@ -37,6 +37,12 @@ interface ViewModelModule {
     fun provideCategoriesViewModel(categoriesViewModel: CategoriesViewModel): ViewModel
 
     @Binds
-    @[IntoMap ViewModelKey(TitleViewModel::class)]
-    fun provideTitleViewModel(titleViewModel: TitleViewModel): ViewModel
+    @[IntoMap ViewModelKey(BottomNavViewModel::class)]
+    fun provideBottomNavViewModel(bottomNavViewModel: BottomNavViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(CartViewModel::class)]
+    fun provideCartViewModel(cartViewModel: CartViewModel): ViewModel
+
+
 }

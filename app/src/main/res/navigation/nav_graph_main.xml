@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
     app:startDestination="@+id/authenticationFragment">
 
@@ -11,11 +12,12 @@
     <fragment
         android:id="@+id/authenticationFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.AuthenticationFragment"
-        android:label="@string/label_auth" >
+        android:label="@string/label_auth"
+        tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_authenticationFragment_to_tab_shop"
             app:destination="@id/tab_shop"
-            app:popUpTo="@+id/nav_graph_main"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@navigation/nav_graph_categories"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

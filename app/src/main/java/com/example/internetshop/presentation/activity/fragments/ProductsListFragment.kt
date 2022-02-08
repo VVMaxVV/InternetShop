@@ -12,7 +12,6 @@ import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.adapters.ProductsAdapter
 import com.example.internetshop.presentation.adapters.VerticalSpaceItemDecoration
 import com.example.internetshop.presentation.viewModel.ProductsListViewModel
-import java.util.*
 
 class ProductsListFragment : BaseFragment() {
 
@@ -28,19 +27,7 @@ class ProductsListFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String =
-        this.requireArguments().getString(
-            EXTRA_CATEGORY_NAME
-        ).toString()
-            .replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(Locale.getDefault())
-                else it.toString()
-            }
-
-
-    override fun getHomeVisibility(): Boolean = true
-
-    override fun getIsScrollingView(): Boolean = true
+    override fun setBottomNavVisibility(): Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,

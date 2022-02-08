@@ -41,4 +41,5 @@
     <string name="label_cart">Cart</string>
     <string name="review_label">Review</string>
     <string name="label_auth">Authentication</string>
+    <string name="label_product">Product #{id}</string>
 </resources>

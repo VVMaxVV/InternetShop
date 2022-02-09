@@ -24,7 +24,7 @@ abstract class BaseFragment : Fragment() {
         ViewModelProvider(requireActivity(), factory).get(BottomNavViewModel::class.java)
     }
 
-    abstract fun setBottomNavVisibility(): Boolean
+    open fun setBottomNavVisibility(): Boolean = true
 
     abstract fun inject(component: AppComponent)
 
@@ -35,7 +35,7 @@ abstract class BaseFragment : Fragment() {
     ): View? {
         inject(getAppComponent())
         (context as MainActivity).binding?.toolbar?.setNavigationIcon(R.drawable.ic_back_arrow)
-        bottomNavViewModel.bottomNavVisibility.value = setBottomNavVisibility()
+        bottomNavViewModel.visibility.value = setBottomNavVisibility()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

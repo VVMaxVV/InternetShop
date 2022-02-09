@@ -2,7 +2,6 @@ package com.example.internetshop.presentation.viewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.internetshop.data.request.CategoryRequest
 import com.example.internetshop.domain.data.mapper.SimpleProductMapper
 import com.example.internetshop.domain.data.model.product.SimpleProduct
 import com.example.internetshop.domain.data.usecase.GetProductsFromCategoryUseCase
@@ -21,7 +20,7 @@ class ProductsListViewModel @Inject constructor(
 
     fun getCategoryProductList(categoryName: String) {
         compositeDisposable.add(
-            fromCategoryUseCase.execute(CategoryRequest(categoryName))
+            fromCategoryUseCase.execute(categoryName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -35,7 +34,7 @@ class ProductsListViewModel @Inject constructor(
                                             "User clicked on a product: ${it.id}"
                                         )
                                         navEventLiveData.value =
-                                            Event.OpenProductDetailEvent(it.id)
+                                            Event.OpenProductDetailEvent(it.id, it.productName)
                                     }
                                 }
                             })
@@ -49,7 +48,7 @@ class ProductsListViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class OpenProductDetailEvent(val id: String) : Event()
+        data class OpenProductDetailEvent(val id: String, val productName: String) : Event()
         data class ToastEvent(val text: String) : Event()
     }
 

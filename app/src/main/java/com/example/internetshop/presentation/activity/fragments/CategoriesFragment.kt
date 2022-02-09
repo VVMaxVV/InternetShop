@@ -24,8 +24,6 @@ class CategoriesFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun setBottomNavVisibility(): Boolean = true
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

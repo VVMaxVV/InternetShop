@@ -54,8 +54,6 @@ class ProductDetailsFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun setBottomNavVisibility(): Boolean = true
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val reviewButton = binding?.goToReview

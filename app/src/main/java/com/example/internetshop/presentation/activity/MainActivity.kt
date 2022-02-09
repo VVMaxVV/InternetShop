@@ -58,17 +58,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
         setContentView(binding?.root)
+        binding?.lifecycleOwner = this
+
         setupAppBar()
-        binding?.let {
-            it.lifecycleOwner = this
-            it.bottomNavBar.setupWithNavController(navController!!)
-            it.toolbar.setNavigationIcon(R.drawable.ic_back_arrow)
-            it.collapsingLayout.setupWithNavController(
-                it.toolbar,
-                navController!!,
-                appBarConfig!!
-            )
-        }
         subscribeToBottomNavVisibility()
         setScrollingView()
         applyInsetsToAppBar()
@@ -109,14 +101,23 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
                 R.id.cartFragment
             )
         ).build()
+        binding?.let {
+            it.bottomNavBar.setupWithNavController(navController!!)
+            it.toolbar.setNavigationIcon(R.drawable.ic_back_arrow)
+            it.collapsingLayout.setupWithNavController(
+                it.toolbar,
+                navController!!,
+                appBarConfig!!
+            )
+        }
+
     }
 
     private fun subscribeToBottomNavVisibility() {
-        bottomNavViewModel.bottomNavVisibility.observe(this, {
-            if(it) {
+        bottomNavViewModel.visibility.observe(this, {
+            if (it) {
                 binding?.bottomNavBar?.visibility = View.VISIBLE
-            }
-            else binding?.bottomNavBar?.visibility = View.GONE
+            } else binding?.bottomNavBar?.visibility = View.GONE
         })
     }
 

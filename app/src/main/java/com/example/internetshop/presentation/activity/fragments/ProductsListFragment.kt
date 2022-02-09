@@ -27,8 +27,6 @@ class ProductsListFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun setBottomNavVisibility(): Boolean = true
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,16 +60,16 @@ class ProductsListFragment : BaseFragment() {
 
         productsListViewModel.navEventLiveData.observe(viewLifecycleOwner, {
             when (it) {
-                is ProductsListViewModel.Event.OpenProductDetailEvent -> openDetails(it.id)
+                is ProductsListViewModel.Event.OpenProductDetailEvent -> openDetails(it.id, it.productName)
                 is ProductsListViewModel.Event.ToastEvent -> showToast(it.text)
             }
         })
     }
 
-    private fun openDetails(id: String) {
+    private fun openDetails(id: String, productName: String) {
         val action =
             ProductsListFragmentDirections
-                .actionProductsFromCategoryFragmentToProductDetailsFragment(id)
+                .actionProductsFromCategoryFragmentToProductDetailsFragment(id, productName)
         findNavController().navigate(action)
     }
 

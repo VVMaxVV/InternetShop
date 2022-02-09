@@ -17,8 +17,6 @@ class ReviewFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun setBottomNavVisibility(): Boolean = true
-
     private val viewModel: ReviewViewModel by viewModels { factory }
 
     private var binding: FragmentReviewBinding? = null

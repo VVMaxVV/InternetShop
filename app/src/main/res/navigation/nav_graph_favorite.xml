@@ -12,10 +12,10 @@
         app:popUpToInclusive="true">
         <action
             android:id="@+id/action_favoriteListFragment_to_productDetailsFragment2"
-            app:destination="@id/productDetailsFragment2" />
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/productDetailsFragment2"
+        android:id="@+id/productDetailsFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment"
         android:label="ProductDetailsFragment" />
 </navigation>

@@ -14,8 +14,6 @@ class CartFragment : BaseFragment() {
 
     private val cartViewModel: CartViewModel by viewModels { factory }
 
-    override fun setBottomNavVisibility(): Boolean = true
-
     override fun inject(component: AppComponent) {
         component.inject(this)
     }

@@ -36,4 +36,6 @@
     <string name="label_categories">Categories</string>
     <string name="label_products">Products</string>
     <string name="label_reviews">Reviews</string>
+
+    <string name="label_server_not_response">Server not response</string>
 </resources>

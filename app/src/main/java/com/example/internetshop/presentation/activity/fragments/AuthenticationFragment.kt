@@ -22,7 +22,7 @@ class AuthenticationFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String = context?.resources?.getString(R.string.login)?:""
+    override fun getTitle(): String = context?.resources?.getString(R.string.login) ?: ""
 
     override fun getHomeVisibility(): Boolean = false
 
@@ -54,6 +54,16 @@ class AuthenticationFragment : BaseFragment() {
                 is AuthenticationViewModel.AuthenticationEvent.ToastAuthenticationEvent
                 -> showToast(
                     it.text
+                )
+                is AuthenticationViewModel.AuthenticationEvent.SetProgressBarVisibilityEvent
+                -> {
+                    if (it.visibility) binding?.progressBar?.visibility = View.VISIBLE
+                    else binding?.progressBar?.visibility = View.GONE
+                }
+                is AuthenticationViewModel.AuthenticationEvent.ServerNotResponseEvent
+                -> showToast(
+                    context?.resources?.getString(R.string.label_server_not_response)
+                        ?: "Server not response"
                 )
             }
         })

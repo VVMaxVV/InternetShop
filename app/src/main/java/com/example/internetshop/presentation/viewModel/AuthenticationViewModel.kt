@@ -1,5 +1,6 @@
 package com.example.internetshop.presentation.viewModel
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import com.example.internetshop.data.cache.TokenPreference
 import com.example.internetshop.domain.data.model.UserCredentials
@@ -27,8 +28,11 @@ class AuthenticationViewModel @Inject constructor(
 
     fun getToken() {
         if (username.get().isNullOrEmpty() || password.get().isNullOrEmpty()) {
-            AuthenticationEvent.ToastAuthenticationEvent("Fill in all the fields!")
+            navEventLiveData.value =
+                AuthenticationEvent.ToastAuthenticationEvent("Fill in all the fields!")
         } else {
+            navEventLiveData.value =
+                AuthenticationEvent.SetProgressBarVisibilityEvent(true)
             compositeDisposable.add(
                 getAuthUseCase.execute(UserCredentials(username.get()!!, password.get()!!))
                     .subscribeOn(Schedulers.io())
@@ -39,7 +43,11 @@ class AuthenticationViewModel @Inject constructor(
                             AuthenticationEvent.OpenProductListAuthenticationEvent
                     },
                         {
-                            AuthenticationEvent.ToastAuthenticationEvent(it.message ?: "Error")
+                            Log.e("Error", "AuthenticationViewModel error: ${it.message}")
+                            navEventLiveData.value =
+                                AuthenticationEvent.SetProgressBarVisibilityEvent(false)
+                            navEventLiveData.value =
+                                AuthenticationEvent.ServerNotResponseEvent
                         })
             )
         }
@@ -47,6 +55,8 @@ class AuthenticationViewModel @Inject constructor(
 
     sealed class AuthenticationEvent {
         object OpenProductListAuthenticationEvent : AuthenticationEvent()
+        object ServerNotResponseEvent: AuthenticationEvent()
+        data class SetProgressBarVisibilityEvent(val visibility: Boolean) : AuthenticationEvent()
         data class ToastAuthenticationEvent(val text: String) : AuthenticationEvent()
     }
 

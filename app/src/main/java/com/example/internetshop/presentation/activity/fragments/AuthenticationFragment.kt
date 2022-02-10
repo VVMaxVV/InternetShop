@@ -22,11 +22,7 @@ class AuthenticationFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String = context?.resources?.getString(R.string.login) ?: ""
-
-    override fun getHomeVisibility(): Boolean = false
-
-    override fun getIsScrollingView(): Boolean = false
+    override fun getBottomNavVisibility(): Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +62,8 @@ class AuthenticationFragment : BaseFragment() {
     }
 
     private fun openProductList() {
-        findNavController().navigate(R.id.action_authenticationFragment_to_categoriesFragment)
+        val action =
+            AuthenticationFragmentDirections.actionAuthenticationFragmentToTabShop()
+        findNavController().navigate(action)
     }
 }

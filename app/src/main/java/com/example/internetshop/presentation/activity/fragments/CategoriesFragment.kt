@@ -24,12 +24,6 @@ class CategoriesFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String = context?.resources?.getString(R.string.label_categories) ?: ""
-
-    override fun getHomeVisibility(): Boolean = true
-
-    override fun getIsScrollingView(): Boolean = true
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -83,7 +77,7 @@ class CategoriesFragment : BaseFragment() {
     private fun openProducts(categoryName: String) {
         val action =
             CategoriesFragmentDirections
-                .actionCategoriesFragmentToProductsFromCategoryFragment(categoryName.lowercase())
+                .actionCategoriesFragmentToProductsFromCategoryFragment(categoryName)
         findNavController().navigate(action)
     }
 }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class CategoryResponseMapper @Inject constructor()  {
     fun toCategory(categoryResponseList: CategoryResponse): List<Category>{
-        return categoryResponseList.categoryName.map {
+        return categoryResponseList.categoryName.map { it ->
             val nameOfCategory =
                 it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             when (it) {

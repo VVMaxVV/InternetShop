@@ -9,7 +9,7 @@ class ProductViewState(
     val rating: Float,
     val numberOfReviews: String,
     val id: String
-) : BaseViewState() {
+) {
     sealed class Event {
         data class OnClick(val id: String, val productName: String) : Event()
     }

@@ -41,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                app:image_uri="@{data.url}"
+                android:src="@{data.url}"
                 tools:src="@drawable/photo" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

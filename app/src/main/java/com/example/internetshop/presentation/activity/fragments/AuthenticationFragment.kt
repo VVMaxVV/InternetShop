@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentAuthBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
@@ -35,6 +36,7 @@ class AuthenticationFragment : BaseFragment() {
             false
         ).apply {
             viewModel = this@AuthenticationFragment.viewModel
+            lifecycleOwner = this@AuthenticationFragment
         }
 
         return binding?.root
@@ -42,13 +44,17 @@ class AuthenticationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.navEventLiveData.observe(viewLifecycleOwner, {
+        viewModel.events.observe(viewLifecycleOwner, {
             when (it) {
                 is AuthenticationViewModel.AuthenticationEvent.OpenProductListAuthenticationEvent
                 -> openProductList()
                 is AuthenticationViewModel.AuthenticationEvent.ToastAuthenticationEvent
                 -> showToast(
-                    it.text
+                    requireActivity().resources.getString(it.textId)
+                )
+                is AuthenticationViewModel.AuthenticationEvent.ServerNotResponseEvent
+                -> showToast(
+                    requireContext().resources.getString(R.string.label_server_not_response)
                 )
             }
         })

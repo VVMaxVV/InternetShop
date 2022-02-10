@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentCategoryProductListBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.adapters.ProductsAdapter
@@ -57,7 +58,14 @@ class ProductsListFragment : BaseFragment() {
         val adapter = ProductsAdapter()
         val recyclerView = binding?.recyclerViewProducts
         recyclerView?.let {
-            it.addItemDecoration(VerticalSpaceItemDecoration(32))
+            it.addItemDecoration(
+                VerticalSpaceItemDecoration(
+                    context
+                        ?.resources
+                        ?.getDimension(R.dimen.item_products_margin_between_cards)
+                        ?.toInt() ?: 0
+                )
+            )
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
             it.setHasFixedSize(true)
@@ -71,7 +79,6 @@ class ProductsListFragment : BaseFragment() {
         if (categoryName == null) findNavController().popBackStack()
         else productsListViewModel
             .getCategoryProductList(categoryName)
-
 
         productsListViewModel.navEventLiveData.observe(viewLifecycleOwner, {
             when (it) {

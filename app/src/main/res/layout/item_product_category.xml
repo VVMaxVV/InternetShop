@@ -20,7 +20,7 @@
         android:id="@+id/productImage"
         android:layout_width="@dimen/dimen_item_product_category_image_size"
         android:layout_height="@dimen/dimen_item_product_category_image_size"
-        app:image_uri="@{product.imageUrl}"
+        android:src="@{product.imageUrl}"
         tools:src="@drawable/photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

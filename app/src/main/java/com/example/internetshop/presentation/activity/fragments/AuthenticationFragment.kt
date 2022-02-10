@@ -40,6 +40,7 @@ class AuthenticationFragment : BaseFragment() {
             false
         ).apply {
             viewModel = this@AuthenticationFragment.viewModel
+            lifecycleOwner = this@AuthenticationFragment
         }
 
         return binding?.root
@@ -47,23 +48,17 @@ class AuthenticationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.navEventLiveData.observe(viewLifecycleOwner, {
+        viewModel.events.observe(viewLifecycleOwner, {
             when (it) {
                 is AuthenticationViewModel.AuthenticationEvent.OpenProductListAuthenticationEvent
                 -> openProductList()
                 is AuthenticationViewModel.AuthenticationEvent.ToastAuthenticationEvent
                 -> showToast(
-                    it.text
+                    requireActivity().resources.getString(it.textId)
                 )
-                is AuthenticationViewModel.AuthenticationEvent.SetProgressBarVisibilityEvent
-                -> {
-                    if (it.visibility) binding?.progressBar?.visibility = View.VISIBLE
-                    else binding?.progressBar?.visibility = View.GONE
-                }
                 is AuthenticationViewModel.AuthenticationEvent.ServerNotResponseEvent
                 -> showToast(
-                    context?.resources?.getString(R.string.label_server_not_response)
-                        ?: "Server not response"
+                    requireContext().resources.getString(R.string.label_server_not_response)
                 )
             }
         })

@@ -5,7 +5,7 @@ import io.reactivex.subjects.PublishSubject
 class CategoryViewState(
     val name: String,
     val url: String
-) : BaseViewState() {
+) {
     sealed class Event {
         data class OnClick(val name: String) : Event()
     }

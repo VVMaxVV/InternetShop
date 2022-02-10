@@ -2,6 +2,8 @@ package com.example.internetshop.presentation.viewModel
 
 import android.util.Log
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import com.example.internetshop.R
 import com.example.internetshop.data.cache.TokenPreference
 import com.example.internetshop.domain.data.model.UserCredentials
 import com.example.internetshop.domain.data.usecase.AuthUseCase
@@ -14,7 +16,9 @@ class AuthenticationViewModel @Inject constructor(
     private val tokenPreference: TokenPreference,
     private val getAuthUseCase: AuthUseCase
 ) : BaseViewModel() {
-    val navEventLiveData = SingleLiveEvent<AuthenticationEvent>()
+    val events = SingleLiveEvent<AuthenticationEvent>()
+
+    val progressBarVisibilityLiveData = MutableLiveData<Boolean>()
 
     val password = ObservableField("83r5^_")
     val username = ObservableField("mor_2314")
@@ -22,31 +26,29 @@ class AuthenticationViewModel @Inject constructor(
     fun onScreenStart() {
         val token = tokenPreference.getToken()
         if (token.token.isNullOrEmpty().not()) {
-            navEventLiveData.value = AuthenticationEvent.OpenProductListAuthenticationEvent
+            events.value = AuthenticationEvent.OpenProductListAuthenticationEvent
         }
     }
 
     fun getToken() {
         if (username.get().isNullOrEmpty() || password.get().isNullOrEmpty()) {
-            navEventLiveData.value =
-                AuthenticationEvent.ToastAuthenticationEvent("Fill in all the fields!")
+            events.value =
+                AuthenticationEvent.ToastAuthenticationEvent(R.string.error_fill_all_fields)
         } else {
-            navEventLiveData.value =
-                AuthenticationEvent.SetProgressBarVisibilityEvent(true)
+            progressBarVisibilityLiveData.value = true
             compositeDisposable.add(
                 getAuthUseCase.execute(UserCredentials(username.get()!!, password.get()!!))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         tokenPreference.setToken(it)
-                        navEventLiveData.value =
+                        events.value =
                             AuthenticationEvent.OpenProductListAuthenticationEvent
                     },
                         {
                             Log.e("Error", "AuthenticationViewModel error: ${it.message}")
-                            navEventLiveData.value =
-                                AuthenticationEvent.SetProgressBarVisibilityEvent(false)
-                            navEventLiveData.value =
+                            progressBarVisibilityLiveData.value = false
+                            events.value =
                                 AuthenticationEvent.ServerNotResponseEvent
                         })
             )
@@ -56,11 +58,10 @@ class AuthenticationViewModel @Inject constructor(
     sealed class AuthenticationEvent {
         object OpenProductListAuthenticationEvent : AuthenticationEvent()
         object ServerNotResponseEvent: AuthenticationEvent()
-        data class SetProgressBarVisibilityEvent(val visibility: Boolean) : AuthenticationEvent()
-        data class ToastAuthenticationEvent(val text: String) : AuthenticationEvent()
+        data class ToastAuthenticationEvent(val textId: Int) : AuthenticationEvent()
     }
 
     fun onGoogleClick() {
-        navEventLiveData.value = AuthenticationEvent.ToastAuthenticationEvent("Google clicked")
+        events.value = AuthenticationEvent.ToastAuthenticationEvent(R.string.label_google_clicked)
     }
 }

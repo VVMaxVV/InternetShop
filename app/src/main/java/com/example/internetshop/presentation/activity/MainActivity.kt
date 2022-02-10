@@ -2,22 +2,26 @@ package com.example.internetshop.presentation.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.AppBarOffsetChangedListener
 import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
+import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
-import com.example.internetshop.presentation.viewModel.TitleViewModel
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 
@@ -27,7 +31,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
-    private val titleViewModel: TitleViewModel by viewModels { factory }
+    private val bottomNavViewModel: BottomNavViewModel by viewModels { factory }
 
     var binding: ActivityMainBinding? = null
 
@@ -45,15 +49,15 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        val navController = navHostFragment.navController
         setContentView(binding?.root)
-        binding?.let {
-            it.viewModel = titleViewModel
-            it.lifecycleOwner = this
-        }
+        binding?.lifecycleOwner = this
 
-        setupAppBar()
-        subscribeToBackArrowVisibility()
+        setupAppBar(navController)
+        subscribeToBottomNavVisibility()
         setScrollingView()
         applyInsetsToAppBar()
     }
@@ -75,33 +79,42 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         }
     }
 
-    private fun subscribeToBackArrowVisibility() {
-        titleViewModel.backArrowVisible.observe(this, {
-            supportActionBar?.setDisplayHomeAsUpEnabled(it)
-        })
-    }
-
     private fun setScrollingView() {
         val appBarLayoutParams = binding?.appBar?.layoutParams as CoordinatorLayout.LayoutParams
         if (appBarLayoutParams.behavior == null) {
             appBarLayoutParams.behavior = AppBarLayout.Behavior()
         }
-//        titleViewModel.isScrollingView.observe(this, {
-//            (appBarLayoutParams.behavior as AppBarLayout.Behavior)
-//                .setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
-//                    override fun canDrag(appBarLayout: AppBarLayout): Boolean {
-//                        return it
-//                    }
-//                })
-//        })
     }
 
-    private fun setupAppBar() {
+    private fun setupAppBar(navController: NavController) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setSupportActionBar(binding?.toolbar)
-        supportActionBar?.setHomeAsUpIndicator(
-            (ResourcesCompat.getDrawable(resources, R.drawable.ic_back_arrow, null))
-        )
+        val appBarConfig = AppBarConfiguration.Builder(
+            setOf(
+                R.id.authenticationFragment,
+                R.id.categoriesFragment,
+                R.id.favoriteListFragment,
+                R.id.cartFragment
+            )
+        ).build()
+        binding?.let {
+            it.bottomNavBar.setupWithNavController(navController)
+            it.toolbar.setNavigationIcon(R.drawable.ic_back_arrow)
+            it.collapsingLayout.setupWithNavController(
+                it.toolbar,
+                navController,
+                appBarConfig
+            )
+        }
+
+    }
+
+    private fun subscribeToBottomNavVisibility() {
+        bottomNavViewModel.visibility.observe(this, {
+            val visibility = if (it) View.VISIBLE
+            else View.INVISIBLE
+            binding?.bottomNavBar?.visibility = visibility
+        })
     }
 
     private fun applyInsetsToAppBar() {

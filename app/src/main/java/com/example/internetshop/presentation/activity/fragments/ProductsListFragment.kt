@@ -12,7 +12,6 @@ import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.adapters.ProductsAdapter
 import com.example.internetshop.presentation.adapters.VerticalSpaceItemDecoration
 import com.example.internetshop.presentation.viewModel.ProductsListViewModel
-import java.util.*
 
 class ProductsListFragment : BaseFragment() {
 
@@ -27,20 +26,6 @@ class ProductsListFragment : BaseFragment() {
     override fun inject(component: AppComponent) {
         component.inject(this)
     }
-
-    override fun getTitle(): String =
-        this.requireArguments().getString(
-            EXTRA_CATEGORY_NAME
-        ).toString()
-            .replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(Locale.getDefault())
-                else it.toString()
-            }
-
-
-    override fun getHomeVisibility(): Boolean = true
-
-    override fun getIsScrollingView(): Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,16 +60,16 @@ class ProductsListFragment : BaseFragment() {
 
         productsListViewModel.navEventLiveData.observe(viewLifecycleOwner, {
             when (it) {
-                is ProductsListViewModel.Event.OpenProductDetailEvent -> openDetails(it.id)
+                is ProductsListViewModel.Event.OpenProductDetailEvent -> openDetails(it.id, it.productName)
                 is ProductsListViewModel.Event.ToastEvent -> showToast(it.text)
             }
         })
     }
 
-    private fun openDetails(id: String) {
+    private fun openDetails(id: String, productName: String) {
         val action =
             ProductsListFragmentDirections
-                .actionProductsFromCategoryFragmentToProductDetailsFragment(id)
+                .actionProductsFromCategoryFragmentToProductDetailsFragment(id, productName)
         findNavController().navigate(action)
     }
 

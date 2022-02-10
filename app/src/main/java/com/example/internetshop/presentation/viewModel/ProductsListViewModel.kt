@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ProductsListViewModel @Inject constructor(
-    private val fromCategoryUseCase: GetProductsFromCategoryUseCase,
+    private val GetProductsUseCase: GetProductsFromCategoryUseCase,
     private val simpleProductMapper: SimpleProductMapper
 ) : BaseViewModel() {
     val productsList = MutableLiveData<List<ProductViewState>>()
@@ -20,7 +20,7 @@ class ProductsListViewModel @Inject constructor(
 
     fun getCategoryProductList(categoryName: String) {
         compositeDisposable.add(
-            fromCategoryUseCase.execute(categoryName)
+            GetProductsUseCase.execute(categoryName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -34,7 +34,7 @@ class ProductsListViewModel @Inject constructor(
                                             "User clicked on a product: ${it.id}"
                                         )
                                         navEventLiveData.value =
-                                            Event.OpenProductDetailEvent(it.id)
+                                            Event.OpenProductDetailEvent(it.id, it.productName)
                                     }
                                 }
                             })
@@ -48,7 +48,7 @@ class ProductsListViewModel @Inject constructor(
     }
 
     sealed class Event {
-        data class OpenProductDetailEvent(val id: String) : Event()
+        data class OpenProductDetailEvent(val id: String, val productName: String) : Event()
         data class ToastEvent(val text: String) : Event()
     }
 

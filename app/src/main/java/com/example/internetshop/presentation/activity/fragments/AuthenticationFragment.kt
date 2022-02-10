@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentAuthBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
@@ -22,11 +21,7 @@ class AuthenticationFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String = context?.resources?.getString(R.string.login)?:""
-
-    override fun getHomeVisibility(): Boolean = false
-
-    override fun getIsScrollingView(): Boolean = false
+    override fun getBottomNavVisibility(): Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +56,8 @@ class AuthenticationFragment : BaseFragment() {
     }
 
     private fun openProductList() {
-        findNavController().navigate(R.id.action_authenticationFragment_to_categoriesFragment)
+        val action =
+            AuthenticationFragmentDirections.actionAuthenticationFragmentToTabShop()
+        findNavController().navigate(action)
     }
 }

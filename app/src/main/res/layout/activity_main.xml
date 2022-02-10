@@ -1,12 +1,4 @@
 <layout>
-
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.example.internetshop.presentation.viewModel.TitleViewModel" />
-    </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -32,7 +24,6 @@
                 app:expandedTitleMarginStart="@dimen/dimen_main_activity_collapsing_layout_expanded_margin_start_title"
                 app:expandedTitleTextAppearance="@style/ExpandedToolBar"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@{viewModel.title}"
                 tools:title="@string/login">
 
                 <androidx.appcompat.widget.Toolbar
@@ -59,7 +50,16 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:navGraph="@navigation/main_nav_graph" />
+            app:navGraph="@navigation/nav_graph_main" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            app:menu="@menu/bottom_nav_menu">
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

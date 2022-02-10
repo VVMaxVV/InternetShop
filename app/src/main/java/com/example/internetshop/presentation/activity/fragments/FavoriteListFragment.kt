@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentFavoriteListBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.activity.ContainerHolder
@@ -33,12 +32,6 @@ class FavoriteListFragment : BaseFragment() {
     override fun inject(component: AppComponent) {
         component.inject(this)
     }
-
-    override fun getTitle(): String = context?.resources?.getString(R.string.favorite)?:""
-
-    override fun getHomeVisibility(): Boolean = true
-
-    override fun getIsScrollingView(): Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

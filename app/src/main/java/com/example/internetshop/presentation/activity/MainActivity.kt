@@ -37,10 +37,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     var offSetListener: AppBarOffsetChangedListener? = null
 
-    private var navController: NavController? = null
-
-    private var appBarConfig: AppBarConfiguration? = null
-
     override fun onStart() {
         super.onStart()
         binding?.let {
@@ -56,11 +52,11 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-        navController = navHostFragment.navController
+        val navController = navHostFragment.navController
         setContentView(binding?.root)
         binding?.lifecycleOwner = this
 
-        setupAppBar()
+        setupAppBar(navController)
         subscribeToBottomNavVisibility()
         setScrollingView()
         applyInsetsToAppBar()
@@ -90,10 +86,10 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         }
     }
 
-    private fun setupAppBar() {
+    private fun setupAppBar(navController: NavController) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setSupportActionBar(binding?.toolbar)
-        appBarConfig = AppBarConfiguration.Builder(
+        val appBarConfig = AppBarConfiguration.Builder(
             setOf(
                 R.id.authenticationFragment,
                 R.id.categoriesFragment,
@@ -102,12 +98,12 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
             )
         ).build()
         binding?.let {
-            it.bottomNavBar.setupWithNavController(navController!!)
+            it.bottomNavBar.setupWithNavController(navController)
             it.toolbar.setNavigationIcon(R.drawable.ic_back_arrow)
             it.collapsingLayout.setupWithNavController(
                 it.toolbar,
-                navController!!,
-                appBarConfig!!
+                navController,
+                appBarConfig
             )
         }
 
@@ -115,9 +111,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     private fun subscribeToBottomNavVisibility() {
         bottomNavViewModel.visibility.observe(this, {
-            if (it) {
-                binding?.bottomNavBar?.visibility = View.VISIBLE
-            } else binding?.bottomNavBar?.visibility = View.GONE
+            val visibility = if (it) View.VISIBLE
+            else View.INVISIBLE
+            binding?.bottomNavBar?.visibility = visibility
         })
     }
 

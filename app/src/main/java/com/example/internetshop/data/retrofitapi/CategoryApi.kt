@@ -11,6 +11,6 @@ interface CategoryApi {
 
     @GET("/products/category/{categoryName}")
     fun getCategoryProducts(
-        @Path("categoryName") categoryRequest: String
+        @Path("categoryName") categoryName: String
     ): Single<List<ProductResponse>>
 }

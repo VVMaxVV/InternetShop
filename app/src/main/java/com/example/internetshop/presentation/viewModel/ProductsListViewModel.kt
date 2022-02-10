@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ProductsListViewModel @Inject constructor(
-    private val fromCategoryUseCase: GetProductsFromCategoryUseCase,
+    private val GetProductsUseCase: GetProductsFromCategoryUseCase,
     private val simpleProductMapper: SimpleProductMapper
 ) : BaseViewModel() {
     val productsList = MutableLiveData<List<ProductViewState>>()
@@ -20,7 +20,7 @@ class ProductsListViewModel @Inject constructor(
 
     fun getCategoryProductList(categoryName: String) {
         compositeDisposable.add(
-            fromCategoryUseCase.execute(categoryName)
+            GetProductsUseCase.execute(categoryName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

@@ -21,7 +21,7 @@ class AuthenticationFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun setBottomNavVisibility(): Boolean = false
+    override fun getBottomNavVisibility(): Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,

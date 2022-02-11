@@ -13,8 +13,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         app:cardCornerRadius="@dimen/dimen_item_category_card_corner_radius"
-        app:cardElevation="@dimen/item_products_card_elevation">
+        app:cardElevation="@dimen/dimen_item_category_card_elevation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/itemSimpleProdId"
@@ -22,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@color/white"
+            android:padding="8dp"
             android:onClick="@{()->product.onClick(product.id, product.title)}">
 
             <ImageView
@@ -67,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_item_product_category_price_top_margin"
-                android:text="@{product.price + '$'}"
+                android:text="@{product.price + @string/currency}"
                 android:textSize="@dimen/dimen_item_product_category_price_text_size"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/ratingBar"

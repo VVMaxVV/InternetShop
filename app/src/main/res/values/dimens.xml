@@ -36,7 +36,7 @@
     <dimen name="dimens_drawable_padding_forgot_password">8dp</dimen>
     <dimen name="dimen_categories_height">44dp</dimen>
     <dimen name="dimen_line_under_categories_height">4dp</dimen>
-    <dimen name="dimens_category_padding">14dp</dimen>
+    <dimen name="dimens_category_padding">16dp</dimen>
     <dimen name="dimen_item_category_height">100dp</dimen>
     <dimen name="dimen_item_category_name_padding_start">24dp</dimen>
     <dimen name="dimen_item_category_text_size">18sp</dimen>

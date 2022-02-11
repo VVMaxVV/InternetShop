@@ -54,10 +54,10 @@ class CategoriesFragment : BaseFragment() {
         recyclerView?.let {
             it.addItemDecoration(
                 VerticalSpaceItemDecoration(
-                    context
-                        ?.resources
-                        ?.getDimension(R.dimen.dimen_item_category_margin_between_cards)
-                        ?.toInt() ?: 0
+                    requireContext()
+                        .resources
+                        .getDimension(R.dimen.dimen_item_category_margin_between_cards)
+                        .toInt()
                 )
             )
             it.adapter = adapter

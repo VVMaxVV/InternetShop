@@ -60,10 +60,10 @@ class ProductsListFragment : BaseFragment() {
         recyclerView?.let {
             it.addItemDecoration(
                 VerticalSpaceItemDecoration(
-                    context
-                        ?.resources
-                        ?.getDimension(R.dimen.item_products_margin_between_cards)
-                        ?.toInt() ?: 0
+                    requireContext()
+                        .resources
+                        .getDimension(R.dimen.item_products_margin_between_cards)
+                        .toInt()
                 )
             )
             it.adapter = adapter

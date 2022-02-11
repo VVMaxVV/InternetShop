@@ -14,21 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         app:cardCornerRadius="@dimen/dimen_item_category_card_corner_radius"
-        app:cardElevation="6dp">
+        app:cardElevation="@dimen/item_products_card_elevation">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/itemSimpleProdId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@color/white"
-            android:clickable="true"
             android:onClick="@{()->product.onClick(product.id)}">
 
             <ImageView
                 android:id="@+id/productImage"
                 android:layout_width="@dimen/dimen_item_product_category_image_size"
                 android:layout_height="@dimen/dimen_item_product_category_image_size"
-                app:image_uri="@{product.imageUrl}"
+                android:src="@{product.imageUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/photo" />

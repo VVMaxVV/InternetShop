@@ -34,16 +34,16 @@ class CategoriesFragment : BaseFragment() {
             inflater,
             container,
             false
-        )
-
-        binding?.viewModel = viewModel
+        ).apply {
+            viewModel = this@CategoriesFragment.viewModel
+            lifecycleOwner = this@CategoriesFragment
+        }
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = binding?.recyclerViewCategory
-        binding?.viewModel = viewModel
         val adapter = CategoryAdapter()
         recyclerView?.let {
             it.addItemDecoration(

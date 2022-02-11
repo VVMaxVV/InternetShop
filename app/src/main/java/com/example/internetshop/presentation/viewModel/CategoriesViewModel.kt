@@ -19,16 +19,19 @@ class CategoriesViewModel @Inject constructor(
 
     val navEventLiveData = SingleLiveEvent<CategoryEvent>()
     val categoriesLiveData = MutableLiveData<List<CategoryViewState>>()
+    val progressBarLiveData = MutableLiveData<Boolean>()
 
     fun getCategory() {
             categoriesUseCase.execute()
                 .timeout(60, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { progressBarLiveData.value = true }
+                .doFinally { progressBarLiveData.value = false }
                 .subscribe({
                     categoriesLiveData.value = it.map {
                         categoryMapper.toCategoryViewState(it).also {
-                            compositeDisposable.add(it.events.subscribe() {
+                            compositeDisposable.add(it.events.subscribe {
                                 when (it) {
                                     is CategoryViewState.Event.OnClick -> {
                                         navEventLiveData.value =

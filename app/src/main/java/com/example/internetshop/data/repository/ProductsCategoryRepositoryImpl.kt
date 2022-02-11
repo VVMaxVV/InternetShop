@@ -14,7 +14,9 @@ class ProductsCategoryRepositoryImpl @Inject constructor(
     private val productServerMapper: ProductServerMapper
 ) : ProductsCategoryRepository {
     override fun getProductsCategory(categoryName: String): Single<List<SimpleProduct>> {
-        return categoryApi.getCategoryProducts(categoryName).map {
+        return categoryApi.getCategoryProducts(
+            categoryName.lowercase()
+        ).map {
             it.map {
                 productMapper.toSimpleProduct(productServerMapper.toDomain(it))
             }

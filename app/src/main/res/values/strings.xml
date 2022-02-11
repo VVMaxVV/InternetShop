@@ -36,4 +36,15 @@
     <string name="label_categories">Categories</string>
     <string name="label_products">Products</string>
     <string name="label_reviews">Reviews</string>
+
+    <string name="label_server_not_response">Server not response</string>
+
+    <string name="error_fill_all_fields">Fill in all the fields!</string>
+    <string name="label_google_clicked">Google clicked</string>
+    <string name="label_shop">Shop</string>
+    <string name="label_favorites">Favorites</string>
+    <string name="label_cart">Cart</string>
+    <string name="review_label">Review</string>
+    <string name="label_auth">Authentication</string>
+    <string name="label_product">Product #{id}</string>
 </resources>

@@ -40,7 +40,7 @@ class CategoriesViewModel @Inject constructor(
                     }
                 },
                     {
-                        Log.e("Error", it.message ?: "Unknown error")
+                        Log.e("Error", "CategoriesViewModel error: ${it.message ?: "Unknown error"}")
                     }).run(compositeDisposable::add)
     }
 

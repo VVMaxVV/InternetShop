@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetProductsFromCategoryUseCaseImpl @Inject constructor(
     private val categoryRepository: ProductsCategoryRepository
 ) : GetProductsFromCategoryUseCase {
-    override fun execute(category: String): Single<List<SimpleProduct>> {
-        return categoryRepository.getProductsCategory(category)
+    override fun execute(categoryName: String): Single<List<SimpleProduct>> {
+        return categoryRepository.getProductsCategory(categoryName)
     }
 }

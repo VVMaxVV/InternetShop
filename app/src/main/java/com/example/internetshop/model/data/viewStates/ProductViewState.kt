@@ -9,14 +9,14 @@ class ProductViewState(
     val rating: Float,
     val numberOfReviews: String,
     val id: String
-) : BaseViewState() {
+) {
     sealed class Event {
-        data class OnClick(val id: String) : Event()
+        data class OnClick(val id: String, val productName: String) : Event()
     }
 
     private val uiEvent = PublishSubject.create<Event>()
     val events = uiEvent.hide()
-    fun onClick(id: String) {
-        uiEvent.onNext(Event.OnClick(id))
+    fun onClick(id: String, productName: String) {
+        uiEvent.onNext(Event.OnClick(id, productName))
     }
 }

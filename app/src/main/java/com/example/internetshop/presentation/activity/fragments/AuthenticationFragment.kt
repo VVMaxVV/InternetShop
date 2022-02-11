@@ -22,11 +22,7 @@ class AuthenticationFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun getTitle(): String = context?.resources?.getString(R.string.login)?:""
-
-    override fun getHomeVisibility(): Boolean = false
-
-    override fun getIsScrollingView(): Boolean = false
+    override fun getBottomNavVisibility(): Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +36,7 @@ class AuthenticationFragment : BaseFragment() {
             false
         ).apply {
             viewModel = this@AuthenticationFragment.viewModel
+            lifecycleOwner = this@AuthenticationFragment
         }
 
         return binding?.root
@@ -47,13 +44,17 @@ class AuthenticationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.navEventLiveData.observe(viewLifecycleOwner, {
+        viewModel.events.observe(viewLifecycleOwner, {
             when (it) {
                 is AuthenticationViewModel.AuthenticationEvent.OpenProductListAuthenticationEvent
                 -> openProductList()
                 is AuthenticationViewModel.AuthenticationEvent.ToastAuthenticationEvent
                 -> showToast(
-                    it.text
+                    requireActivity().resources.getString(it.textId)
+                )
+                is AuthenticationViewModel.AuthenticationEvent.ServerNotResponseEvent
+                -> showToast(
+                    requireContext().resources.getString(R.string.label_server_not_response)
                 )
             }
         })
@@ -61,6 +62,8 @@ class AuthenticationFragment : BaseFragment() {
     }
 
     private fun openProductList() {
-        findNavController().navigate(R.id.action_authenticationFragment_to_categoriesFragment)
+        val action =
+            AuthenticationFragmentDirections.actionAuthenticationFragmentToTabShop()
+        findNavController().navigate(action)
     }
 }

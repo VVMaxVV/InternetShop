@@ -11,17 +11,18 @@
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/dimen_item_category_card_corner_radius"
         app:cardElevation="@dimen/item_products_card_elevation">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/itemSimpleProdId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@color/white"
-            android:onClick="@{()->product.onClick(product.id)}">
+            android:onClick="@{()->product.onClick(product.id, product.title)}">
 
             <ImageView
                 android:id="@+id/productImage"
@@ -51,12 +52,12 @@
                 android:layout_marginStart="@dimen/dimen_default_margin"
                 android:layout_marginTop="@dimen/dimen_item_product_category_brand_margin_start"
                 android:ellipsize="end"
-                android:textStyle="bold"
                 android:maxWidth="@dimen/dimen_item_product_category_title_max_width"
                 android:maxLines="1"
                 android:text="@{product.title}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_item_product_category_title_text_size"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/productImage"
                 app:layout_constraintTop_toTopOf="@id/productImage"
                 tools:text="Dorothy Perkins" />
@@ -81,7 +82,8 @@
                 android:layout_marginTop="@dimen/dimen_item_product_category_rating_bar_top_margin"
                 android:numStars="5"
                 android:rating="@{product.rating}"
-                android:stepSize="0.01"
+                android:isIndicator="true"
+                android:stepSize="0.1"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:rating="3.7" />

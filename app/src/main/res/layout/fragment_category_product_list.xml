@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dimen_default_margin"
             android:layout_marginEnd="@dimen/dimen_default_margin"
-            tools:listitem="@layout/item_simple_product"/>
+            tools:listitem="@layout/item_product_category"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

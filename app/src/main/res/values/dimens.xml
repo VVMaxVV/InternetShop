@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dimen_default_margin">16dp</dimen>
+    <dimen name="dimen_default_margin">12dp</dimen>
 
     <!--Login layout-->
     <dimen name="dimen_headers_height">28dp</dimen>
@@ -22,6 +22,8 @@
     <dimen name="dimen_star_rate_size_width">76dp</dimen>
     <dimen name="dimen_star_rate_margin_top">8dp</dimen>
     <dimen name="dimen_star_rate_margin_start">16dp</dimen>
+    <dimen name="rating_star_size_height">14dp</dimen>
+    <dimen name="rating_star_size_width">14dp</dimen>
 
     <dimen name="dimen_number_of_reviews_margin_start">4dp</dimen>
     <dimen name="dimen_number_of_reviews_height">12dp</dimen>
@@ -55,4 +57,7 @@
     <dimen name="dimen_collapsing_tool_bar_text_size">18sp</dimen>
     <dimen name="dimen_main_activity_collapsing_layout_expanded_margin_start_title">16dp</dimen>
     <dimen name="dimen_item_category_margin_between_cards">16dp</dimen>
+    <dimen name="item_products_margin_between_cards">26dp</dimen>
+    <dimen name="item_products_">26dp</dimen>
+    <dimen name="item_products_card_elevation">6dp</dimen>
 </resources>

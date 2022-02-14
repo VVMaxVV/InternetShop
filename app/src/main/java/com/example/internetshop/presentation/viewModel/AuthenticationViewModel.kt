@@ -10,6 +10,7 @@ import com.example.internetshop.domain.data.usecase.AuthUseCase
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class AuthenticationViewModel @Inject constructor(
@@ -35,11 +36,13 @@ class AuthenticationViewModel @Inject constructor(
             events.value =
                 AuthenticationEvent.ToastAuthenticationEvent(R.string.error_fill_all_fields)
         } else {
-            progressBarVisibilityLiveData.value = true
             compositeDisposable.add(
                 getAuthUseCase.execute(UserCredentials(username.get()!!, password.get()!!))
+                    .timeout(60,TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe { progressBarVisibilityLiveData.value = true }
+                    .doFinally { progressBarVisibilityLiveData.value = false }
                     .subscribe({
                         tokenPreference.setToken(it)
                         events.value =

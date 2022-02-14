@@ -11,11 +11,29 @@
         app:popUpTo="@+id/favoriteListFragment"
         app:popUpToInclusive="true">
         <action
-            android:id="@+id/action_favoriteListFragment_to_productDetailsFragment2"
+            android:id="@+id/action_favoriteListFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment"
-        android:label="ProductDetailsFragment" />
+        android:label='{productName}'>
+        <action
+            android:id="@+id/action_productDetailsFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="productName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.example.internetshop.presentation.activity.fragments.ReviewFragment"
+        android:label="Reviews">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

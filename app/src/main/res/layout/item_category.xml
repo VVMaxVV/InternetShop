@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_item_category_height"
         android:background="@android:color/transparent"
-        android:clickable="true"
+        android:layout_marginHorizontal="@dimen/dimens_category_padding"
         android:onClick="@{()->data.onClick(data.name)}"
         app:cardCornerRadius="@dimen/dimen_item_category_card_corner_radius"
         app:cardElevation="@dimen/dimen_item_category_card_elevation">

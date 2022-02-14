@@ -34,7 +34,14 @@ class ProductsListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentCategoryProductListBinding.inflate(inflater, container, false)
+        binding = FragmentCategoryProductListBinding.inflate(
+            inflater,
+            container,
+            false
+        ).apply {
+            viewModel = this@ProductsListFragment.productsListViewModel
+            lifecycleOwner = this@ProductsListFragment
+        }
         return binding?.root
     }
 
@@ -60,14 +67,17 @@ class ProductsListFragment : BaseFragment() {
             adapter.addData(it)
         })
         val categoryName = this.requireArguments().getString(EXTRA_CATEGORY_NAME)
-
+        productsListViewModel.categoryName = categoryName?: ""
         if (categoryName == null) findNavController().popBackStack()
         else productsListViewModel
-            .getCategoryProductList(categoryName)
+            .getCategoryProductList()
 
         productsListViewModel.navEventLiveData.observe(viewLifecycleOwner, {
             when (it) {
-                is ProductsListViewModel.Event.OpenProductDetailEvent -> openDetails(it.id, it.productName)
+                is ProductsListViewModel.Event.OpenProductDetailEvent -> openDetails(
+                    it.id,
+                    it.productName
+                )
                 is ProductsListViewModel.Event.ToastEvent -> showToast(it.text)
             }
         })

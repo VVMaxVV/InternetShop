@@ -36,7 +36,7 @@
     <dimen name="dimens_drawable_padding_forgot_password">8dp</dimen>
     <dimen name="dimen_categories_height">44dp</dimen>
     <dimen name="dimen_line_under_categories_height">4dp</dimen>
-    <dimen name="dimens_category_padding">14dp</dimen>
+    <dimen name="dimens_category_padding">16dp</dimen>
     <dimen name="dimen_item_category_height">100dp</dimen>
     <dimen name="dimen_item_category_name_padding_start">24dp</dimen>
     <dimen name="dimen_item_category_text_size">18sp</dimen>
@@ -60,4 +60,6 @@
     <dimen name="item_products_margin_between_cards">26dp</dimen>
     <dimen name="item_products_">26dp</dimen>
     <dimen name="item_products_card_elevation">6dp</dimen>
+    <dimen name="item_products_card_horizontal_margin">16dp</dimen>
+    <dimen name="item_category_product_padding">8dp</dimen>
 </resources>

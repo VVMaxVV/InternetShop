@@ -17,12 +17,17 @@ class ProductsListViewModel @Inject constructor(
 ) : BaseViewModel() {
     val productsList = MutableLiveData<List<ProductViewState>>()
     val navEventLiveData = SingleLiveEvent<Event>()
+    val progressBar = MutableLiveData<Boolean>()
 
-    fun getCategoryProductList(categoryName: String) {
+    var categoryName = ""
+
+    fun getCategoryProductList() {
         compositeDisposable.add(
             GetProductsUseCase.execute(categoryName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { progressBar.value = true }
+                .doFinally { progressBar.value = false }
                 .subscribe({
                     productsList.value = it.map {
                         simpleProductMapper.toProductViewState(it).also {

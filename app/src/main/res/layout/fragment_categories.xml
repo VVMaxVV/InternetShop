@@ -18,7 +18,7 @@
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:refreshing="@{viewModel.progressBarLiveData}"
+        app:refreshing="@{viewModel.progressBar}"
         app:onRefreshListener="@{() -> viewModel.getCategory()}"
         android:background="@color/background_color">
 

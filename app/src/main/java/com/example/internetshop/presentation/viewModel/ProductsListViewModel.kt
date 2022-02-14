@@ -17,7 +17,7 @@ class ProductsListViewModel @Inject constructor(
 ) : BaseViewModel() {
     val productsList = MutableLiveData<List<ProductViewState>>()
     val navEventLiveData = SingleLiveEvent<Event>()
-    val progressBarLiveData = MutableLiveData<Boolean>()
+    val progressBar = MutableLiveData<Boolean>()
 
     var categoryName = ""
 
@@ -26,8 +26,8 @@ class ProductsListViewModel @Inject constructor(
             GetProductsUseCase.execute(categoryName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { progressBarLiveData.value = true }
-                .doFinally { progressBarLiveData.value = false }
+                .doOnSubscribe { progressBar.value = true }
+                .doFinally { progressBar.value = false }
                 .subscribe({
                     productsList.value = it.map {
                         simpleProductMapper.toProductViewState(it).also {

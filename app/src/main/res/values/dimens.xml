@@ -61,4 +61,5 @@
     <dimen name="item_products_">26dp</dimen>
     <dimen name="item_products_card_elevation">6dp</dimen>
     <dimen name="item_products_card_horizontal_margin">16dp</dimen>
+    <dimen name="item_category_product_padding">8dp</dimen>
 </resources>

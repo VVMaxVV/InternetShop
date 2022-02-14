@@ -71,10 +71,11 @@ class ProductDetailsFragment : BaseFragment() {
         viewModel.getProductRx(productId)
 
         reviewButton?.setOnClickListener {
-            val action =
-                ProductDetailsFragmentDirections
-                    .actionProductDetailsFragmentToReviewFragment(productId)
-            findNavController().navigate(action)
+            findNavController().navigate(
+                ProductDetailsFragmentDirections.actionProductDetailsFragmentToReviewFragment(
+                    productId
+                )
+            )
         }
 
         viewModel.toastEventLiveData.observe(viewLifecycleOwner, {

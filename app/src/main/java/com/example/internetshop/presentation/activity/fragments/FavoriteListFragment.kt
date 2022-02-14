@@ -43,13 +43,16 @@ class FavoriteListFragment : BaseFragment() {
             it?.layoutManager = LinearLayoutManager(requireContext())
             it?.setHasFixedSize(true)
         }
-        viewModel.openDetailsEvent.observe(viewLifecycleOwner) {
-            openDetails(it, "")
-        }
         viewModel.productsLiveData.observe(viewLifecycleOwner, {
             adapter.addData(it)
         })
         viewModel.getProductsList()
+        viewModel.event.observe(viewLifecycleOwner, {
+            when (it) {
+                is FavoriteListViewModel.Event.OpenProductDetailEvent -> openDetails(it.id, it.productName)
+                is FavoriteListViewModel.Event.ToastEvent -> showToast(it.text)
+            }
+        })
     }
 
     private fun openDetails(id: String, productName: String) {

@@ -10,11 +10,11 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class FavoriteListViewModel @Inject constructor(private val getFavoriteUseCase: GetFavoriteUseCase) : BaseViewModel() {
-    val openDetailsEvent = SingleLiveEvent<String>()
+    val event = SingleLiveEvent<Event>()
     val productsLiveData = MutableLiveData<List<SimpleProduct>>()
 
     fun onProductClicked(product: SimpleProduct) {
-        openDetailsEvent.value = product.id
+        event.value = Event.OpenProductDetailEvent(product.id,product.title)
     }
 
     fun getProductsList() {
@@ -29,7 +29,11 @@ class FavoriteListViewModel @Inject constructor(private val getFavoriteUseCase: 
             .subscribe({
                 productsLiveData.value = it
             }, {
-                openDetailsEvent.value = "${it.message}"
+                event.value = Event.ToastEvent("$it.message")
             }))
+    }
+    sealed class Event {
+        data class OpenProductDetailEvent(val id: String, val productName: String) : Event()
+        data class ToastEvent(val text: String) : Event()
     }
 }

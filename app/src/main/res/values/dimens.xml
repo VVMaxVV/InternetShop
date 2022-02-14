@@ -60,4 +60,5 @@
     <dimen name="item_products_margin_between_cards">26dp</dimen>
     <dimen name="item_products_">26dp</dimen>
     <dimen name="item_products_card_elevation">6dp</dimen>
+    <dimen name="item_products_card_horizontal_margin">16dp</dimen>
 </resources>

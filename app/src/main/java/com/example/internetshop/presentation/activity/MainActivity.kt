@@ -23,7 +23,6 @@ import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.ToolBarViewModel
-import com.example.internetshop.presentation.viewModel.ToolBarViewModel
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 

@@ -23,7 +23,7 @@ class ProductDetailsFragment : BaseFragment() {
     @Inject
     lateinit var db: InternetShopDB
 
-    val toolBarViewModel: ToolBarViewModel by activityViewModels { factory }
+    private val toolBarViewModel: ToolBarViewModel by activityViewModels { factory }
 
     val viewModel: ProductDetailsViewModel by viewModels { factory }
 
@@ -42,9 +42,10 @@ class ProductDetailsFragment : BaseFragment() {
                 container,
                 false
             )
-        toolBarViewModel.expanded.value = false
         return binding?.root
     }
+
+    override fun getExpandedAppBar(): Boolean = false
 
     companion object {
         const val EXTRA_ID = "id"
@@ -62,9 +63,6 @@ class ProductDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val reviewButton = binding?.goToReview
-
-//        toolBarViewModel.expanding.value = false
-
         viewModel.productLiveData.observe(viewLifecycleOwner, { product ->
             binding?.let {
                 it.product = product

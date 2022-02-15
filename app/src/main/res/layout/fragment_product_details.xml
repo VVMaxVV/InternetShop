@@ -7,7 +7,7 @@
             name="product"
             type="com.example.internetshop.domain.data.model.product.Product" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,7 +19,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="112dp">
+            android:paddingBottom="112dp"
+            android:background="@color/background_color">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -39,45 +40,40 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@drawable/photomodel" />
 
-                <ImageView
+
+
+                <ToggleButton
                     android:id="@+id/favorite_bg"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-
-                    android:layout_marginTop="12dp"
+                    android:layout_width="@dimen/favorite_button_size"
+                    android:layout_height="@dimen/favorite_button_size"
+                    android:layout_marginTop="@dimen/dimen_default_margin"
                     android:layout_marginEnd="@dimen/dimen_default_margin"
-
-                    android:src="@drawable/add_to_favorites_bg"
+                    android:background="@drawable/selector_favorite_button"
+                    android:elevation="20dp"
+                    android:textOff=""
+                    android:textOn=""
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mainImage" />
-
-                <ImageView
-                    android:id="@+id/favorite"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="6dp"
-                    android:clickable="true"
-                    android:src="@drawable/add_to_favorites"
-                    app:layout_constraintEnd_toEndOf="@+id/favorite_bg"
-                    app:layout_constraintTop_toTopOf="@+id/favorite_bg" />
 
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/metropolis_bold"
                     android:layout_height="@dimen/dimen_headers_height"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="@dimen/dimen_default_margin"
                     android:text='@{product.price + "$"}'
-                    android:visibility="@{product.price != null ?View.VISIBLE : View.INVISIBLE}"
                     android:textSize="@dimen/dimen_headers_text_size"
+                    android:visibility="@{product.price != null ?View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/favorite_bg"
                     tools:text="@string/prise" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/brand"
-                    style="@style/ProductHeader"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/product_details_brand_text_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_default_margin"
@@ -94,6 +90,7 @@
                     android:id="@+id/short_description"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_short_description_height"
+                    android:textColor="@color/gray"
                     android:text="@{product.shortDescription}"
                     android:textSize="@dimen/dimen_short_description_text_size"
                     app:layout_constraintStart_toStartOf="@id/brand"
@@ -102,7 +99,6 @@
 
                 <RatingBar
                     android:id="@+id/rating"
-                    style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_star_rate_size_height"
                     android:layout_marginStart="@dimen/dimen_star_rate_margin_start"
@@ -122,6 +118,7 @@
                     android:gravity="center"
                     android:text="@{product.numberOfReviews}"
                     android:textSize="@dimen/dimen_number_of_reviews_text_size"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toEndOf="@id/rating"
                     app:layout_constraintTop_toTopOf="@id/rating"
                     tools:text="@string/number_of_reviews" />
@@ -153,16 +150,15 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="112dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/white">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="20dp"
                 android:background="@drawable/red_rectangle_button"
                 android:gravity="center"
                 android:text="@string/add_to_cart"

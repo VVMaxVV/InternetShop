@@ -25,6 +25,8 @@ class ProductDetailsFragment : BaseFragment() {
 
     private var binding: FragmentProductDetailsBinding? = null
 
+    override fun getBottomNavVisibility(): Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +59,6 @@ class ProductDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val reviewButton = binding?.goToReview
-        val favoriteButton = binding?.favorite
 
         viewModel.productLiveData.observe(viewLifecycleOwner, { product ->
             binding?.let {
@@ -85,10 +86,5 @@ class ProductDetailsFragment : BaseFragment() {
         viewModel.favoriteProductsLiveData.observe(viewLifecycleOwner, {
             Log.i("123", "Title: ${it[0].title}")
         })
-
-        favoriteButton?.setOnClickListener {
-            viewModel.addToFavorite()
-            viewModel.getFromFavorite()
-        }
     }
 }

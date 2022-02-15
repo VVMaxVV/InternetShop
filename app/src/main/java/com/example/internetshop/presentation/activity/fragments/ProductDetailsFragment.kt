@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.internetshop.R
@@ -14,12 +15,15 @@ import com.example.internetshop.data.cache.InternetShopDB
 import com.example.internetshop.databinding.FragmentProductDetailsBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.viewModel.ProductDetailsViewModel
+import com.example.internetshop.presentation.viewModel.ToolBarViewModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 class ProductDetailsFragment : BaseFragment() {
     @Inject
     lateinit var db: InternetShopDB
+
+    val toolBarViewModel: ToolBarViewModel by activityViewModels { factory }
 
     val viewModel: ProductDetailsViewModel by viewModels { factory }
 
@@ -59,6 +63,8 @@ class ProductDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val reviewButton = binding?.goToReview
+
+//        toolBarViewModel.expanding.value = false
 
         viewModel.productLiveData.observe(viewLifecycleOwner, { product ->
             binding?.let {

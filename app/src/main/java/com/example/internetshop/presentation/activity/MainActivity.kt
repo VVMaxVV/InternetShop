@@ -22,6 +22,7 @@ import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
+import com.example.internetshop.presentation.viewModel.ToolBarViewModel
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
     private val bottomNavViewModel: BottomNavViewModel by viewModels { factory }
+
+    private val toolBarViewModel: ToolBarViewModel by viewModels { factory }
 
     var binding: ActivityMainBinding? = null
 
@@ -50,7 +53,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding?.appBar?.setExpanded(false)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
@@ -109,6 +111,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
                 appBarConfig
             )
         }
+        toolBarViewModel.expanding.observe(this, {
+            binding?.appBar?.setExpanded(it)
+        })
 
     }
 

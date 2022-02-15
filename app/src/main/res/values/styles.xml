@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ProductHeader">
+    <style name="ProductHeader" parent="Widget.AppCompat.TextView">
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/red</item>
         <item name="android:textSize">@dimen/dimen_headers_text_size</item>
         <item name="android:fontFamily">@font/metropolis_regular</item>
     </style>

@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         super.onStart()
         binding?.let {
             offSetListener =
-                AppBarOffsetChangedListener(it.fragmentContainer)
+                AppBarOffsetChangedListener(it.fragmentContainer, it.bottomNavBar)
             it.appBar.addOnOffsetChangedListener(offSetListener)
         }
     }

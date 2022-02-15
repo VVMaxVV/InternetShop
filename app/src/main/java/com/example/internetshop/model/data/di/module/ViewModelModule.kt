@@ -46,7 +46,7 @@ interface ViewModelModule {
 
     @Binds
     @[IntoMap ViewModelKey(ToolBarViewModel::class)]
-    fun provideRoolBarViewModel(toolBarViewModel: ToolBarViewModel): ViewModel
+    fun provideToolBarViewModel(toolbarViewModel: ToolBarViewModel): ViewModel
 
 
 }

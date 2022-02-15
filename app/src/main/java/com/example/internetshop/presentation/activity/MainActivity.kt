@@ -23,6 +23,7 @@ import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.ToolBarViewModel
+import com.example.internetshop.presentation.viewModel.ToolBarViewModel
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 
@@ -53,7 +54,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding?.appBar?.setExpanded(false)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
@@ -106,6 +106,10 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
                 appBarConfig
             )
         }
+        toolBarViewModel.expanding.observe(this, {
+            binding?.appBar?.setExpanded(it)
+        })
+
     }
 
     private fun subscribeToBottomNavVisibility() {

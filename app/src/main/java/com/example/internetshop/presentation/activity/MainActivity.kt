@@ -22,6 +22,7 @@ import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
+import com.example.internetshop.presentation.viewModel.ToolBarViewModel
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
     private val bottomNavViewModel: BottomNavViewModel by viewModels { factory }
+
+    private val toolBarViewModel: ToolBarViewModel by viewModels {factory}
 
     var binding: ActivityMainBinding? = null
 
@@ -90,23 +93,16 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setSupportActionBar(binding?.toolbar)
         val appBarConfig = AppBarConfiguration.Builder(
-            setOf(
-                R.id.authenticationFragment,
-                R.id.categoriesFragment,
-                R.id.favoriteListFragment,
-                R.id.cartFragment
-            )
+            toolBarViewModel.topLevelDestinations
         ).build()
         binding?.let {
             it.bottomNavBar.setupWithNavController(navController)
-            it.toolbar.setNavigationIcon(R.drawable.ic_back_arrow)
             it.collapsingLayout.setupWithNavController(
                 it.toolbar,
                 navController,
                 appBarConfig
             )
         }
-
     }
 
     private fun subscribeToBottomNavVisibility() {

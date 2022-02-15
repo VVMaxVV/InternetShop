@@ -17,7 +17,8 @@
         <action
             android:id="@+id/action_authenticationFragment_to_tab_shop"
             app:destination="@id/tab_shop"
-            app:popUpTo="@navigation/nav_graph_categories"
+            app:launchSingleTop="true"
+            app:popUpTo="@navigation/nav_graph_main"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

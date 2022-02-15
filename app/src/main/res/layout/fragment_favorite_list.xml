@@ -6,17 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/categoryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_default_margin"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/favorite"/>
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonCategory1"
         android:layout_width="100dp"
@@ -27,8 +16,8 @@
         android:text="T-short"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/categoryText"
-        app:layout_constraintTop_toBottomOf="@id/categoryText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/filterBar"

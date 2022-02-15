@@ -7,7 +7,6 @@ import com.google.android.material.appbar.AppBarLayout
 
 class AppBarOffsetChangedListener(
     private val contentView: View,
-    private val bottomNav: View,
     private val divider: View? = null
 ) : AppBarLayout.OnOffsetChangedListener {
     private var windowInsets: Insets? = null
@@ -30,7 +29,7 @@ class AppBarOffsetChangedListener(
                 this.paddingLeft,
                 this.paddingTop,
                 this.paddingRight,
-                bottomPadding + insets + bottomNav.paddingBottom
+                bottomPadding + insets
             )
         }
     }

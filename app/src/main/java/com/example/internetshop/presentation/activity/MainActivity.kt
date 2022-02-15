@@ -92,15 +92,8 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     private fun setupAppBar(navController: NavController) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setSupportActionBar(binding?.toolbar)
-        val topLevelDestinations = setOf(
-            R.id.authenticationFragment,
-            R.id.categoriesFragment,
-            R.id.favoriteListFragment,
-            R.id.cartFragment
-        )
-        toolBarViewModel.topLevelDestinations.addAll(topLevelDestinations)
         val appBarConfig = AppBarConfiguration.Builder(
-            topLevelDestinations
+            toolBarViewModel.topLevelDestinations
         ).build()
         binding?.let {
             it.bottomNavBar.setupWithNavController(navController)

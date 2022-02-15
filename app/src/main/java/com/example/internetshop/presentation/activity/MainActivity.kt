@@ -59,8 +59,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         setContentView(binding?.root)
         binding?.lifecycleOwner = this
 
-
-
         setupAppBar(navController)
         subscribeToBottomNavVisibility()
         setScrollingView()

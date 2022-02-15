@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         super.onStart()
         binding?.let {
             offSetListener =
-                AppBarOffsetChangedListener(it.fragmentContainer)
+                AppBarOffsetChangedListener(it.linearContainerLayout)
             it.appBar.addOnOffsetChangedListener(offSetListener)
         }
     }
@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding?.appBar?.setExpanded(false)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
@@ -106,6 +105,10 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
                 appBarConfig
             )
         }
+        toolBarViewModel.expanded.observe(this, {
+            binding?.appBar?.setExpanded(it)
+        })
+
     }
 
     private fun subscribeToBottomNavVisibility() {

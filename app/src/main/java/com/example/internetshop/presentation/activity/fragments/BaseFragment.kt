@@ -30,6 +30,8 @@ abstract class BaseFragment : Fragment() {
         ViewModelProvider(requireActivity(), factory).get(ToolBarViewModel::class.java)
     }
 
+    open fun getExpandedAppBar(): Boolean = true
+
     open fun getBottomNavVisibility(): Boolean = true
 
     abstract fun inject(component: AppComponent)
@@ -41,6 +43,7 @@ abstract class BaseFragment : Fragment() {
     ): View? {
         inject(getAppComponent())
         setBottomNavIcon()
+        toolBarViewModel.expanded.value = getExpandedAppBar()
         bottomNavViewModel.visibility.value = getBottomNavVisibility()
         return super.onCreateView(inflater, container, savedInstanceState)
     }

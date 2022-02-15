@@ -29,8 +29,6 @@ class ProductDetailsFragment : BaseFragment() {
 
     private var binding: FragmentProductDetailsBinding? = null
 
-    override fun getBottomNavVisibility(): Boolean = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,6 +42,7 @@ class ProductDetailsFragment : BaseFragment() {
                 container,
                 false
             )
+        toolBarViewModel.expanded.value = false
         return binding?.root
     }
 

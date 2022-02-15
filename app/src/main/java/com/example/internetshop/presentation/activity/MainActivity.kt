@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         super.onStart()
         binding?.let {
             offSetListener =
-                AppBarOffsetChangedListener(it.fragmentContainer, it.bottomNavBar)
+                AppBarOffsetChangedListener(it.linearContainerLayout)
             it.appBar.addOnOffsetChangedListener(offSetListener)
         }
     }
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
                 appBarConfig
             )
         }
-        toolBarViewModel.expanding.observe(this, {
+        toolBarViewModel.expanded.observe(this, {
             binding?.appBar?.setExpanded(it)
         })
 

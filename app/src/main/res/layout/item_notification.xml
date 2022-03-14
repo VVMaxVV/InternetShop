@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.internetshop.model.data.viewStates.NotificationViewState" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_item_category_height"
+        android:layout_marginHorizontal="@dimen/dimens_category_padding"
+        android:background="@android:color/transparent"
+        android:onClick="@{()->data.onNotificationClick(data.name)}"
+        app:cardCornerRadius="@dimen/dimen_item_category_card_corner_radius"
+        app:cardElevation="@dimen/dimen_item_category_card_elevation">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_item_category_height"
+            android:background="@color/white"
+            android:orientation="vertical"
+            tools:background="@color/sale_red">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/item_notification_main_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/item_notification_main_text_top_margin"
+                android:textSize="@dimen/item_notification_main_text_size"
+                android:textStyle="bold"
+                tools:text="SUMMER SALES"
+                tools:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/item_notification_secondary_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/item_notification_secondary_text_size"
+                tools:text="Up to 50% off"
+                tools:textColor="@color/white" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

@@ -1,4 +1,4 @@
-package com.example.internetshop.model
+package com.example.internetshop.model.data.factory
 
 import com.example.internetshop.data.mock.DataMapper
 import com.example.internetshop.domain.data.model.Review

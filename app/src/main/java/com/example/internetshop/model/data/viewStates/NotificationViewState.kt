@@ -1,6 +1,6 @@
 package com.example.internetshop.model.data.viewStates
 
-class CategoryViewState(
+class NotificationViewState(
     val name: String,
-    val url: String
+    val descriptor: String
 ) : BaseViewState()

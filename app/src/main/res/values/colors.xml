@@ -13,4 +13,5 @@
     <color name="gray_background_color">#E5E5E5</color>
     <color name="rating_stars_color">#FFBA49</color>
     <color name="item_product_category_number_of_review_text_color">#9B9B9B</color>
+    <color name="sale_red">#DB3022</color>
 </resources>

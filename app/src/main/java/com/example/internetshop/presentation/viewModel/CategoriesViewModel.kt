@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.internetshop.domain.data.mapper.CategoryMapper
 import com.example.internetshop.domain.data.model.Category
 import com.example.internetshop.domain.data.usecase.GetCategoriesUseCase
+import com.example.internetshop.model.data.viewStates.BaseViewState
 import com.example.internetshop.model.data.viewStates.CategoryViewState
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,33 +19,39 @@ class CategoriesViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val navEventLiveData = SingleLiveEvent<CategoryEvent>()
-    val categoriesLiveData = MutableLiveData<List<CategoryViewState>>()
+    val categoriesLiveData = MutableLiveData<List<BaseViewState>>()
     val progressBar = MutableLiveData<Boolean>()
 
     fun getCategory() {
-            categoriesUseCase.execute()
-                .timeout(60, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { progressBar.value = true }
-                .doFinally { progressBar.value = false }
-                .subscribe({
-                    categoriesLiveData.value = it.map {
-                        categoryMapper.toCategoryViewState(it).also {
-                            compositeDisposable.add(it.events.subscribe {
-                                when (it) {
-                                    is CategoryViewState.Event.OnClick -> {
-                                        navEventLiveData.value =
-                                            CategoryEvent.OpenCategoryProductListEvent(it.name)
-                                    }
+        categoriesUseCase.execute()
+            .timeout(60, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { progressBar.value = true }
+            .doFinally { progressBar.value = false }
+            .subscribe({
+                categoriesLiveData.value = it.map {
+                    categoryMapper.toCategoryViewState(it).also {
+                        compositeDisposable.add(it.events.subscribe {
+                            when (it) {
+                                is BaseViewState.Event.OnProductClick -> {
+                                    navEventLiveData.value =
+                                        CategoryEvent.OpenCategoryProductListEvent(it.name)
                                 }
-                            })
-                        }
+                                is BaseViewState.Event.OnNotificationClick -> {
+                                    Log.i(
+                                        "CategoriesViewModel",
+                                        "CategoriesViewModel info: ${it.name} clicked"
+                                    )
+                                }
+                            }
+                        })
                     }
-                },
-                    {
-                        Log.e("Error", "CategoriesViewModel error: ${it.message ?: "Unknown error"}")
-                    }).run(compositeDisposable::add)
+                }
+            },
+                {
+                    Log.e("Error", "CategoriesViewModel error: ${it.message ?: "Unknown error"}")
+                }).run(compositeDisposable::add)
     }
 
     fun map(category: Category): CategoryViewState {

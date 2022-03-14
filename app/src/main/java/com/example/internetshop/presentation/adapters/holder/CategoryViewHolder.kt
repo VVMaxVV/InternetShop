@@ -1,14 +1,21 @@
 package com.example.internetshop.presentation.adapters.holder
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.internetshop.databinding.ItemCategoryBinding
-import com.example.internetshop.model.data.viewStates.CategoryViewState
+import com.example.internetshop.databinding.ItemNotificationBinding
+import com.example.internetshop.model.data.recyclerItem.CategoryItems
 
-class CategoryViewHolder(private val binding: ItemCategoryBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class CategoryViewHolder(itemView: View) :
+    RecyclerView.ViewHolder(itemView) {
     fun bind(
-        category: CategoryViewState
+        categoryItems: CategoryItems
     ) {
-        binding.data = category
+        when (categoryItems) {
+            is CategoryItems.Category -> ItemCategoryBinding.bind(itemView.rootView).data =
+                categoryItems.categoryViewState
+            is CategoryItems.Notification -> ItemNotificationBinding.bind(itemView.rootView).data =
+                categoryItems.notificationViewState
+        }
     }
 }

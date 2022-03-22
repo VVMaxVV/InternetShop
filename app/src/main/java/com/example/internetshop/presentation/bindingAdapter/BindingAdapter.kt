@@ -1,7 +1,9 @@
 package com.example.internetshop.presentation.bindingAdapter
 
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 
@@ -17,4 +19,9 @@ fun setImage(view: ImageView, imageUrl: String?) {
 fun setVisibility(view: View, value: Boolean) {
     val visibility = if(value) View.VISIBLE else View.INVISIBLE
     view.visibility = visibility
+}
+
+@BindingAdapter("android:background")
+fun setBackgroundColor(view: View, value: Color) {
+    view.background = value.toDrawable()
 }

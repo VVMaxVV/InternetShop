@@ -48,4 +48,7 @@
     <string name="review_label">Review</string>
     <string name="label_auth">Authentication</string>
     <string name="label_product">Product #{id}</string>
+    <string name="text_view_category_error_header">Something went wrong</string>
+    <string name="text_view_category_error_description">Try again</string>
+    <string name="toast_open_sale_notification">Open sale notification</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.internetshop.presentation.activity.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,16 +63,25 @@ class CategoriesFragment : BaseFragment() {
         viewModel.categoriesLiveData.observe(viewLifecycleOwner, {
             adapter.addData(it)
         })
-        viewModel.getCategory()
+        if(adapter.getSize()==0) {
+            viewModel.getAllElement()
+        }
 
-        viewModel.navEventLiveData.observe(viewLifecycleOwner, {
+        viewModel.eventLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is CategoriesViewModel.CategoryEvent.OpenCategoryProductListEvent
                 -> openProducts(it.categoryName)
+                is CategoriesViewModel.CategoryEvent.OpenNotificationEvent
+                -> openNotification()
                 is CategoriesViewModel.CategoryEvent.ToastCategoryEvent
                 -> showToast(it.text)
             }
         })
+    }
+
+    private fun openNotification() {
+        Log.i("CategoriesFragment","User clicked on notification")
+        showToast(resources.getString(R.string.toast_open_sale_notification))
     }
 
     private fun openProducts(categoryName: String) {

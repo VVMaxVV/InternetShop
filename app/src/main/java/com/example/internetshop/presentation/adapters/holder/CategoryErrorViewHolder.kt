@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.internetshop.databinding.ItemCategoryBinding
 import com.example.internetshop.model.data.viewStates.CategoryViewState
 
-class CategoryViewHolder(private val binding: ItemCategoryBinding) :
+class CategoryErrorViewHolder(private val binding: ItemCategoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(
         categoryViewState: CategoryViewState

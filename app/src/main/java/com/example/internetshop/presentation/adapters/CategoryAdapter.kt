@@ -3,31 +3,34 @@ package com.example.internetshop.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.internetshop.R
-import com.example.internetshop.model.data.recyclerItem.CategoryItems
+import com.example.internetshop.databinding.ItemCategoryBinding
+import com.example.internetshop.databinding.ItemNotificationBinding
 import com.example.internetshop.model.data.viewStates.BaseViewState
 import com.example.internetshop.model.data.viewStates.CategoryViewState
 import com.example.internetshop.model.data.viewStates.NotificationViewState
 import com.example.internetshop.presentation.adapters.holder.CategoryViewHolder
+import com.example.internetshop.presentation.adapters.holder.NotificationViewHolder
 import javax.inject.Inject
 
 private const val TYPE_CATEGORY = 1
 private const val TYPE_NOTIFICATION = 2
 
 class CategoryAdapter @Inject constructor() :
-    RecyclerView.Adapter<CategoryViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val categoryList = mutableListOf<BaseViewState>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             TYPE_CATEGORY -> CategoryViewHolder(
-                LayoutInflater
-                    .from(parent.context)
-                    .inflate(R.layout.item_category, parent, false)
+                ItemCategoryBinding.inflate(
+                    LayoutInflater
+                        .from(parent.context), parent, false
+                )
             )
-            else -> CategoryViewHolder(
-                LayoutInflater
-                    .from(parent.context)
-                    .inflate(R.layout.item_notification, parent, false)
+            else -> NotificationViewHolder(
+                ItemNotificationBinding.inflate(
+                    LayoutInflater
+                        .from(parent.context), parent, false
+                )
             )
         }
     }
@@ -40,18 +43,11 @@ class CategoryAdapter @Inject constructor() :
         }
     }
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            TYPE_CATEGORY -> holder.bind(
-                CategoryItems.Category(categoryList[position] as CategoryViewState)
-            )
-            TYPE_NOTIFICATION -> holder.bind(
-                CategoryItems.Notification(categoryList[position] as NotificationViewState)
-            )
-        }
+    override fun getItemCount(): Int {
+        return categoryList.size
     }
 
-    override fun getItemCount(): Int {
+    fun getSize() : Int {
         return categoryList.size
     }
 
@@ -59,5 +55,16 @@ class CategoryAdapter @Inject constructor() :
         categoryList.clear()
         categoryList.addAll(categories)
         this.notifyDataSetChanged()
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            TYPE_CATEGORY -> (holder as CategoryViewHolder).bind(
+                categoryList[position] as CategoryViewState
+            )
+            TYPE_NOTIFICATION -> (holder as NotificationViewHolder).bind(
+                categoryList[position] as NotificationViewState
+            )
+        }
     }
 }

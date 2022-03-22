@@ -11,7 +11,7 @@
 
         <variable
             name="category"
-            type="com.example.internetshop.domain.data.model.Category" />
+            type="com.example.internetshop.domain.data.model.category.Category" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:refreshing="@{viewModel.progressBar}"
-        app:onRefreshListener="@{() -> viewModel.getCategory()}"
+        app:onRefreshListener="@{() -> viewModel.getAllElement()}"
         android:background="@color/background_color">
 
         <androidx.recyclerview.widget.RecyclerView

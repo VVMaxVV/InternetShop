@@ -21,7 +21,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_item_category_height"
-            android:background="@color/white"
+            android:background="@{data.backgroundColor}"
             android:orientation="vertical"
             tools:background="@color/sale_red">
 
@@ -31,6 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/item_notification_main_text_top_margin"
+                android:text="@{data.name}"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_notification_main_text_size"
                 android:textStyle="bold"
                 tools:text="SUMMER SALES"
@@ -41,12 +43,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:text="@{data.descriptor}"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_notification_secondary_text_size"
-                tools:text="Up to 50% off"
-                tools:textColor="@color/white" />
+                tools:text="Up to 50% off" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-
     </androidx.cardview.widget.CardView>
-
-
 </layout>

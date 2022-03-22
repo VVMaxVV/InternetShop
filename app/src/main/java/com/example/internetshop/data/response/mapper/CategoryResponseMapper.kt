@@ -2,7 +2,7 @@ package com.example.internetshop.data.response.mapper
 
 import com.example.internetshop.data.exception.NoSuchCategoryException
 import com.example.internetshop.data.response.CategoryResponse
-import com.example.internetshop.domain.data.model.Category
+import com.example.internetshop.domain.data.model.category.Category
 import java.util.*
 import javax.inject.Inject
 

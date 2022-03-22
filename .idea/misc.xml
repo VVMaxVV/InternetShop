@@ -51,6 +51,7 @@
         <entry key="app/src/main/res/layout/fragment_products_list.xml" value="0.217789591298249" />
         <entry key="app/src/main/res/layout/fragment_review.xml" value="0.22954822954822954" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.20380434782608695" />
+        <entry key="app/src/main/res/layout/item_category_error.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_notification.xml" value="0.20701754385964913" />
         <entry key="app/src/main/res/layout/item_product_category.xml" value="0.28127623845507976" />
         <entry key="app/src/main/res/layout/item_review.xml" value="0.20701754385964913" />

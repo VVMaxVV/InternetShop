@@ -9,4 +9,5 @@ sealed class BaseCategory {
         val descriptor: String,
         val backgroundColor: Color
     ) : BaseCategory()
+    object Error: BaseCategory()
 }

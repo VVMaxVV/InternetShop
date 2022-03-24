@@ -68,4 +68,8 @@
     <dimen name="item_notification_main_text_top_margin">28dp</dimen>
     <dimen name="item_notification_main_text_size">24sp</dimen>
     <dimen name="item_notification_secondary_text_size">14sp</dimen>
+    <dimen name="item_category_error_image_height">200dp</dimen>
+    <dimen name="item_category_error_main_text_horizontal_margin">10dp</dimen>
+    <dimen name="item_category_error_main_text_size">40sp</dimen>
+    <dimen name="item_category_error_secondary_text_size">35sp</dimen>
 </resources>

@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+<layout>
+    <data>
+        <variable
+            name="data"
+            type="com.example.internetshop.model.data.viewStates.ErrorViewState" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:text="@string/text_view_category_error_header"
-        android:textAlignment="center"
-        android:textColor="@color/gray"
-        android:textStyle="bold"
-        android:textSize="50sp" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_category_error_image_height"
+            android:src="@drawable/ic_error"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_view_category_error_description"
-        android:textColor="@color/gray"
-        android:textSize="40sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/item_category_error_main_text_horizontal_margin"
+            android:text="@string/text_view_category_error_header"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/item_category_error_main_text_size"
+            android:textStyle="bold" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_view_category_error_description"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/item_category_error_secondary_text_size" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

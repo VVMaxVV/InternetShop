@@ -4,6 +4,7 @@ import com.example.internetshop.domain.data.model.category.BaseCategory
 import com.example.internetshop.domain.data.model.category.Category
 import com.example.internetshop.model.data.viewStates.BaseViewState
 import com.example.internetshop.model.data.viewStates.CategoryViewState
+import com.example.internetshop.model.data.viewStates.ErrorViewState
 import com.example.internetshop.model.data.viewStates.NotificationViewState
 import javax.inject.Inject
 
@@ -19,9 +20,7 @@ class CategoryMapper @Inject constructor() {
                 baseCategory.descriptor,
                 baseCategory.backgroundColor
             )
-//            is Categories.Category -> CategoryViewState(category.name,category.imageUrl)
-//            is Categories.Notification -> NotificationViewState(category.header,category.secondary)
-//            is Notification -> NotificationViewState("1","1")
+            is BaseCategory.Error -> ErrorViewState()
         }
     }
 

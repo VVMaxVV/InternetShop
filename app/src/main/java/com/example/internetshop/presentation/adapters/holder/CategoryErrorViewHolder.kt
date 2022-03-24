@@ -1,14 +1,14 @@
 package com.example.internetshop.presentation.adapters.holder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.internetshop.databinding.ItemCategoryBinding
-import com.example.internetshop.model.data.viewStates.CategoryViewState
+import com.example.internetshop.databinding.ItemCategoryErrorBinding
+import com.example.internetshop.model.data.viewStates.ErrorViewState
 
-class CategoryErrorViewHolder(private val binding: ItemCategoryBinding) :
+class CategoryErrorViewHolder(private val binding: ItemCategoryErrorBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(
-        categoryViewState: CategoryViewState
+        errorViewState: ErrorViewState
     ) {
-        binding.data = categoryViewState
+        binding.data = errorViewState
     }
 }

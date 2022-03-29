@@ -6,5 +6,6 @@ import io.reactivex.Single
 
 interface ProductRepositoryCash {
     fun addToFavorite(product: Product): Completable
+    fun deleteFromFavorite(product: Product): Completable
     fun getFavoriteProductList(): Single<List<Product>>
 }

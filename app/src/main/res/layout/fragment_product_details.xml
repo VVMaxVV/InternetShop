@@ -34,6 +34,7 @@
                     android:layout_height="0dp"
                     android:paddingTop="150dp"
                     android:scaleType="centerCrop"
+                    android:src="@{product.imageURL}"
                     app:layout_constraintDimensionRatio="H,375:413"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +100,7 @@
 
                 <RatingBar
                     android:id="@+id/rating"
+                    style="@style/CustomRatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_star_rate_size_height"
                     android:layout_marginStart="@dimen/dimen_star_rate_margin_start"

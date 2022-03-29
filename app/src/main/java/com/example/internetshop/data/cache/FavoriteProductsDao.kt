@@ -16,6 +16,6 @@ interface FavoriteProductsDao {
     fun insertToDB(vararg product: FavoriteProductEntity): Completable
 
     @Delete
-    fun deleteFromDB(product: FavoriteProductEntity)
+    fun deleteFromDB(product: FavoriteProductEntity): Completable
 
 }

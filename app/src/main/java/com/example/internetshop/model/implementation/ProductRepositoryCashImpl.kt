@@ -19,6 +19,11 @@ class ProductRepositoryCashImpl @Inject constructor(
         )
     }
 
+    override fun deleteFromFavorite(product: Product): Completable {
+        return favoriteDao.deleteFromDB(
+            productEntityMapper.toEntity(product))
+    }
+
     override fun getFavoriteProductList(): Single<List<Product>> {
         return Single.just(favoriteDao.getAllFromDB()
             .map {

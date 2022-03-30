@@ -9,6 +9,7 @@ import com.example.internetshop.domain.data.usecase.GetCategoriesUseCase
 import com.example.internetshop.model.data.factory.NotificationCategoryFactory
 import com.example.internetshop.model.data.viewStates.BaseViewState
 import com.example.internetshop.model.data.viewStates.CategoryViewState
+import com.example.internetshop.model.data.viewStates.ErrorViewState
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,15 +33,14 @@ class CategoriesViewModel @Inject constructor(
     fun getAllElement() {
         getCategory()
         getNotification()
-        localCategoryList.clear()
         Single.merge(notificationObservable, categoryObservable)
             .timeout(60, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { progressBar.value = true }
-
             .doFinally {
                 progressBar.value = false
                 categoriesLiveData.value = localCategoryList
+                localCategoryList.clear()
             }
             .subscribe({ it ->
                 localCategoryList.addAll(it.map {
@@ -65,6 +65,8 @@ class CategoriesViewModel @Inject constructor(
                 })
             },
                 {
+                    localCategoryList.clear()
+                    localCategoryList.add(ErrorViewState())
                     Log.e("Error", "CategoriesViewModel error: ${it.message ?: "Unknown error"}")
                 }).run(compositeDisposable::add)
     }

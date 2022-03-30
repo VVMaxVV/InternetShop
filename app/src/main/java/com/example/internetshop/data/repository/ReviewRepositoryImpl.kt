@@ -2,7 +2,7 @@ package com.example.internetshop.data.repository
 
 import com.example.internetshop.domain.data.model.Review
 import com.example.internetshop.domain.data.repository.ReviewRepository
-import com.example.internetshop.model.ReviewsFactory
+import com.example.internetshop.model.data.factory.ReviewsFactory
 import io.reactivex.Single
 
 class ReviewRepositoryImpl: ReviewRepository {

@@ -99,7 +99,6 @@
 
     <RatingBar
         android:id="@+id/ratingBar"
-        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/price"

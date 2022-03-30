@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         super.onStart()
         binding?.let {
             offSetListener =
-                AppBarOffsetChangedListener(it.fragmentContainer)
+                AppBarOffsetChangedListener(it.linearContainerLayout)
             it.appBar.addOnOffsetChangedListener(offSetListener)
         }
     }
@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         val navController = navHostFragment.navController
         setContentView(binding?.root)
         binding?.lifecycleOwner = this
+
+
 
         setupAppBar(navController)
         subscribeToBottomNavVisibility()
@@ -103,6 +105,10 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
                 appBarConfig
             )
         }
+        toolBarViewModel.expanded.observe(this, {
+            binding?.appBar?.setExpanded(it)
+        })
+
     }
 
     private fun subscribeToBottomNavVisibility() {

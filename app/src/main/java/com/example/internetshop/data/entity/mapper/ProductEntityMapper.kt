@@ -28,7 +28,7 @@ class ProductEntityMapper @Inject constructor() {
             product.price,
             product.shortDescription,
             product.description,
-            product.rating.toFloat(),
+            product.rating,
             product.numberOfReviews.toInt()
         )
     }

@@ -10,12 +10,11 @@ interface FavoriteProductsDao {
     fun getAllFromDB(): List<FavoriteProductEntity>
 
     @Query("SELECT * FROM FavoriteProduct WHERE id == (:id)")
-    fun getProductByIdFromDB(id: Int): FavoriteProductEntity
+    fun getProductByIdFromDB(id: Int): FavoriteProductEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertToDB(vararg product: FavoriteProductEntity): Completable
 
     @Delete
-    fun deleteFromDB(product: FavoriteProductEntity): Completable
-
+    fun deleteFromDB(productEntity: FavoriteProductEntity): Completable
 }

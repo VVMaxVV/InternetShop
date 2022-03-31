@@ -8,4 +8,6 @@ interface ProductRepositoryCash {
     fun addToFavorite(product: Product): Completable
     fun deleteFromFavorite(product: Product): Completable
     fun getFavoriteProductList(): Single<List<Product>>
+    fun getFavoriteProductById(id: String): Single<Product>
+    fun isProductInDB(product: Product): Single<Boolean>
 }

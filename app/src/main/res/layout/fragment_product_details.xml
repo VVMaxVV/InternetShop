@@ -6,6 +6,9 @@
         <variable
             name="product"
             type="com.example.internetshop.domain.data.model.product.Product" />
+        <variable
+            name="viewModel"
+            type="com.example.internetshop.presentation.viewModel.ProductDetailsViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -44,7 +47,9 @@
 
 
                 <ToggleButton
-                    android:id="@+id/favorite_bg"
+                    android:id="@+id/favorite"
+                    android:onClick="@{()->viewModel.favoriteClicked()}"
+                    android:checked="@{viewModel.favoriteIsChecked}"
                     android:layout_width="@dimen/favorite_button_size"
                     android:layout_height="@dimen/favorite_button_size"
                     android:layout_marginTop="@dimen/dimen_default_margin"
@@ -68,7 +73,7 @@
                     android:textSize="@dimen/dimen_headers_text_size"
                     android:visibility="@{product.price != null ?View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/favorite_bg"
+                    app:layout_constraintTop_toBottomOf="@+id/favorite"
                     tools:text="@string/prise" />
 
                 <androidx.appcompat.widget.AppCompatTextView

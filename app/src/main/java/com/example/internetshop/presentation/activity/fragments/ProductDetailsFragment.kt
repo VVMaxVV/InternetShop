@@ -15,7 +15,6 @@ import com.example.internetshop.databinding.FragmentProductDetailsBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.viewModel.ProductDetailsViewModel
 import com.example.internetshop.presentation.viewModel.ToolBarViewModel
-import com.squareup.picasso.Picasso
 
 class ProductDetailsFragment :
     BaseFragment() {
@@ -39,6 +38,10 @@ class ProductDetailsFragment :
                 container,
                 false
             )
+        binding?.let {
+            it.viewModel = viewModel
+            it.lifecycleOwner = this
+        }
         toolBarViewModel.expanded.value = false
         return binding?.root
     }
@@ -65,9 +68,6 @@ class ProductDetailsFragment :
         viewModel.productLiveData.observe(viewLifecycleOwner, { product ->
             binding?.let {
                 it.product = product
-                Picasso.with(requireContext())
-                    .load(product.imageURL)
-                    .into(it.mainImage)
             }
         })
         val productId = this.requireArguments().getString(EXTRA_ID)!!
@@ -93,14 +93,16 @@ class ProductDetailsFragment :
                 is ProductDetailsViewModel.ProductDetailsEvent.OpenReview -> openReview(productId)
                 is ProductDetailsViewModel.ProductDetailsEvent.AddToFavorite -> {
                     if (it.value) viewModel.addToFavorite()
-                    else viewModel.deleteFromeFavorite()
+                    else viewModel.deleteFromFavorite()
                 }
+                is ProductDetailsViewModel.ProductDetailsEvent.ShowToast -> showToast(it.text)
+                is ProductDetailsViewModel.ProductDetailsEvent.ProductNotFound -> showToast(
+                    context?.resources?.getString(
+                        R.string.toast_product_not_found
+                    ) ?: "Product not found"
+                )
             }
         })
-        binding?.favorite?.setOnClickListener {
-            ProductDetailsViewModel.ProductDetailsEvent.AddToFavorite(viewModel.favorite)
-            viewModel.favorite = !false
-        }
     }
 
     private fun openReview(id: String) {

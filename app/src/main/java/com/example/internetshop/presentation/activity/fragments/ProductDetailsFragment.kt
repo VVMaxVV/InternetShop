@@ -11,17 +11,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.internetshop.R
-import com.example.internetshop.data.cache.InternetShopDB
 import com.example.internetshop.databinding.FragmentProductDetailsBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.viewModel.ProductDetailsViewModel
 import com.example.internetshop.presentation.viewModel.ToolBarViewModel
-import com.squareup.picasso.Picasso
-import javax.inject.Inject
 
-class ProductDetailsFragment : BaseFragment() {
-    @Inject
-    lateinit var db: InternetShopDB
+class ProductDetailsFragment :
+    BaseFragment() {
 
     private val toolBarViewModel: ToolBarViewModel by activityViewModels { factory }
 
@@ -42,6 +38,10 @@ class ProductDetailsFragment : BaseFragment() {
                 container,
                 false
             )
+        binding?.let {
+            it.viewModel = viewModel
+            it.lifecycleOwner = this
+        }
         toolBarViewModel.expanded.value = false
         return binding?.root
     }
@@ -64,12 +64,10 @@ class ProductDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val reviewButton = binding?.goToReview
+
         viewModel.productLiveData.observe(viewLifecycleOwner, { product ->
             binding?.let {
                 it.product = product
-                Picasso.with(requireContext())
-                    .load(product.imageURL)
-                    .into(it.mainImage)
             }
         })
         val productId = this.requireArguments().getString(EXTRA_ID)!!
@@ -88,7 +86,30 @@ class ProductDetailsFragment : BaseFragment() {
         })
 
         viewModel.favoriteProductsLiveData.observe(viewLifecycleOwner, {
-            Log.i("123", "Title: ${it[0].title}")
+            Log.i(ProductDetailsFragment::class.java.name, "Title: ${it[0].title}")
         })
+        viewModel.event.observe(viewLifecycleOwner, {
+            when (it) {
+                is ProductDetailsViewModel.ProductDetailsEvent.OpenReview -> openReview(productId)
+                is ProductDetailsViewModel.ProductDetailsEvent.AddToFavorite -> {
+                    if (it.value) viewModel.addToFavorite()
+                    else viewModel.deleteFromFavorite()
+                }
+                is ProductDetailsViewModel.ProductDetailsEvent.ShowToast -> showToast(it.text)
+                is ProductDetailsViewModel.ProductDetailsEvent.ProductNotFound -> showToast(
+                    context?.resources?.getString(
+                        R.string.toast_product_not_found
+                    ) ?: "Product not found"
+                )
+            }
+        })
+    }
+
+    private fun openReview(id: String) {
+        findNavController().navigate(
+            ProductDetailsFragmentDirections.actionProductDetailsFragmentToReviewFragment(
+                id
+            )
+        )
     }
 }

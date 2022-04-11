@@ -10,12 +10,29 @@ interface FavoriteProductsDao {
     fun getAllFromDB(): List<FavoriteProductEntity>
 
     @Query("SELECT * FROM FavoriteProduct WHERE id == (:id)")
-    fun getProductByIdFromDB(id: Int): FavoriteProductEntity
+    fun getProductByIdFromDB(id: Int): FavoriteProductEntity?
+
+    @Query("SELECT * FROM FavoriteProduct ORDER BY title")
+    fun getProductsByNameFromDB(): List<FavoriteProductEntity>
+
+    @Query("SELECT * FROM FavoriteProduct ORDER BY title DESC")
+    fun getProductsByNameFromDBDescending(): List<FavoriteProductEntity>
+
+    @Query("SELECT * FROM FavoriteProduct ORDER BY rating")
+    fun getProductByRatingFromDB(): List<FavoriteProductEntity>
+
+    @Query("SELECT * FROM FavoriteProduct ORDER BY rating DESC")
+    fun getProductByRatingFromDBDescending(): List<FavoriteProductEntity>
+
+    @Query("SELECT * FROM FavoriteProduct ORDER BY CAST(price as integer)")
+    fun getProductByPriceFromDB(): List<FavoriteProductEntity>
+
+    @Query("SELECT * FROM FavoriteProduct ORDER BY CAST(price as integer) DESC")
+    fun getProductByPriceFromDBDescending(): List<FavoriteProductEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertToDB(vararg product: FavoriteProductEntity): Completable
 
     @Delete
-    fun deleteFromDB(product: FavoriteProductEntity)
-
+    fun deleteFromDB(productEntity: FavoriteProductEntity): Completable
 }

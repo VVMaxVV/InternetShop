@@ -6,11 +6,7 @@ import com.example.internetshop.domain.data.model.product.Product
 import com.example.internetshop.domain.data.repository.ProductRepository
 import com.example.internetshop.domain.data.repository.ProductRepositoryCash
 import com.example.internetshop.presentation.utils.SingleLiveEvent
-import io.reactivex.CompletableObserver
-import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -20,55 +16,67 @@ class ProductDetailsViewModel @Inject constructor(
     private val productRepositoryCash: ProductRepositoryCash
 ) :
     BaseViewModel() {
+    val event = SingleLiveEvent<ProductDetailsEvent>()
     val productLiveData = MutableLiveData<Product>()
     val toastEventLiveData = SingleLiveEvent<String>()
     val favoriteProductsLiveData = MutableLiveData<List<Product>>()
+    var favoriteIsChecked = MutableLiveData(false)
+
+    sealed class ProductDetailsEvent {
+        data class OpenReview(val id: String) : ProductDetailsEvent()
+        data class AddToFavorite(val value: Boolean) : ProductDetailsEvent()
+        data class ShowToast(val text: String) : ProductDetailsEvent()
+        object ProductNotFound : ProductDetailsEvent()
+    }
+
+    private fun isInDB() {
+        productRepositoryCash.isProductInDB(productLiveData.value!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                favoriteIsChecked.value = it
+            }, {
+                ProductDetailsEvent.ShowToast(it.message ?: "Unknown error")
+            }).run(compositeDisposable::add)
+    }
 
     fun getProductRx(id: String) {
         productRepository.getProductRx(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : SingleObserver<Product> {
-                override fun onSubscribe(d: Disposable) {
-                    compositeDisposable.add(d)
-                }
+            .subscribe({
+                productLiveData.value = it
+                isInDB()
+            }, {
+                Log.i(ProductDetailsViewModel::class.java.name, "Error: ${it.message}")
+            }).run(compositeDisposable::add)
+    }
 
-                override fun onSuccess(t: Product) {
-                    productLiveData.value = t
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.e("Test", "${e.message}")
-                }
-            })
+    fun favoriteClicked() {
+        if (favoriteIsChecked.value == true) deleteFromFavorite()
+        else addToFavorite()
+        favoriteIsChecked.value = favoriteIsChecked.value?.not()
     }
 
     fun addToFavorite() {
-        productRepositoryCash.addToFavorite(productLiveData.value!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : CompletableObserver {
-                override fun onSubscribe(d: Disposable) {
-                    compositeDisposable.add(d)
-                }
-
-                override fun onComplete() {
-                    toastEventLiveData.value = "Date in db"
-                }
-
-                override fun onError(e: Throwable) {
-                    toastEventLiveData.value = "Error: ${e.message}"
-                }
-            })
+        if (productLiveData.value != null) {
+            productRepositoryCash.addToFavorite(productLiveData.value!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        } else {
+            event.value = ProductDetailsEvent.ProductNotFound
+            favoriteIsChecked.value = false
+        }
     }
 
-    fun getFromFavorite() {
-        productRepositoryCash.getFavoriteProductList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(Consumer {
-                favoriteProductsLiveData.value = it
-            })
+    fun deleteFromFavorite() {
+        if (productLiveData.value != null) {
+            productRepositoryCash.deleteFromFavorite(productLiveData.value!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        } else ProductDetailsEvent.ProductNotFound
     }
 
     override fun onCleared() {

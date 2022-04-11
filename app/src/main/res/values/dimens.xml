@@ -72,4 +72,13 @@
     <dimen name="item_category_error_main_text_horizontal_margin">10dp</dimen>
     <dimen name="item_category_error_main_text_size">40sp</dimen>
     <dimen name="item_category_error_secondary_text_size">35sp</dimen>
+    <dimen name="fragment_favorite_text_view_filters_text_size">11sp</dimen>
+    <dimen name="fragment_favorite_filters_padding_start">14dp</dimen>
+    <dimen name="favorite_filters_drawable_padding">12dp</dimen>
+    <dimen name="favorite_filters_top_padding">24dp</dimen>
+    <dimen name="favorite_sort_padding_start">12dp</dimen>
+    <dimen name="sort_spinner_text_size">11sp</dimen>
+    <dimen name="sort_spinner_padding_top">6dp</dimen>
+    <dimen name="sort_spinner_padding_bottom">7dp</dimen>
+    <dimen name="sort_spinner_padding_start">12dp</dimen>
 </resources>

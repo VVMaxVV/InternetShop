@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list android:opacity="transparent">
+            <item android:height="18dp" android:gravity="center_vertical">
+                <bitmap android:gravity="left" android:src="@drawable/ic_reverse"/>
+            </item>
+        </layer-list>
+    </item>
+</selector>

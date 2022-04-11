@@ -51,4 +51,16 @@
     <string name="text_view_category_error_header">Something went wrong</string>
     <string name="text_view_category_error_description">Try again</string>
     <string name="toast_open_sale_notification">Open sale notification</string>
+    <string name="toast_product_not_found">Product not found</string>
+    <string name="fragment_favorite_text_view_filters">Filters</string>
+
+    <string-array name="sort_value">
+        <item>Default</item>
+        <item>Name: ascending</item>
+        <item>Name: descending</item>
+        <item>Price: lowest to high</item>
+        <item>Price: highest to low</item>
+        <item>Rating: ascending</item>
+        <item>Rating: descending</item>
+    </string-array>
 </resources>

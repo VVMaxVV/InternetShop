@@ -19,17 +19,17 @@ class ProductEntityMapper @Inject constructor() {
         )
     }
 
-    fun toEntity(product: Product) : FavoriteProductEntity {
-        return FavoriteProductEntity(
-            product.id.toString(),
-            product.imageURL,
-            product.title,
-            product.brand,
-            product.price,
-            product.shortDescription,
-            product.description,
-            product.rating,
-            product.numberOfReviews.toInt()
-        )
-    }
+fun toEntity(product: Product): FavoriteProductEntity {
+    return FavoriteProductEntity(
+        product.id.toString(),
+        product.imageURL,
+        product.title,
+        product.brand,
+        product.price,
+        product.shortDescription,
+        product.description,
+        product.rating,
+        product.numberOfReviews.toInt()
+    )
+}
 }

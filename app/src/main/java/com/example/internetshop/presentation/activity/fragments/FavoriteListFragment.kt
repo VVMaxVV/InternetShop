@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.internetshop.R
 import com.example.internetshop.databinding.FragmentFavoriteListBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.adapters.SimpleProductsAdapter
 import com.example.internetshop.presentation.viewModel.FavoriteListViewModel
 
-class FavoriteListFragment : BaseFragment() {
 
+class FavoriteListFragment : BaseFragment() {
     private var binding: FragmentFavoriteListBinding? = null
 
     val viewModel: FavoriteListViewModel by viewModels { factory }
@@ -25,6 +27,13 @@ class FavoriteListFragment : BaseFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentFavoriteListBinding.inflate(inflater, container, false)
+        binding?.sortSpinner?.adapter =
+            ArrayAdapter.createFromResource(
+                context ?: requireContext(),
+                R.array.sort_value,
+                R.layout.sort_spinner_layout
+            )
+        binding?.viewModel = viewModel
         return binding?.root
     }
 
@@ -49,9 +58,15 @@ class FavoriteListFragment : BaseFragment() {
         viewModel.getProductsList()
         viewModel.event.observe(viewLifecycleOwner, {
             when (it) {
-                is FavoriteListViewModel.Event.OpenProductDetailEvent -> openDetails(it.id, it.productName)
+                is FavoriteListViewModel.Event.OpenProductDetailEvent -> openDetails(
+                    it.id,
+                    it.productName
+                )
                 is FavoriteListViewModel.Event.ToastEvent -> showToast(it.text)
             }
+        })
+        viewModel.spinnerPosition.observe(viewLifecycleOwner, {
+            viewModel.getProductsList()
         })
     }
 

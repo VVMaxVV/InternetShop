@@ -1,55 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/favorite_layout"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.internetshop.presentation.viewModel.FavoriteListViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonCategory1"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/black_rectangle_button"
-        android:gravity="center"
-        android:text="T-short"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/filterBar"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/favorite_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_default_margin"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="@dimen/dimen_default_margin"
-            android:layout_marginBottom="10dp"
-            android:background="#F9F9F9"
-            android:text="Filters"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buttonCategory1" />
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/background_color"
-            app:layout_constraintTop_toBottomOf="@id/filterBar">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/filterBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_filters"
+                    android:drawablePadding="@dimen/favorite_filters_drawable_padding"
+                    android:paddingStart="@dimen/fragment_favorite_filters_padding_start"
+                    android:paddingTop="@dimen/favorite_filters_top_padding"
+                    android:text="@string/fragment_favorite_text_view_filters"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fragment_favorite_text_view_filters_text_size" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/sort_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/sort_spinner_arrow"
+                    android:onItemSelect="@{viewModel.spinnerPosition}"
+                    android:paddingStart="@dimen/favorite_sort_padding_start"
+                    android:textSize="@dimen/fragment_favorite_text_view_filters_text_size" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_products"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/background_color"
+                app:layout_constraintTop_toBottomOf="@id/filterBar"
                 tools:listitem="@layout/item_simple_product" />
-        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

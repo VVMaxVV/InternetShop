@@ -1,8 +1,8 @@
 package com.example.internetshop.model.implementation
 
 import com.example.internetshop.data.cache.FavoriteProductsDao
-import com.example.internetshop.data.entity.FavoriteProductEntity
 import com.example.internetshop.data.entity.mapper.ProductEntityMapper
+import com.example.internetshop.data.exception.ProductNotFoundInDBException
 import com.example.internetshop.domain.data.model.product.Product
 import com.example.internetshop.domain.data.repository.ProductRepositoryCash
 import io.reactivex.Completable
@@ -33,27 +33,76 @@ class ProductRepositoryCashImpl @Inject constructor(
             })
     }
 
+    override fun getFavoriteProductListDescending(): Single<List<Product>> {
+        return Single.just(favoriteDao.getAllFromDB()
+            .map {
+                productEntityMapper.toDomain(it)
+            }.reversed())
+    }
+
     override fun getFavoriteProductById(id: String): Single<Product> {
-        return Single.just(
-            productEntityMapper
-                .toDomain(
-                    favoriteDao.getProductByIdFromDB(id.toInt()) ?: FavoriteProductEntity(
-                        id,
-                        "https://www.answersreviews.com/wp-content/uploads/2020/06/Fix-Error404-on-WordPress-780x400.jpg",
-                        "N/A",
-                        "N/A",
-                        "N/A",
-                        "N/A",
-                        "N/A",
-                        0f,
-                        0
-                    )
+        return when (val product = favoriteDao.getProductByIdFromDB(id.toInt())) {
+            null -> Single.error(
+                ProductNotFoundInDBException(
+                    "Product with ID:$id not found"
                 )
-        )
+            )
+            else -> {
+                Single.just(productEntityMapper.toDomain(product))
+            }
+        }
     }
 
     override fun isProductInDB(product: Product): Single<Boolean> {
-        return if(favoriteDao.getProductByIdFromDB(product.id.toInt())!=null) Single.just(true)
+        return if (favoriteDao.getProductByIdFromDB(product.id.toInt()) != null)
+            Single.just(true)
         else Single.just(false)
+    }
+
+    override fun getFavoriteProductByName(): Single<List<Product>> {
+        return Single.just(favoriteDao.getProductsByNameFromDB()
+            .map {
+                productEntityMapper.toDomain(it)
+            })
+    }
+
+    override fun getFavoriteProductByNameDescending(): Single<List<Product>> {
+        return Single.just(favoriteDao.getProductsByNameFromDBDescending()
+            .map {
+                productEntityMapper.toDomain(it)
+            })
+
+    }
+
+    override fun getFavoriteProductByRating(): Single<List<Product>> {
+        return Single.just(favoriteDao.getProductByRatingFromDB()
+            .map {
+                productEntityMapper.toDomain(it)
+            })
+    }
+
+    override fun getFavoriteProductByRatingDescending(): Single<List<Product>> {
+        return Single.just(favoriteDao.getProductByRatingFromDBDescending()
+            .map {
+                productEntityMapper.toDomain(it)
+            })
+    }
+
+    override fun getFavoriteProductByPrice(): Single<List<Product>> {
+        return Single.just(
+            favoriteDao.getProductByPriceFromDB()
+                .map {
+                    productEntityMapper.toDomain(it)
+                }
+        )
+    }
+
+    override fun getFavoriteProductByPriceDescending(): Single<List<Product>> {
+        return Single.just(
+            favoriteDao.getProductByPriceFromDBDescending()
+                .map {
+                    productEntityMapper.toDomain(it)
+                }
+        )
     }
 }

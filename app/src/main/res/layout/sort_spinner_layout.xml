@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/sort_spinner_padding_start"
+    android:paddingTop="@dimen/sort_spinner_padding_top"
+    android:paddingBottom="@dimen/sort_spinner_padding_bottom"
+    android:textColor="@color/black"
+    android:textSize="@dimen/sort_spinner_text_size" />

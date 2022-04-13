@@ -47,4 +47,5 @@ interface AppComponent {
     fun inject(baseFragment: BaseFragment)
     fun inject(productsListFragment: ProductsListFragment)
     fun inject(cartFragment: CartFragment)
+    fun inject(categoriesFragment: CategoriesFragment)
 }

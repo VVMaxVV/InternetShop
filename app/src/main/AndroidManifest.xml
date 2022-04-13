@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.internetshop">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".presentation.InternetshopApplication"
         android:allowBackup="true"
@@ -11,16 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetShop">
         <activity
-            android:name=".presentation.activity.ProductsActivity"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name=".presentation.activity.AuthenticationActivity"
-            android:exported="true"
-            android:label="@string/title_activity_authentication"
-            android:theme="@style/Theme.InternetShop.NoActionBar">
-        </activity>
-        <activity
             android:name=".presentation.activity.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -28,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".presentation.broadcast.InternetConnectionBroadcast"/>
     </application>
 
 </manifest>

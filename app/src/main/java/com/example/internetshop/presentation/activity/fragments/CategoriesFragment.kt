@@ -16,7 +16,6 @@ import com.example.internetshop.presentation.adapters.VerticalSpaceItemDecoratio
 import com.example.internetshop.presentation.viewModel.CategoriesViewModel
 
 class CategoriesFragment : BaseFragment() {
-
     val viewModel: CategoriesViewModel by viewModels { factory }
 
     private var binding: FragmentCategoriesBinding? = null
@@ -60,11 +59,18 @@ class CategoriesFragment : BaseFragment() {
             it.setHasFixedSize(true)
         }
 
+        networkBroadcast.networkConnection.observe(viewLifecycleOwner, {
+            if (it) viewModel.getAllElement()
+        })
+
         viewModel.categoriesLiveData.observe(viewLifecycleOwner, {
             adapter.addData(it)
         })
-        if(adapter.getSize()==0) {
-            viewModel.getAllElement()
+        if (adapter.getSize() == 0) {
+            if (viewModel.categoriesLiveData.value?.size != 0
+                && viewModel.categoriesLiveData.value != null) {
+                adapter.addData(viewModel.categoriesLiveData.value!!)
+            } else viewModel.getAllElement()
         }
 
         viewModel.eventLiveData.observe(viewLifecycleOwner, {
@@ -80,7 +86,7 @@ class CategoriesFragment : BaseFragment() {
     }
 
     private fun openNotification() {
-        Log.i("CategoriesFragment","User clicked on notification")
+        Log.i("CategoriesFragment", "User clicked on notification")
         showToast(resources.getString(R.string.toast_open_sale_notification))
     }
 

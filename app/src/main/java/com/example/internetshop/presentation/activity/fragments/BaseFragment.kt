@@ -16,6 +16,7 @@ import com.example.internetshop.presentation.broadcast.InternetConnectionBroadca
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.ToolBarViewModel
+import dagger.Lazy
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
@@ -24,7 +25,7 @@ abstract class BaseFragment : Fragment() {
     protected lateinit var factory: MultiViewModuleFactory
 
     @Inject
-    protected lateinit var networkBroadcast: InternetConnectionBroadcast
+    protected lateinit var networkBroadcast: Lazy<InternetConnectionBroadcast>
 
     private val bottomNavViewModel: BottomNavViewModel by lazy {
         ViewModelProvider(requireActivity(), factory).get(BottomNavViewModel::class.java)

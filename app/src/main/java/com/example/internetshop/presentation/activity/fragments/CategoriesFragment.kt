@@ -1,5 +1,7 @@
 package com.example.internetshop.presentation.activity.fragments
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -38,6 +40,10 @@ class CategoriesFragment : BaseFragment() {
             viewModel = this@CategoriesFragment.viewModel
             lifecycleOwner = this@CategoriesFragment
         }
+        requireContext().registerReceiver(
+            networkBroadcast.get(),
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
         return binding?.root
     }
 
@@ -59,19 +65,13 @@ class CategoriesFragment : BaseFragment() {
             it.setHasFixedSize(true)
         }
 
-        networkBroadcast.networkConnection.observe(viewLifecycleOwner, {
-            if (it) viewModel.getAllElement()
+        networkBroadcast.get().networkConnection.observe(viewLifecycleOwner, {
+            viewModel.getAllElement()
         })
 
         viewModel.categoriesLiveData.observe(viewLifecycleOwner, {
             adapter.addData(it)
         })
-        if (adapter.getSize() == 0) {
-            if (viewModel.categoriesLiveData.value?.size != 0
-                && viewModel.categoriesLiveData.value != null) {
-                adapter.addData(viewModel.categoriesLiveData.value!!)
-            } else viewModel.getAllElement()
-        }
 
         viewModel.eventLiveData.observe(viewLifecycleOwner, {
             when (it) {
@@ -95,5 +95,10 @@ class CategoriesFragment : BaseFragment() {
             CategoriesFragmentDirections
                 .actionCategoriesFragmentToProductsFromCategoryFragment(categoryName)
         findNavController().navigate(action)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireContext().unregisterReceiver(networkBroadcast.get())
     }
 }

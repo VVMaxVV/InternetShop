@@ -11,6 +11,7 @@ import com.example.internetshop.model.data.viewStates.BaseViewState
 import com.example.internetshop.model.data.viewStates.CategoryViewState
 import com.example.internetshop.model.data.viewStates.ErrorViewState
 import com.example.internetshop.presentation.utils.SingleLiveEvent
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -33,17 +34,23 @@ class CategoriesViewModel @Inject constructor(
     fun getAllElement() {
         getCategory()
         getNotification()
-        Single.merge(notificationObservable, categoryObservable)
+        Observable.zip(
+            notificationObservable?.toObservable(),
+            categoryObservable?.toObservable(),
+            { t1, t2 ->
+                t1.plus(
+                    t2
+                )
+            }
+        )
             .timeout(60, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { progressBar.value = true }
             .doFinally {
                 progressBar.value = false
-                categoriesLiveData.value = localCategoryList
-                localCategoryList.clear()
             }
             .subscribe({ it ->
-                localCategoryList.addAll(it.map {
+                categoriesLiveData.value = it.map {
                     categoryMapper.toViewState(it).also {
                         compositeDisposable.add(it.events.subscribe {
                             when (it) {
@@ -62,11 +69,10 @@ class CategoriesViewModel @Inject constructor(
                             }
                         })
                     }
-                })
+                }
             },
                 {
-                    localCategoryList.clear()
-                    localCategoryList.add(ErrorViewState())
+                    categoriesLiveData.value = listOf(ErrorViewState())
                     Log.e("Error", "CategoriesViewModel error: ${it.message ?: "Unknown error"}")
                 }).run(compositeDisposable::add)
     }

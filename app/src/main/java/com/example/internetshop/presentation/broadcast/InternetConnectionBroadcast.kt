@@ -7,12 +7,15 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class InternetConnectionBroadcast @Inject constructor() : BroadcastReceiver() {
-    val networkConnection = MutableLiveData<Boolean>()
+    val networkConnection = MutableLiveData(false)
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        networkConnection.value = isOnline(context)
+        if (isOnline(context) != networkConnection.value) networkConnection.value =
+            isOnline(context)
     }
 
     private fun isOnline(context: Context?): Boolean {

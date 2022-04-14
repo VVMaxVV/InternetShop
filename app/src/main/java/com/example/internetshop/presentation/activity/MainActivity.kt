@@ -1,7 +1,5 @@
 package com.example.internetshop.presentation.activity
 
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -21,7 +19,6 @@ import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.AppBarOffsetChangedListener
 import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.broadcast.InternetConnectionBroadcast
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
@@ -32,9 +29,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), ContainerHolder {
     @Inject
     lateinit var factory: MultiViewModuleFactory
-
-    @Inject
-    lateinit var networkBroadcast: InternetConnectionBroadcast
 
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
@@ -58,10 +52,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
-        registerReceiver(
-            networkBroadcast,
-            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        )
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
@@ -80,11 +70,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onStop() {
         super.onStop()
         binding?.appBar?.removeOnOffsetChangedListener(offSetListener)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(networkBroadcast)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

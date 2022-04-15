@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     private val bottomNavViewModel: BottomNavViewModel by viewModels { factory }
 
-    private val toolBarViewModel: ToolBarViewModel by viewModels {factory}
+    private val toolBarViewModel: ToolBarViewModel by viewModels { factory }
 
     var binding: ActivityMainBinding? = null
 

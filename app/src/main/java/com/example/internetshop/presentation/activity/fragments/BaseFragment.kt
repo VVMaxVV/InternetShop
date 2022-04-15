@@ -12,15 +12,20 @@ import com.example.internetshop.R
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.InternetshopApplication
 import com.example.internetshop.presentation.activity.MainActivity
+import com.example.internetshop.presentation.broadcast.InternetConnectionBroadcast
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
 import com.example.internetshop.presentation.viewModel.ToolBarViewModel
+import dagger.Lazy
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
 
     @Inject
     protected lateinit var factory: MultiViewModuleFactory
+
+    @Inject
+    protected lateinit var networkBroadcast: Lazy<InternetConnectionBroadcast>
 
     private val bottomNavViewModel: BottomNavViewModel by lazy {
         ViewModelProvider(requireActivity(), factory).get(BottomNavViewModel::class.java)

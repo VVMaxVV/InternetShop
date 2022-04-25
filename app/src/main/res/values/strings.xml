@@ -53,6 +53,7 @@
     <string name="toast_open_sale_notification">Open sale notification</string>
     <string name="toast_product_not_found">Product not found</string>
     <string name="fragment_favorite_text_view_filters">Filters</string>
+    <string name="data_has_been_updated">Data has been updated</string>
 
     <string-array name="sort_value">
         <item>Default</item>

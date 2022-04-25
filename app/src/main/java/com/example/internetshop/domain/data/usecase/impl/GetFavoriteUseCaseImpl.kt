@@ -5,6 +5,7 @@ import com.example.internetshop.domain.data.model.product.Product
 import com.example.internetshop.domain.data.repository.ProductRepositoryCash
 import com.example.internetshop.domain.data.usecase.GetFavoriteUseCase
 import com.example.internetshop.presentation.viewModel.FavoriteListViewModel
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -29,5 +30,17 @@ class GetFavoriteUseCaseImpl @Inject constructor(val productRepository: ProductR
             else ->
                 Single.error(UnknownFavoriteProductsQueryParameter("Unknown parameter: $sortType"))
         }
+    }
+
+    override fun execute(): Single<List<Product>> {
+        return productRepository.getFavoriteProductList()
+    }
+
+    override fun getIdAllProduct(): Single<List<String>> {
+        return productRepository.getIdAllProduct()
+    }
+
+    override fun updateProductInDB(product: Product): Completable {
+        return productRepository.updateProductDate(product)
     }
 }

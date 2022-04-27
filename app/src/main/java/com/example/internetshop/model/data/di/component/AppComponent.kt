@@ -10,7 +10,7 @@ import com.example.internetshop.domain.di.module.usecase.*
 import com.example.internetshop.model.data.di.module.*
 import com.example.internetshop.presentation.activity.MainActivity
 import com.example.internetshop.presentation.activity.fragments.*
-import com.example.internetshop.presentation.service.UpdateFavoriteProductDateService
+import com.example.internetshop.presentation.service.UpdateFavoriteProductDataService
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -49,5 +49,5 @@ interface AppComponent {
     fun inject(productsListFragment: ProductsListFragment)
     fun inject(cartFragment: CartFragment)
     fun inject(categoriesFragment: CategoriesFragment)
-    fun inject(updateFavoriteProductDateService: UpdateFavoriteProductDateService)
+    fun inject(updateFavoriteProductDataService: UpdateFavoriteProductDataService)
 }

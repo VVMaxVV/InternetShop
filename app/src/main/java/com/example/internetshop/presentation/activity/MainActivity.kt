@@ -1,8 +1,5 @@
 package com.example.internetshop.presentation.activity
 
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -25,8 +22,8 @@ import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.AppBarOffsetChangedListener
 import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.service.UpdateFavoriteProductDateService
-import com.example.internetshop.presentation.service.UpdateFavoriteProductDateServiceState
+import com.example.internetshop.presentation.service.UpdateFavoriteProductDataService
+import com.example.internetshop.presentation.service.UpdateFavoriteProductDataServiceState
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
@@ -39,7 +36,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     lateinit var factory: MultiViewModuleFactory
 
     @Inject
-    lateinit var serviceState: UpdateFavoriteProductDateServiceState
+    lateinit var serviceState: UpdateFavoriteProductDataServiceState
 
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
@@ -49,7 +46,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     var binding: ActivityMainBinding? = null
 
-    var offSetListener: AppBarOffsetChangedListener? = null
+    private var offSetListener: AppBarOffsetChangedListener? = null
 
     override fun onStart() {
         super.onStart()
@@ -63,7 +60,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
-        startService(Intent(this, UpdateFavoriteProductDateService::class.java))
+        startService(Intent(this, UpdateFavoriteProductDataService::class.java))
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
@@ -119,7 +116,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         toolBarViewModel.expanded.observe(this, {
             binding?.appBar?.setExpanded(it)
         })
-
     }
 
     private fun subscribeToBottomNavVisibility() {
@@ -146,21 +142,19 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     }
 
     private fun updateFavoriteDate() {
-        serviceState.stopService.observe(this, {
-            stopService(Intent(this,UpdateFavoriteProductDateService::class.java))
+        serviceState.event.observe(this, {
+            when (it) {
+                is UpdateFavoriteProductDataServiceState
+                .UpdateFavoriteProductDataServiceEvent
+                .ServiceDestroying -> {
+                    Toast.makeText(
+                        this,
+                        "Service has been destroyed",
+                        Toast.LENGTH_SHORT)
+                        .show()
+                    Log.i(UpdateFavoriteProductDataService::class.java.name, "Service destroyed")
+                }
+            }
         })
-        serviceState.serviceDestroy.observe(this, {
-            Toast.makeText(this, "Service: onDestroy()", Toast.LENGTH_SHORT).show()
-        })
-        val componentName = ComponentName(this, UpdateFavoriteProductDateService::class.java)
-        val info = JobInfo.Builder(UpdateFavoriteProductDateService.JOB_ID, componentName)
-            .build()
-        val scheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
-        if (scheduler.schedule(info) == JobScheduler.RESULT_SUCCESS) {
-            Log.i("Service", "Success")
-        } else {
-            Log.i("Service", "Error")
-        }
-
     }
 }

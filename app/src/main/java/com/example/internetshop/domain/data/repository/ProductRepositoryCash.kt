@@ -8,6 +8,7 @@ interface ProductRepositoryCash {
     fun addToFavorite(product: Product): Completable
     fun deleteFromFavorite(product: Product): Completable
     fun updateProductDate(product: Product): Completable
+    fun updateProductsDate(productList: List<Product>): Completable
     fun getFavoriteProductList(): Single<List<Product>>
     fun getFavoriteProductListDescending(): Single<List<Product>>
     fun getFavoriteProductById(id: String): Single<Product>

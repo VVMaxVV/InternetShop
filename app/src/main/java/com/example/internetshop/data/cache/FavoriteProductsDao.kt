@@ -41,4 +41,8 @@ interface FavoriteProductsDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateProductDate(productEntity: FavoriteProductEntity): Completable
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateProductsDate(listProductEntity: List<FavoriteProductEntity>): Completable
+
 }

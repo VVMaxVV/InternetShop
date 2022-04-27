@@ -43,7 +43,8 @@ class ProductRepositoryCashImpl @Inject constructor(
         return Single.just(favoriteDao.getAllFromDB()
             .map {
                 productEntityMapper.toDomain(it)
-            }.reversed())
+            }.reversed()
+        )
     }
 
     override fun getFavoriteProductById(id: String): Single<Product> {
@@ -116,5 +117,11 @@ class ProductRepositoryCashImpl @Inject constructor(
         return Single.just(
             favoriteDao.getAllId()
         )
+    }
+
+    override fun updateProductsDate(productList: List<Product>): Completable {
+        return favoriteDao.updateProductsDate(productList.map {
+            productEntityMapper.toEntity(it)
+        })
     }
 }

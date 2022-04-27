@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetShop">
         <service
-            android:name=".presentation.service.UpdateFavoriteProductDateService"
+            android:name=".presentation.service.UpdateFavoriteProductDataService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 

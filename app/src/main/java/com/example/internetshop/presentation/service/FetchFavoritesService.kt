@@ -4,29 +4,21 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import com.example.internetshop.domain.data.usecase.GetFavoriteUseCase
-import com.example.internetshop.domain.data.usecase.GetProductFromServerUseCase
-import com.example.internetshop.domain.data.usecase.GetResultUpdateFavoriteProductsUseCase
+import com.example.internetshop.domain.data.usecase.FetchFavoriteProductsUseCase
 import com.example.internetshop.presentation.InternetshopApplication
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class UpdateFavoriteProductDataService @Inject constructor() :
+class FetchFavoritesService :
     Service() {
 
     @Inject
-    lateinit var productFromServerUseCase: GetProductFromServerUseCase
+    lateinit var resultUpdate: FetchFavoriteProductsUseCase
 
     @Inject
-    lateinit var favoritesProductUseCase: GetFavoriteUseCase
-
-    @Inject
-    lateinit var resultUpdate: GetResultUpdateFavoriteProductsUseCase
-
-    @Inject
-    lateinit var serviceState: UpdateFavoriteProductDataServiceState
+    lateinit var serviceState: FetchFavoritesServiceState
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -40,8 +32,8 @@ class UpdateFavoriteProductDataService @Inject constructor() :
         super.onDestroy()
         compositeDisposable.clear()
         serviceState.event.value =
-            UpdateFavoriteProductDataServiceState
-                .UpdateFavoriteProductDataServiceEvent
+            FetchFavoritesServiceState
+                .Event
                 .ServiceDestroying
     }
 
@@ -60,13 +52,13 @@ class UpdateFavoriteProductDataService @Inject constructor() :
             .subscribeOn(Schedulers.io())
             .subscribe({
                 Log.i(
-                    UpdateFavoriteProductDataService::class.java.name,
+                    FetchFavoritesService::class.java.name,
                     "Date has been updated"
                 )
                 stopSelf()
             }, {
                 Log.i(
-                    UpdateFavoriteProductDataService::class.java.name,
+                    FetchFavoritesService::class.java.name,
                     "Date hasn't been updated: ${it.message}"
                 )
                 stopSelf()

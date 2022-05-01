@@ -2,6 +2,6 @@ package com.example.internetshop.domain.data.usecase
 
 import io.reactivex.Completable
 
-interface GetResultUpdateFavoriteProductsUseCase {
+interface FetchFavoriteProductsUseCase {
     fun execute(): Completable
 }

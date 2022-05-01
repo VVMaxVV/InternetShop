@@ -1,17 +1,17 @@
 package com.example.internetshop.data.di.module
 
-import com.example.internetshop.data.repository.ProductRepositoryServerImpl
-import com.example.internetshop.domain.data.repository.ProductRepository
-import com.example.internetshop.domain.data.repository.ProductRepositoryCash
-import com.example.internetshop.model.implementation.ProductRepositoryCashImpl
+import com.example.internetshop.data.repository.ProductRemoteRepositoryServerImpl
+import com.example.internetshop.domain.data.repository.ProductLocalRepository
+import com.example.internetshop.domain.data.repository.ProductRemoteRepository
+import com.example.internetshop.model.implementation.ProductLocalRepositoryImpl
 import dagger.Binds
 import dagger.Module
 
 @Module
 interface ProductRepositoryModule {
     @Binds
-    fun getProductRepository(impl: ProductRepositoryServerImpl): ProductRepository
+    fun getProductRepository(impl: ProductRemoteRepositoryServerImpl): ProductRemoteRepository
 
     @Binds
-    fun getProductRepositoryCash(impl: ProductRepositoryCashImpl): ProductRepositoryCash
+    fun getProductRepositoryCash(impl: ProductLocalRepositoryImpl): ProductLocalRepository
 }

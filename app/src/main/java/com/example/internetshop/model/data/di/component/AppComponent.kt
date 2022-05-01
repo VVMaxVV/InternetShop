@@ -10,7 +10,7 @@ import com.example.internetshop.domain.di.module.usecase.*
 import com.example.internetshop.model.data.di.module.*
 import com.example.internetshop.presentation.activity.MainActivity
 import com.example.internetshop.presentation.activity.fragments.*
-import com.example.internetshop.presentation.service.UpdateFavoriteProductDataService
+import com.example.internetshop.presentation.service.FetchFavoritesService
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -32,8 +32,7 @@ import javax.inject.Singleton
         CategoryRepositoryModule::class,
         ProductsCategoryUseCaseModule::class,
         ProductFromServerUseCaseModule::class,
-        ProductsFromServerUseCaseModule::class,
-        ServiceModule::class]
+        ProductsFromServerUseCaseModule::class]
 )
 interface AppComponent {
     @Component.Factory
@@ -49,5 +48,5 @@ interface AppComponent {
     fun inject(productsListFragment: ProductsListFragment)
     fun inject(cartFragment: CartFragment)
     fun inject(categoriesFragment: CategoriesFragment)
-    fun inject(updateFavoriteProductDataService: UpdateFavoriteProductDataService)
+    fun inject(fetchFavoritesService: FetchFavoritesService)
 }

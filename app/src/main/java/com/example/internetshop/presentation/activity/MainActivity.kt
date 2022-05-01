@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -22,8 +21,8 @@ import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.AppBarOffsetChangedListener
 import com.example.internetshop.presentation.InternetshopApplication
-import com.example.internetshop.presentation.service.UpdateFavoriteProductDataService
-import com.example.internetshop.presentation.service.UpdateFavoriteProductDataServiceState
+import com.example.internetshop.presentation.service.FetchFavoritesService
+import com.example.internetshop.presentation.service.FetchFavoritesServiceState
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     lateinit var factory: MultiViewModuleFactory
 
     @Inject
-    lateinit var serviceState: UpdateFavoriteProductDataServiceState
+    lateinit var serviceState: FetchFavoritesServiceState
 
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
-        startService(Intent(this, UpdateFavoriteProductDataService::class.java))
+        startService(Intent(this, FetchFavoritesService::class.java))
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
@@ -144,15 +143,10 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     private fun updateFavoriteDate() {
         serviceState.event.observe(this, {
             when (it) {
-                is UpdateFavoriteProductDataServiceState
-                .UpdateFavoriteProductDataServiceEvent
+                is FetchFavoritesServiceState
+                .Event
                 .ServiceDestroying -> {
-                    Toast.makeText(
-                        this,
-                        "Service has been destroyed",
-                        Toast.LENGTH_SHORT)
-                        .show()
-                    Log.i(UpdateFavoriteProductDataService::class.java.name, "Service destroyed")
+                    Log.i(FetchFavoritesService::class.java.name, "Service destroyed")
                 }
             }
         })

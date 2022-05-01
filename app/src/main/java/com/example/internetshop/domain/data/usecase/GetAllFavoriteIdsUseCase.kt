@@ -2,6 +2,6 @@ package com.example.internetshop.domain.data.usecase
 
 import io.reactivex.Single
 
-interface GetAllIdFromDBUseCase {
+interface GetAllFavoriteIdsUseCase {
     fun execute(): Single<List<String>>
 }

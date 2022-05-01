@@ -40,9 +40,9 @@ interface FavoriteProductsDao {
     fun deleteFromDB(productEntity: FavoriteProductEntity): Completable
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateProductDate(productEntity: FavoriteProductEntity): Completable
+    fun updateProductData(productEntity: FavoriteProductEntity): Completable
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateProductsDate(listProductEntity: List<FavoriteProductEntity>): Completable
+    fun updateProductsData(listProductEntity: List<FavoriteProductEntity>): Completable
 
 }

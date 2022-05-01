@@ -4,15 +4,15 @@ import com.example.internetshop.data.cache.FavoriteProductsDao
 import com.example.internetshop.data.entity.mapper.ProductEntityMapper
 import com.example.internetshop.data.exception.ProductNotFoundInDBException
 import com.example.internetshop.domain.data.model.product.Product
-import com.example.internetshop.domain.data.repository.ProductRepositoryCash
+import com.example.internetshop.domain.data.repository.ProductLocalRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ProductRepositoryCashImpl @Inject constructor(
+class ProductLocalRepositoryImpl @Inject constructor(
     private val favoriteDao: FavoriteProductsDao,
     private val productEntityMapper: ProductEntityMapper
-) : ProductRepositoryCash {
+) : ProductLocalRepository {
 
     override fun addToFavorite(product: Product): Completable {
         return favoriteDao.insertToDB(
@@ -27,7 +27,7 @@ class ProductRepositoryCashImpl @Inject constructor(
     }
 
     override fun updateProductDate(product: Product): Completable {
-        return favoriteDao.updateProductDate(
+        return favoriteDao.updateProductData(
             productEntityMapper.toEntity(product)
         )
     }
@@ -120,7 +120,7 @@ class ProductRepositoryCashImpl @Inject constructor(
     }
 
     override fun updateProductsDate(productList: List<Product>): Completable {
-        return favoriteDao.updateProductsDate(productList.map {
+        return favoriteDao.updateProductsData(productList.map {
             productEntityMapper.toEntity(it)
         })
     }

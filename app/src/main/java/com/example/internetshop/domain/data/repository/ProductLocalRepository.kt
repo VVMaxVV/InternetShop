@@ -4,7 +4,7 @@ import com.example.internetshop.domain.data.model.product.Product
 import io.reactivex.Completable
 import io.reactivex.Single
 
-interface ProductRepositoryCash {
+interface ProductLocalRepository {
     fun addToFavorite(product: Product): Completable
     fun deleteFromFavorite(product: Product): Completable
     fun updateProductDate(product: Product): Completable

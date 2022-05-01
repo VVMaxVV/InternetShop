@@ -3,8 +3,8 @@ package com.example.internetshop.presentation.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.internetshop.domain.data.model.product.Product
-import com.example.internetshop.domain.data.repository.ProductRepository
-import com.example.internetshop.domain.data.repository.ProductRepositoryCash
+import com.example.internetshop.domain.data.repository.ProductLocalRepository
+import com.example.internetshop.domain.data.repository.ProductRemoteRepository
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -12,8 +12,8 @@ import javax.inject.Inject
 
 
 class ProductDetailsViewModel @Inject constructor(
-    private val productRepository: ProductRepository,
-    private val productRepositoryCash: ProductRepositoryCash
+    private val productRemoteRepository: ProductRemoteRepository,
+    private val productLocalRepository: ProductLocalRepository
 ) :
     BaseViewModel() {
     val event = SingleLiveEvent<ProductDetailsEvent>()
@@ -30,7 +30,7 @@ class ProductDetailsViewModel @Inject constructor(
     }
 
     private fun isInDB() {
-        productRepositoryCash.isProductInDB(productLiveData.value!!)
+        productLocalRepository.isProductInDB(productLiveData.value!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -41,7 +41,7 @@ class ProductDetailsViewModel @Inject constructor(
     }
 
     fun getProductRx(id: String) {
-        productRepository.getProductRx(id)
+        productRemoteRepository.getProduct(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -60,7 +60,7 @@ class ProductDetailsViewModel @Inject constructor(
 
     fun addToFavorite() {
         if (productLiveData.value != null) {
-            productRepositoryCash.addToFavorite(productLiveData.value!!)
+            productLocalRepository.addToFavorite(productLiveData.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
@@ -72,7 +72,7 @@ class ProductDetailsViewModel @Inject constructor(
 
     fun deleteFromFavorite() {
         if (productLiveData.value != null) {
-            productRepositoryCash.deleteFromFavorite(productLiveData.value!!)
+            productLocalRepository.deleteFromFavorite(productLiveData.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()

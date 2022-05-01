@@ -1,13 +1,13 @@
 package com.example.internetshop.domain.di.module.usecase
 
-import com.example.internetshop.domain.data.usecase.GetAllIdFromDBUseCase
+import com.example.internetshop.domain.data.usecase.FetchFavoriteProductsUseCase
+import com.example.internetshop.domain.data.usecase.GetAllFavoriteIdsUseCase
 import com.example.internetshop.domain.data.usecase.GetFavoriteUseCase
-import com.example.internetshop.domain.data.usecase.GetResultUpdateFavoriteProductsUseCase
-import com.example.internetshop.domain.data.usecase.GetUpdateProductsInDBUseCase
-import com.example.internetshop.domain.data.usecase.impl.GetAllIdFromDBUseCaseImpl
+import com.example.internetshop.domain.data.usecase.UpdateLocalFavoritesUseCase
+import com.example.internetshop.domain.data.usecase.impl.FetchFavoriteProductUseCaseImpl
+import com.example.internetshop.domain.data.usecase.impl.GetAllFavoriteIdsUseCaseImpl
 import com.example.internetshop.domain.data.usecase.impl.GetFavoriteUseCaseImpl
-import com.example.internetshop.domain.data.usecase.impl.GetResultUpdateFavoriteProductUseCaseImpl
-import com.example.internetshop.domain.data.usecase.impl.GetUpdateProductsInDBUseCaseImpl
+import com.example.internetshop.domain.data.usecase.impl.UpdateLocalFavoritesUseCaseImpl
 import dagger.Binds
 import dagger.Module
 
@@ -20,16 +20,16 @@ interface FavoritesUseCaseModule {
 
     @Binds
     fun provideGetAllIdFromDBUseCase(
-        allIdFromDBUseCaseImpl: GetAllIdFromDBUseCaseImpl
-    ): GetAllIdFromDBUseCase
+        allIdFromDBUseCaseImpl: GetAllFavoriteIdsUseCaseImpl
+    ): GetAllFavoriteIdsUseCase
 
     @Binds
     fun provideGetResultUpdateFavoriteProductUseCase(
-        getResultUpdateFavoriteProductUseCaseImpl: GetResultUpdateFavoriteProductUseCaseImpl
-    ): GetResultUpdateFavoriteProductsUseCase
+        getResultUpdateFavoriteProductUseCaseImpl: FetchFavoriteProductUseCaseImpl
+    ): FetchFavoriteProductsUseCase
 
     @Binds
     fun provideGetUpdateProductsInDBUseCase(
-        getUpdateProductsInDBUseCaseImpl: GetUpdateProductsInDBUseCaseImpl
-    ): GetUpdateProductsInDBUseCase
+        getUpdateProductsInDBUseCaseImplImpl: UpdateLocalFavoritesUseCaseImpl
+    ): UpdateLocalFavoritesUseCase
 }

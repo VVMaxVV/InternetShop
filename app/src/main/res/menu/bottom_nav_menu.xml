@@ -15,9 +15,9 @@
         app:showAsAction="always|withText" />
 
     <item
-        android:id="@+id/tab_cart"
+        android:id="@+id/tab_bag"
         android:enabled="true"
-        android:icon="@drawable/ic_cart"
-        android:title="@string/label_cart"
+        android:icon="@drawable/ic_bag"
+        android:title="@string/label_bag"
         app:showAsAction="always|withText" />
 </menu>

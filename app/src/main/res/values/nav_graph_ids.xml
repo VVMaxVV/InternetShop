@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="tab_shop" type="id"/>
-    <item name="tab_cart" type="id"/>
+    <item name="tab_bag" type="id"/>
     <item name="tab_favorite" type="id"/>
 </resources>

@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/sort_spinner_arrow"
-                    android:onItemSelect="@{viewModel.spinnerPosition}"
+                    android:onItemSelect="@{viewModel.spinnerState}"
                     android:paddingStart="@dimen/favorite_sort_padding_start"
                     android:textSize="@dimen/fragment_favorite_text_view_filters_text_size" />
             </androidx.appcompat.widget.LinearLayoutCompat>

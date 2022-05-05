@@ -31,6 +31,13 @@ import javax.inject.Singleton
         RepositoriesModule::class,
         CategoryRepositoryModule::class,
         ProductsCategoryUseCaseModule::class,
+        GetBagProductsUseCaseModule::class,
+        ProductColorsUseCaseModule::class,
+        ProductSizesUseCaseModule::class,
+        AddProductToBagUseCaseModule::class,
+        UpdateBagProductUseCaseModule::class,
+        DeleteFromBagUseCaseModule::class]
+        ProductsCategoryUseCaseModule::class,
         ProductFromServerUseCaseModule::class,
         ProductsFromServerUseCaseModule::class]
 )
@@ -46,7 +53,7 @@ interface AppComponent {
     fun inject(authenticationFragment: AuthenticationFragment)
     fun inject(baseFragment: BaseFragment)
     fun inject(productsListFragment: ProductsListFragment)
-    fun inject(cartFragment: CartFragment)
+    fun inject(bagFragment: BagFragment)
     fun inject(categoriesFragment: CategoriesFragment)
     fun inject(fetchFavoritesService: FetchFavoritesService)
 }

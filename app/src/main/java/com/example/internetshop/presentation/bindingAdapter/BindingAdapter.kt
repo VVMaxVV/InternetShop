@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.MutableLiveData
+import com.example.internetshop.model.data.adapterStates.BaseSpinnerState
 import com.squareup.picasso.Picasso
 
 @BindingAdapter("android:src")
@@ -30,13 +30,16 @@ fun setBackgroundColor(view: View, value: Color) {
 }
 
 @BindingAdapter("android:onItemSelect")
-fun onItemSelect(view: View, cursor: MutableLiveData<Int?>?) {
+fun onItemSelect(view: View, cursor: BaseSpinnerState?) {
     (view as Spinner).onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            cursor?.value = position
+            cursor?.position?.value = position
+            cursor?.positionValue?.value = parent?.selectedItem.toString()
         }
+
         override fun onNothingSelected(parent: AdapterView<*>?) {
-            cursor?.value = 0
+            cursor?.position?.value = null
+            cursor?.positionValue?.value = null
         }
     }
 }

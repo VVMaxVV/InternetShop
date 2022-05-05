@@ -2,9 +2,14 @@ package com.example.internetshop.presentation.viewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.internetshop.domain.data.model.product.BagProduct
 import com.example.internetshop.domain.data.model.product.Product
 import com.example.internetshop.domain.data.repository.ProductRepository
 import com.example.internetshop.domain.data.repository.ProductRepositoryCash
+import com.example.internetshop.domain.data.usecase.AddProductToBagUseCase
+import com.example.internetshop.domain.data.usecase.GetProductColorsUseCase
+import com.example.internetshop.domain.data.usecase.GetProductSizesUseCase
+import com.example.internetshop.model.data.adapterStates.BaseSpinnerState
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -13,39 +18,45 @@ import javax.inject.Inject
 
 class ProductDetailsViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val productRepositoryCash: ProductRepositoryCash
+    private val productRepositoryCash: ProductRepositoryCash,
+    private val getProductSizesUseCase: GetProductSizesUseCase,
+    private val getProductColorsUseCase: GetProductColorsUseCase,
+    private val addProductToBagUseCase: AddProductToBagUseCase,
+    val sizesSpinnerState: BaseSpinnerState,
+    val colorsSpinnerState: BaseSpinnerState
 ) :
     BaseViewModel() {
-    val event = SingleLiveEvent<ProductDetailsEvent>()
-    val productLiveData = MutableLiveData<Product>()
+    val event = SingleLiveEvent<Event>()
+    val product = MutableLiveData<Product>()
     val toastEventLiveData = SingleLiveEvent<String>()
     val favoriteProductsLiveData = MutableLiveData<List<Product>>()
     var favoriteIsChecked = MutableLiveData(false)
 
-    sealed class ProductDetailsEvent {
-        data class OpenReview(val id: String) : ProductDetailsEvent()
-        data class AddToFavorite(val value: Boolean) : ProductDetailsEvent()
-        data class ShowToast(val text: String) : ProductDetailsEvent()
-        object ProductNotFound : ProductDetailsEvent()
+    sealed class Event {
+        data class OpenReview(val id: String) : Event()
+        data class AddToFavorite(val value: Boolean) : Event()
+        data class ShowToast(val text: String) : Event()
+        object ProductNotFound : Event()
+        object NotAllFieldsAreFilled : Event()
     }
 
     private fun isInDB() {
-        productRepositoryCash.isProductInDB(productLiveData.value!!)
+        productRepositoryCash.isProductInDB(product.value!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 favoriteIsChecked.value = it
             }, {
-                ProductDetailsEvent.ShowToast(it.message ?: "Unknown error")
+                Event.ShowToast(it.message ?: "Unknown error")
             }).run(compositeDisposable::add)
     }
 
-    fun getProductRx(id: String) {
+    fun getProduct(id: String) {
         productRepository.getProductRx(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                productLiveData.value = it
+                product.value = it
                 isInDB()
             }, {
                 Log.i(ProductDetailsViewModel::class.java.name, "Error: ${it.message}")
@@ -59,24 +70,86 @@ class ProductDetailsViewModel @Inject constructor(
     }
 
     fun addToFavorite() {
-        if (productLiveData.value != null) {
-            productRepositoryCash.addToFavorite(productLiveData.value!!)
+        if (product.value != null) {
+            productRepositoryCash.addToFavorite(product.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         } else {
-            event.value = ProductDetailsEvent.ProductNotFound
+            event.value = Event.ProductNotFound
             favoriteIsChecked.value = false
         }
     }
 
     fun deleteFromFavorite() {
-        if (productLiveData.value != null) {
-            productRepositoryCash.deleteFromFavorite(productLiveData.value!!)
+        if (product.value != null) {
+            productRepositoryCash.deleteFromFavorite(product.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
-        } else ProductDetailsEvent.ProductNotFound
+        } else Event.ProductNotFound
+    }
+
+    fun getSpinnerEntries() {
+        getProductSizesUseCase.execute()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                sizesSpinnerState.list.value = it
+            }, {
+                Log.e(
+                    ProductDetailsViewModel::class.java.name,
+                    "Product Sizes error: ${it.message}"
+                )
+            }).run(compositeDisposable::add)
+        getProductColorsUseCase.execute()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                colorsSpinnerState.list.value = it
+            }, {
+                Log.e(
+                    ProductDetailsViewModel::class.java.name,
+                    "Product Colors error: ${it.message}"
+                )
+            }).run(compositeDisposable::add)
+    }
+
+    fun addToCart() {
+        if (sizesSpinnerState.position.value == 0 || colorsSpinnerState.position.value == 0) {
+            event.value = Event.NotAllFieldsAreFilled
+        } else {
+            product.value?.apply {
+                addProductToBagUseCase.execute(
+                    colorsSpinnerState.positionValue.value?.let { color ->
+                        sizesSpinnerState.positionValue.value?.let { size ->
+                            BagProduct(
+                                id.toInt(),
+                                imageURL,
+                                price.toFloat(),
+                                title,
+                                color,
+                                size,
+                                1
+                            )
+                        }
+                    }
+                ).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        Log.i(
+                            ProductDetailsViewModel::class.java.name,
+                            "ID: ${product.value?.id} has been added to the bag"
+                        )
+                    }, {
+                        Log.i(
+                            ProductDetailsViewModel::class.java.name,
+                            "ID: ${product.value?.id} wasn't added to bag"
+                        )
+                    }).run(compositeDisposable::add)
+            }
+
+        }
     }
 
     override fun onCleared() {

@@ -47,7 +47,7 @@
         tools:text="Dorothy Perkins" />
 
     <TextView
-        android:id="@+id/color"
+        android:id="@+id/colorSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -63,12 +63,12 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/color"
-        app:layout_constraintTop_toTopOf="@+id/color"
+        app:layout_constraintStart_toEndOf="@id/colorSpinner"
+        app:layout_constraintTop_toTopOf="@+id/colorSpinner"
         tools:text="Pink" />
 
     <TextView
-        android:id="@+id/size"
+        android:id="@+id/size_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="94dp"
@@ -76,7 +76,7 @@
         android:textColor="@color/gray"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/productImage"
-        app:layout_constraintTop_toTopOf="@id/color" />
+        app:layout_constraintTop_toTopOf="@id/colorSpinner" />
 
     <TextView
         android:id="@+id/sizeValue"
@@ -84,8 +84,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/size"
-        app:layout_constraintTop_toTopOf="@+id/size"
+        app:layout_constraintStart_toEndOf="@id/size_spinner"
+        app:layout_constraintTop_toTopOf="@+id/size_spinner"
         tools:text="L" />
 
     <TextView
@@ -93,8 +93,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="@+id/color"
-        app:layout_constraintTop_toBottomOf="@+id/color"
+        app:layout_constraintStart_toStartOf="@+id/colorSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/colorSpinner"
         tools:text="11$" />
 
     <RatingBar
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/price"
-        app:layout_constraintStart_toStartOf="@+id/size"
+        app:layout_constraintStart_toStartOf="@+id/size_spinner"
         app:layout_constraintTop_toTopOf="@+id/price" />
 
 

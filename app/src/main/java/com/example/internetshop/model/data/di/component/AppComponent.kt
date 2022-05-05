@@ -6,10 +6,7 @@ import com.example.internetshop.data.di.module.DBModule
 import com.example.internetshop.data.di.module.ProductRepositoryModule
 import com.example.internetshop.data.di.module.ReviewModule
 import com.example.internetshop.domain.di.module.ProductsCategoryUseCaseModule
-import com.example.internetshop.domain.di.module.usecase.AuthUseCaseModule
-import com.example.internetshop.domain.di.module.usecase.CategoryUseCaseModule
-import com.example.internetshop.domain.di.module.usecase.FavoritesUseCaseModule
-import com.example.internetshop.domain.di.module.usecase.TokenUseCaseModule
+import com.example.internetshop.domain.di.module.usecase.*
 import com.example.internetshop.model.data.di.module.*
 import com.example.internetshop.presentation.activity.MainActivity
 import com.example.internetshop.presentation.activity.fragments.*
@@ -32,13 +29,20 @@ import javax.inject.Singleton
         TokenUseCaseModule::class,
         RepositoriesModule::class,
         CategoryRepositoryModule::class,
-        ProductsCategoryUseCaseModule::class]
+        ProductsCategoryUseCaseModule::class,
+        GetBagProductsUseCaseModule::class,
+        ProductColorsUseCaseModule::class,
+        ProductSizesUseCaseModule::class,
+        AddProductToBagUseCaseModule::class,
+        UpdateBagProductUseCaseModule::class,
+        DeleteFromBagUseCaseModule::class]
 )
 interface AppComponent {
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
+
     fun inject(mainActivity: MainActivity)
     fun inject(productDetailsFragment: ProductDetailsFragment)
     fun inject(reviewFragment: ReviewFragment)
@@ -46,6 +50,6 @@ interface AppComponent {
     fun inject(authenticationFragment: AuthenticationFragment)
     fun inject(baseFragment: BaseFragment)
     fun inject(productsListFragment: ProductsListFragment)
-    fun inject(cartFragment: CartFragment)
+    fun inject(bagFragment: BagFragment)
     fun inject(categoriesFragment: CategoriesFragment)
 }

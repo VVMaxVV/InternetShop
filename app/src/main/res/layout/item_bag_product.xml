@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.example.internetshop.model.data.viewStates.BagProductViewState" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/bag_products_card_horizontal_margin"
+        android:onClick="@{()->product.onClick(product.id,product.title)}"
+        app:cardCornerRadius="@dimen/bag_product_card_corner_radius"
+        app:cardElevation="@dimen/bag_products_card_elevation"
+        tools:layout_marginVertical="24dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                android:scaleType="centerCrop"
+                android:src="@{product.imageURL}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/photo" />
+
+            <TextView
+                android:id="@+id/brand"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@{product.title}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="T-Shirt" />
+
+            <TextView
+                android:id="@+id/colorSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/label_color"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/brand"
+                app:layout_constraintTop_toBottomOf="@id/brand" />
+
+            <TextView
+                android:id="@+id/color_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@{product.color}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/colorSpinner"
+                app:layout_constraintStart_toEndOf="@id/colorSpinner"
+                app:layout_constraintTop_toTopOf="@id/colorSpinner"
+                tools:text="Black" />
+
+            <TextView
+                android:id="@+id/size_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/label_size"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/color_value"
+                app:layout_constraintTop_toTopOf="@id/colorSpinner" />
+
+            <TextView
+                android:id="@+id/size_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@{product.size}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/size_spinner"
+                app:layout_constraintStart_toEndOf="@id/size_spinner"
+                app:layout_constraintTop_toTopOf="@id/size_spinner"
+                tools:text="M" />
+
+            <ImageView
+                android:id="@+id/minus"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/ic_bag_minus"
+                android:elevation="10dp"
+                android:onClick="@{()->product.onMinus(product.id)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image" />
+
+            <TextView
+                android:id="@+id/counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text='@{product.amount.toString()}'
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/minus"
+                app:layout_constraintStart_toEndOf="@id/minus"
+                app:layout_constraintTop_toTopOf="@id/minus"
+                tools:text="1" />
+
+            <ImageView
+                android:id="@+id/plus"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                android:onClick="@{()->product.onPlus(product.id)}"
+                android:src="@drawable/ic_bag_plus"
+                app:layout_constraintBottom_toBottomOf="@id/minus"
+                app:layout_constraintStart_toEndOf="@+id/counter"
+                app:layout_constraintTop_toTopOf="@id/minus" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:text="@{@string/price(product.price)}"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="228$" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

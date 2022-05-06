@@ -15,39 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <EditText
-            android:id="@+id/promo_code"
-            style="@style/PromoCode"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="28dp"
-            android:autofillHints="username"
-            android:elevation="8dp"
-            android:hint="@string/enter_your_promo_code"
-            android:inputType="text"
-            android:paddingLeft="20dp"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/label_total_amount" />
-
-
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@drawable/ic_promo_code_button"
-            android:elevation="8dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="@id/promo_code"
-            app:layout_constraintEnd_toEndOf="@id/promo_code"
-            app:layout_constraintTop_toTopOf="@id/promo_code" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@id/promo_code"
+            android:layout_marginBottom="@dimen/fragment_bag_recycler_margin_bottom"
+            app:layout_constraintBottom_toTopOf="@id/label_total_amount"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_bag_product" />
 
@@ -55,10 +28,10 @@
             android:id="@+id/label_total_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="26dp"
+            android:layout_marginBottom="@dimen/fragment_bag_amount_label_margin_bottom"
             android:text="@string/total_amount"
             android:textColor="@color/gray"
-            android:textSize="14sp"
+            android:textSize="@dimen/fragment_bag_amount_label_text_size"
             app:layout_constraintBottom_toTopOf="@id/button"
             app:layout_constraintStart_toStartOf="@id/button" />
 
@@ -66,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{@string/price(viewModel.totalPrice)}"
-            android:textSize="18sp"
+            android:textSize="@dimen/fragment_bag_price_label_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/label_total_amount"
             app:layout_constraintEnd_toEndOf="@id/button"
@@ -79,9 +52,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="22dp"
+            android:layout_marginHorizontal="@dimen/fragment_bag_check_out_button_horizontal_margin"
+            android:layout_marginTop="@dimen/fragment_bag_check_out_button_margin_top"
+            android:layout_marginBottom="@dimen/fragment_bag_check_out_button_margin_bottom"
             android:text="@string/check_out"
             app:layout_constraintBottom_toBottomOf="parent" />
 

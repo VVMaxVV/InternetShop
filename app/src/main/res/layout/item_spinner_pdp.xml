@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="12dp"
-    android:paddingVertical="10dp"
+    android:paddingStart="@dimen/spinner_pdp_text_padding_start"
+    android:paddingVertical="@dimen/spinner_pdp_text_padding_vertical"
     android:textStyle="bold"
-    android:textSize="14sp"
+    android:textSize="@dimen/spinner_pdp_text_size"
     tools:text="Hello world!" />

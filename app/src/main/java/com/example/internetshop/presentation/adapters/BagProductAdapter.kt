@@ -34,4 +34,9 @@ class BagProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         productList.addAll(products)
         this.notifyDataSetChanged()
     }
+
+    fun delete(position: Int) {
+        productList.remove(productList[position])
+        this.notifyItemRemoved(position)
+    }
 }

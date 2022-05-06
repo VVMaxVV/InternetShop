@@ -75,6 +75,8 @@ class BagFragment : BaseFragment() {
             when (it) {
                 is BagViewModel.Event.OpenProduct ->
                     openProduct(it.id, it.productName)
+                is BagViewModel.Event.DeleteFromBag ->
+                    adapter?.delete(it.position)
             }
         })
     }

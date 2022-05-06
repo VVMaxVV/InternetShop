@@ -38,10 +38,11 @@ class ProductDetailsViewModel @Inject constructor(
         data class ShowToast(val text: String) : Event()
         object ProductNotFound : Event()
         object NotAllFieldsAreFilled : Event()
+        object AddedToCard : Event()
     }
 
     private fun isInDB() {
-        productLocalRepository.isProductInDB(productLiveData.value!!)
+        productLocalRepository.isProductInDB(product.value!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -52,7 +53,7 @@ class ProductDetailsViewModel @Inject constructor(
     }
 
     fun getProduct(id: String) {
-        productRemoteRepository.getProductRx(id)
+        productRemoteRepository.getProduct(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -71,7 +72,7 @@ class ProductDetailsViewModel @Inject constructor(
 
     fun addToFavorite() {
         if (product.value != null) {
-            productLocalRepository.addToFavorite(productLiveData.value!!)
+            productLocalRepository.addToFavorite(product.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
@@ -137,16 +138,8 @@ class ProductDetailsViewModel @Inject constructor(
                 ).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        Log.i(
-                            ProductDetailsViewModel::class.java.name,
-                            "ID: ${product.value?.id} has been added to the bag"
-                        )
-                    }, {
-                        Log.i(
-                            ProductDetailsViewModel::class.java.name,
-                            "ID: ${product.value?.id} wasn't added to bag"
-                        )
-                    }).run(compositeDisposable::add)
+                        event.value = Event.AddedToCard
+                    }, {}).run(compositeDisposable::add)
             }
 
         }

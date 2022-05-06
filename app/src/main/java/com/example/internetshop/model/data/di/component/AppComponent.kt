@@ -43,7 +43,7 @@ import javax.inject.Singleton
         ProductSizesUseCaseModule::class,
         AddProductToBagUseCaseModule::class,
         UpdateBagProductUseCaseModule::class,
-        DeleteFromBagUseCaseModule::class]
+        DeleteFromBagUseCaseModule::class,
         ProductsCategoryUseCaseModule::class,
         ProductFromServerUseCaseModule::class,
         ProductsFromServerUseCaseModule::class]

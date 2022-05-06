@@ -109,6 +109,11 @@ class ProductDetailsFragment :
                         R.string.toast_not_all_fields_are_filled
                     )
                 )
+                is ProductDetailsViewModel.Event.AddedToCard -> showToast(
+                    requireContext().resources.getString(
+                        R.string.added_to_cart
+                    )
+                )
             }
         })
     }

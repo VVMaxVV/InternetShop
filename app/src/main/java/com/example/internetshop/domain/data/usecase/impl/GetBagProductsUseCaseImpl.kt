@@ -9,9 +9,6 @@ import javax.inject.Inject
 class GetBagProductsUseCaseImpl @Inject constructor(
     private val cartRepository: BagRepository
 ) : GetBagProductsUseCase {
-    override fun execute(id: String): Single<BagProduct> {
-        return cartRepository.getProduct(id)
-    }
 
     override fun execute(): Single<List<BagProduct>> {
         return cartRepository.getProducts()

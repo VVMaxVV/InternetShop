@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.BindingAdapter
+import com.example.internetshop.R
 import com.example.internetshop.model.data.adapterStates.BaseSpinnerState
 import com.squareup.picasso.Picasso
 
@@ -14,6 +15,7 @@ import com.squareup.picasso.Picasso
 fun setImage(view: ImageView, imageUrl: String?) {
     Picasso.with(view.context)
         .load(imageUrl)
+        .placeholder(R.drawable.loading_anim)
         .into(view)
 }
 

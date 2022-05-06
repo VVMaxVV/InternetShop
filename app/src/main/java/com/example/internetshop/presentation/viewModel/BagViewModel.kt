@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class BagViewModel @Inject constructor(
     private val bagProductMapper: BagProductMapper,
-    private val bagProductsUseCase: GetBagProductsUseCase,
+    private val getBagProductsUseCase: GetBagProductsUseCase,
     private val updateBagUseCase: UpdateBagProductUseCase,
     private val deleteFromBagUseCase: DeleteFromBagUseCase
 ) : BaseViewModel() {
@@ -24,7 +24,7 @@ class BagViewModel @Inject constructor(
     val events = SingleLiveEvent<Event>()
 
     fun getProducts() {
-        bagProductsUseCase.execute()
+        getBagProductsUseCase.execute()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ repositoryProductList ->
@@ -35,87 +35,18 @@ class BagViewModel @Inject constructor(
                     )
                     bagProductMapper.toBagProductViewState(bagProduct).also { bagProductViewState ->
                         bagProductViewState.events
-                            .subscribe {
+                            .subscribe { it
                                 when (it) {
                                     is BagProductViewState.Event.OnClick -> {
-                                        events.value =
-                                            Event.OpenProduct(it.id.toString(), it.productName)
-                                        Log.i(
-                                            BagViewModel::class.java.name,
-                                            "Open product (id: ${it.id})"
-                                        )
+                                        onClick(it)
                                     }
 
                                     is BagProductViewState.Event.OnMinusClick -> {
-                                        if (bagProductViewState.amount.value == 1) {
-                                            productList.value?.removeAt(position)
-                                            bagProductMapper.toBagProduct(
-                                                bagProductViewState
-                                            )?.let { product ->
-                                                deleteFromBagUseCase.execute(
-                                                    product
-                                                ).subscribeOn(Schedulers.io())
-                                                    .observeOn(AndroidSchedulers.mainThread())
-                                                    .subscribe({}, {
-                                                        Log.e(
-                                                            "BagViewModel",
-                                                            "Error: ${it.message}"
-                                                        )
-                                                    })
-                                            }
-                                            events.value = Event.DeleteFromBag(position)
-                                        }
-                                        if (bagProductViewState.amount.value ?: 0 > 1) {
-                                            updateBagUseCase.execute(
-                                                bagProductMapper.toBagProduct(
-                                                    bagProductViewState.apply {
-                                                        amount.value =
-                                                            amount.value?.minus(1)
-                                                    }
-                                                )
-                                            ).subscribeOn(Schedulers.io())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .subscribe({
-                                                    Log.i(
-                                                        BagViewModel::class.java.name,
-                                                        "Minus product $position (id: ${it.id}. Value:${bagProductViewState.amount.value})"
-                                                    )
-                                                }, {
-                                                    bagProductViewState.amount.value =
-                                                        bagProductViewState.amount.value?.plus(1)
-                                                    Log.e(
-                                                        BagViewModel::class.java.name,
-                                                        "Error update product on DB: ${it.message}"
-                                                    )
-                                                })
-                                                .run(compositeDisposable::add)
-                                        }
+                                        onMinus(bagProductViewState, position)
                                     }
 
                                     is BagProductViewState.Event.OnPlusClick -> {
-                                        updateBagUseCase.execute(
-                                            bagProductMapper.toBagProduct(
-                                                bagProductViewState.apply {
-                                                    amount.value =
-                                                        amount.value?.plus(1)
-                                                }
-                                            )
-                                        ).subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe({
-                                                Log.i(
-                                                    BagViewModel::class.java.name,
-                                                    "Plus product $position (id: ${it.id}. Value:${bagProductViewState.amount.value})"
-                                                )
-                                            }, {
-                                                bagProductViewState.amount.value =
-                                                    bagProductViewState.amount.value?.minus(1)
-                                                Log.e(
-                                                    BagViewModel::class.java.name,
-                                                    "Error update product on DB: ${it.message}"
-                                                )
-                                            })
-                                            .run(compositeDisposable::add)
+                                        onPlus(bagProductViewState, position)
                                     }
                                 }
                                 calculateTotalPrice()
@@ -126,6 +57,90 @@ class BagViewModel @Inject constructor(
             }, {
                 Log.e(BagViewModel::class.java.name, "Error: ${it.message}")
             }).run(compositeDisposable::add)
+    }
+
+    private fun onClick(bagProductViewStateEvent: BagProductViewState.Event.OnClick) {
+        events.value =
+            Event.OpenProduct(
+                bagProductViewStateEvent.id.toString(),
+                bagProductViewStateEvent.productName
+            )
+        Log.i(
+            BagViewModel::class.java.name,
+            "Open product (id: ${bagProductViewStateEvent.id})"
+        )
+    }
+
+    private fun onPlus(bagProductViewState: BagProductViewState, position: Int) {
+        updateBagUseCase.execute(
+            bagProductMapper.toBagProduct(
+                bagProductViewState.apply {
+                    amount.value =
+                        amount.value?.plus(1)
+                }
+            )
+        ).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i(
+                    BagViewModel::class.java.name,
+                    "Plus product $position. Value:${bagProductViewState.amount.value})"
+                )
+            }, {
+                bagProductViewState.amount.value =
+                    bagProductViewState.amount.value?.minus(1)
+                Log.e(
+                    BagViewModel::class.java.name,
+                    "Error update product on DB: ${it.message}"
+                )
+            })
+            .run(compositeDisposable::add)
+    }
+
+    private fun onMinus(bagProductViewState: BagProductViewState, position: Int) {
+        if (bagProductViewState.amount.value == 1) {
+            productList.value?.removeAt(position)
+            bagProductMapper.toBagProduct(
+                bagProductViewState
+            )?.let { product ->
+                deleteFromBagUseCase.execute(
+                    product
+                ).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({}, {
+                        Log.e(
+                            "BagViewModel",
+                            "Error: ${it.message}"
+                        )
+                    })
+            }
+            events.value = Event.DeleteFromBag(position)
+        }
+        if (bagProductViewState.amount.value ?: 0 > 1) {
+            updateBagUseCase.execute(
+                bagProductMapper.toBagProduct(
+                    bagProductViewState.apply {
+                        amount.value =
+                            amount.value?.minus(1)
+                    }
+                )
+            ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.i(
+                        BagViewModel::class.java.name,
+                        "Minus product $position. Value:${bagProductViewState.amount.value})"
+                    )
+                }, {
+                    bagProductViewState.amount.value =
+                        bagProductViewState.amount.value?.plus(1)
+                    Log.e(
+                        BagViewModel::class.java.name,
+                        "Error update product on DB: ${it.message}"
+                    )
+                })
+                .run(compositeDisposable::add)
+        }
     }
 
     private fun calculateTotalPrice() {

@@ -31,7 +31,7 @@ class FetchFavoritesService :
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable.clear()
-        serviceState.event.value =
+        serviceState.events.value =
             FetchFavoritesServiceState
                 .Event
                 .ServiceDestroying

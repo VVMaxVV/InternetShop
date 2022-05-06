@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     }
 
     private fun updateFavoriteDate() {
-        serviceState.event.observe(this, {
+        serviceState.events.observe(this, {
             when (it) {
                 is FetchFavoritesServiceState
                 .Event

@@ -7,7 +7,7 @@ import com.example.internetshop.domain.data.repository.ProductRemoteRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ProductRemoteRepositoryServerImpl @Inject constructor(
+class ProductRemoteRepositoryImpl @Inject constructor(
     private val productApi: ProductApi,
     private val productMapper: ProductServerMapper
 ) :

@@ -1,6 +1,8 @@
 package com.example.internetshop.presentation.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -19,6 +21,8 @@ import com.example.internetshop.R
 import com.example.internetshop.databinding.ActivityMainBinding
 import com.example.internetshop.presentation.AppBarOffsetChangedListener
 import com.example.internetshop.presentation.InternetshopApplication
+import com.example.internetshop.presentation.service.FetchFavoritesService
+import com.example.internetshop.presentation.service.FetchFavoritesServiceState
 import com.example.internetshop.presentation.viewModel.AuthenticationViewModel
 import com.example.internetshop.presentation.viewModel.BottomNavViewModel
 import com.example.internetshop.presentation.viewModel.MultiViewModuleFactory
@@ -30,6 +34,9 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     @Inject
     lateinit var factory: MultiViewModuleFactory
 
+    @Inject
+    lateinit var serviceState: FetchFavoritesServiceState
+
     val viewModel: AuthenticationViewModel by viewModels { factory }
 
     private val bottomNavViewModel: BottomNavViewModel by viewModels { factory }
@@ -38,7 +45,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     var binding: ActivityMainBinding? = null
 
-    var offSetListener: AppBarOffsetChangedListener? = null
+    private var offSetListener: AppBarOffsetChangedListener? = null
 
     override fun onStart() {
         super.onStart()
@@ -52,6 +59,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (this.applicationContext as InternetshopApplication).appComponent.inject(this)
+        startService(Intent(this, FetchFavoritesService::class.java))
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
@@ -59,8 +67,7 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         setContentView(binding?.root)
         binding?.lifecycleOwner = this
 
-
-
+        updateFavoriteDate()
         setupAppBar(navController)
         subscribeToBottomNavVisibility()
         setScrollingView()
@@ -108,7 +115,6 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
         toolBarViewModel.expanded.observe(this, {
             binding?.appBar?.setExpanded(it)
         })
-
     }
 
     private fun subscribeToBottomNavVisibility() {
@@ -132,5 +138,17 @@ class MainActivity : AppCompatActivity(), ContainerHolder {
 
     override fun getContainerId(): Int? {
         return binding?.fragmentContainer?.id
+    }
+
+    private fun updateFavoriteDate() {
+        serviceState.events.observe(this, {
+            when (it) {
+                is FetchFavoritesServiceState
+                .Event
+                .ServiceDestroying -> {
+                    Log.i(FetchFavoritesService::class.java.name, "Service destroyed")
+                }
+            }
+        })
     }
 }

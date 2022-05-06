@@ -6,13 +6,11 @@ import com.example.internetshop.data.di.module.DBModule
 import com.example.internetshop.data.di.module.ProductRepositoryModule
 import com.example.internetshop.data.di.module.ReviewModule
 import com.example.internetshop.domain.di.module.ProductsCategoryUseCaseModule
-import com.example.internetshop.domain.di.module.usecase.AuthUseCaseModule
-import com.example.internetshop.domain.di.module.usecase.CategoryUseCaseModule
-import com.example.internetshop.domain.di.module.usecase.FavoritesUseCaseModule
-import com.example.internetshop.domain.di.module.usecase.TokenUseCaseModule
+import com.example.internetshop.domain.di.module.usecase.*
 import com.example.internetshop.model.data.di.module.*
 import com.example.internetshop.presentation.activity.MainActivity
 import com.example.internetshop.presentation.activity.fragments.*
+import com.example.internetshop.presentation.service.FetchFavoritesService
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -32,7 +30,9 @@ import javax.inject.Singleton
         TokenUseCaseModule::class,
         RepositoriesModule::class,
         CategoryRepositoryModule::class,
-        ProductsCategoryUseCaseModule::class]
+        ProductsCategoryUseCaseModule::class,
+        ProductFromServerUseCaseModule::class,
+        ProductsFromServerUseCaseModule::class]
 )
 interface AppComponent {
     @Component.Factory
@@ -48,4 +48,5 @@ interface AppComponent {
     fun inject(productsListFragment: ProductsListFragment)
     fun inject(cartFragment: CartFragment)
     fun inject(categoriesFragment: CategoriesFragment)
+    fun inject(fetchFavoritesService: FetchFavoritesService)
 }

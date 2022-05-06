@@ -1,15 +1,14 @@
 package com.example.internetshop.domain.di.module.usecase
 
-import com.example.internetshop.domain.data.repository.ProductRepository
 import com.example.internetshop.domain.data.usecase.GetProductFromServerUseCase
 import com.example.internetshop.domain.data.usecase.impl.GetProductFromServerUseCaseImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 
 @Module
-class ProductFromServerUseCaseModule {
-    @Provides
-    fun getProductFromServerUseCase(productRepository: ProductRepository): GetProductFromServerUseCase {
-        return GetProductFromServerUseCaseImpl(productRepository)
-    }
+interface ProductFromServerUseCaseModule {
+    @Binds
+    fun getProductFromServerUseCase(
+        getProductFromServerUseCaseImpl: GetProductFromServerUseCaseImpl
+    ): GetProductFromServerUseCase
 }

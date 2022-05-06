@@ -50,7 +50,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_default_margin"
+                android:layout_marginStart="@dimen/default_margin_horizontal"
                 android:layout_marginTop="@dimen/dimen_item_product_category_brand_margin_start"
                 android:ellipsize="end"
                 android:maxWidth="@dimen/dimen_item_product_category_title_max_width"

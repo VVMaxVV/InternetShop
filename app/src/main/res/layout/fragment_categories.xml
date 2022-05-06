@@ -26,9 +26,9 @@
             android:id="@+id/recycler_view_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dimen_default_margin"
-            android:layout_marginTop="@dimen/dimen_default_margin"
-            android:layout_marginEnd="@dimen/dimen_default_margin"
+            android:layout_marginStart="@dimen/default_margin_horizontal"
+            android:layout_marginTop="@dimen/default_margin_horizontal"
+            android:layout_marginEnd="@dimen/default_margin_horizontal"
             tools:listitem="@layout/item_category" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

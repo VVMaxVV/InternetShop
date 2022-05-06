@@ -19,8 +19,14 @@ fun setImage(view: ImageView, imageUrl: String?) {
 
 
 @BindingAdapter("android:visibility")
-fun setVisibility(view: View, value: Boolean) {
-    val visibility = if (value) View.VISIBLE else View.GONE
+fun setVisibility(view: View, value: Boolean?) {
+    val visibility = if (value == true) View.VISIBLE else View.GONE
+    view.visibility = visibility
+}
+
+@BindingAdapter("android:visibility")
+fun setVisibility(view: View, value: String?) {
+    val visibility = if (value?.isEmpty() == false) View.VISIBLE else View.GONE
     view.visibility = visibility
 }
 

@@ -17,18 +17,18 @@
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/motionLayout"
+        android:id="@+id/motion_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_product_details_xml_constraintlayout_scene">
+        app:layoutDescription="@xml/fragment_product_details_xml_constraint_layout_scene">
 
         <ImageView
             android:id="@+id/mainImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="100dp"
+            android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:src="@{product.imageURL}"
+            app:layout_constraintDimensionRatio="H,375:366"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/photomodel" />
 
@@ -46,11 +46,11 @@
                 android:id="@+id/favorite"
                 android:layout_width="@dimen/favorite_button_size"
                 android:layout_height="@dimen/favorite_button_size"
-                android:layout_marginTop="@dimen/dimen_default_margin"
-                android:layout_marginEnd="@dimen/dimen_default_margin"
+                android:layout_marginTop="@dimen/default_margin_horizontal"
+                android:layout_marginEnd="@dimen/default_margin_horizontal"
                 android:background="@drawable/selector_favorite_button"
                 android:checked="@{viewModel.favoriteIsChecked}"
-                android:elevation="20dp"
+                android:elevation="@dimen/fab_elevation"
                 android:onClick="@{()->viewModel.favoriteClicked()}"
                 android:textOff=""
                 android:textOn=""
@@ -61,29 +61,26 @@
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dimen_headers_height"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="@dimen/dimen_default_margin"
+                android:layout_marginTop="@dimen/normal_125"
+                android:layout_marginEnd="@dimen/default_margin_horizontal"
                 android:fontFamily="@font/metropolis_bold"
                 android:text='@{product.price + "$"}'
                 android:textSize="@dimen/dimen_headers_text_size"
                 android:textStyle="bold"
-                android:visibility="@{product.price != null ?View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{product.price}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/favorite"
                 tools:text="@string/prise" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/brand"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_default_margin"
-                android:ellipsize="end"
-                android:maxWidth="180dp"
-                android:maxLines="1"
-                android:singleLine="true"
+                android:layout_marginHorizontal="@dimen/default_margin_horizontal"
                 android:text="@{product.brand}"
                 android:textSize="@dimen/product_details_brand_text_size"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/price"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/price"
                 tools:text="@string/brand" />
@@ -117,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dimen_number_of_reviews_height"
                 android:layout_marginStart="@dimen/dimen_number_of_reviews_margin_start"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/normal_12"
                 android:gravity="center"
                 android:text="@{product.numberOfReviews}"
                 android:textColor="@color/gray"
@@ -130,9 +127,9 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_default_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/default_margin_horizontal"
+                android:layout_marginTop="@dimen/normal_125"
+                android:layout_marginEnd="@dimen/normal_100"
                 android:text="@{product.description}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/numberOfReviews"
@@ -144,9 +141,9 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:text="@string/watch_review"
-                app:layout_constraintBottom_toTopOf="@+id/description"
+                app:layout_constraintBottom_toBottomOf="@+id/rating"
                 app:layout_constraintEnd_toEndOf="@+id/price"
-                app:layout_constraintTop_toBottomOf="@+id/price" />
+                app:layout_constraintTop_toTopOf="@+id/rating" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -157,8 +154,8 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginVertical="20dp"
+                    android:layout_marginHorizontal="@dimen/normal_100"
+                    android:layout_marginVertical="@dimen/normal_125"
                     android:background="@drawable/red_rectangle_button"
                     android:gravity="center"
                     android:text="@string/add_to_cart"

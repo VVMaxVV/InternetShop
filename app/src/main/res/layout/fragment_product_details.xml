@@ -22,6 +22,18 @@
         android:layout_height="match_parent"
         app:layoutDescription="@xml/fragment_product_details_xml_constraint_layout_scene">
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_color"
+            android:paddingBottom="112dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color"
+            tools:context=".presentation.activity.MainActivity">
+
         <ImageView
             android:id="@+id/mainImage"
             android:layout_width="match_parent"
@@ -41,21 +53,43 @@
             app:layout_constraintTop_toBottomOf="@id/mainImage"
             tools:context=".presentation.activity.MainActivity">
 
+            <Spinner
+                android:id="@+id/size_spinner"
+                style="@style/ProductDetailsSpinnerBackground"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:entries="@array/sort_value"
+                android:onItemSelect="@{viewModel.sizesSpinnerState}"
+                app:layout_constraintStart_toStartOf="@id/brand"
+                app:layout_constraintTop_toBottomOf="@id/mainImage" />
+
+            <Spinner
+                android:id="@+id/colorSpinner"
+                style="@style/ProductDetailsSpinnerBackground"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:entries="@array/sort_value"
+                android:onItemSelect="@{viewModel.colorsSpinnerState}"
+                app:layout_constraintStart_toEndOf="@id/size_spinner"
+                app:layout_constraintTop_toBottomOf="@id/mainImage" />
 
             <ToggleButton
                 android:id="@+id/favorite"
                 android:layout_width="@dimen/favorite_button_size"
                 android:layout_height="@dimen/favorite_button_size"
-                android:layout_marginTop="@dimen/default_margin_horizontal"
-                android:layout_marginEnd="@dimen/default_margin_horizontal"
+                android:layout_marginTop="@dimen/dimen_default_margin"
+                android:layout_marginEnd="@dimen/dimen_default_margin"
                 android:background="@drawable/selector_favorite_button"
                 android:checked="@{viewModel.favoriteIsChecked}"
-                android:elevation="@dimen/fab_elevation"
+                android:elevation="20dp"
                 android:onClick="@{()->viewModel.favoriteClicked()}"
                 android:textOff=""
                 android:textOn=""
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/mainImage" />
 
             <TextView
                 android:id="@+id/price"
@@ -70,7 +104,7 @@
                 android:visibility="@{product.price}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/favorite"
-                tools:text="@string/prise" />
+                tools:text="11$" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/brand"
@@ -158,9 +192,11 @@
                     android:layout_marginVertical="@dimen/normal_125"
                     android:background="@drawable/red_rectangle_button"
                     android:gravity="center"
+                    android:onClick="@{()->viewModel.addToCart()}"
                     android:text="@string/add_to_cart"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

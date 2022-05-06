@@ -36,6 +36,13 @@ import javax.inject.Singleton
         ProductSizesUseCaseModule::class,
         AddProductToBagUseCaseModule::class,
         UpdateBagProductUseCaseModule::class,
+        DeleteFromBagUseCaseModule::class,
+        ProductsCategoryUseCaseModule::class,
+        GetBagProductsUseCaseModule::class,
+        ProductColorsUseCaseModule::class,
+        ProductSizesUseCaseModule::class,
+        AddProductToBagUseCaseModule::class,
+        UpdateBagProductUseCaseModule::class,
         DeleteFromBagUseCaseModule::class]
         ProductsCategoryUseCaseModule::class,
         ProductFromServerUseCaseModule::class,

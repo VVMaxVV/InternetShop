@@ -42,7 +42,7 @@ class ProductDetailsViewModel @Inject constructor(
     }
 
     private fun isInDB() {
-        productLocalRepository.isProductInDB(product.value!!)
+        productLocalRepository.isProductInDB(product.value?.id?.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

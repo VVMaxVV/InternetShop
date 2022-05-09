@@ -1,5 +1,6 @@
 package com.example.internetshop.domain.data.mapper
 
+import androidx.lifecycle.MutableLiveData
 import com.example.internetshop.domain.data.model.product.SimpleProduct
 import com.example.internetshop.model.data.viewStates.ProductViewState
 import javax.inject.Inject
@@ -12,7 +13,8 @@ class SimpleProductMapper @Inject constructor() {
             simpleProduct.price,
             simpleProduct.rating,
             "(${simpleProduct.numberOfReviews})",
-            simpleProduct.id
+            simpleProduct.id,
+            MutableLiveData()
         )
     }
 }

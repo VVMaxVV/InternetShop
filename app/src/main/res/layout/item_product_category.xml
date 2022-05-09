@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,86 +10,103 @@
             type="com.example.internetshop.model.data.viewStates.ProductViewState" />
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dimen_item_category_card_corner_radius"
-        android:layout_marginHorizontal="@dimen/item_products_card_horizontal_margin"
-        app:cardElevation="@dimen/item_products_card_elevation">
+        android:layout_height="@dimen/normal_725"
+        android:background="@android:color/transparent"
+        tools:layout_marginBottom="@dimen/normal_100">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/itemSimpleProdId"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/white"
-            android:onClick="@{()->product.onClick(product.id, product.title)}"
-            android:padding="@dimen/item_category_product_padding">
+            android:layout_marginHorizontal="@dimen/item_products_card_horizontal_margin"
+            android:background="@android:color/transparent"
+            android:elevation="@dimen/normal_150"
+            android:shadowRadius="25"
+            app:cardCornerRadius="@dimen/dimen_item_category_card_corner_radius">
 
-            <ImageView
-                android:id="@+id/productImage"
-                android:layout_width="@dimen/dimen_item_product_category_image_size"
-                android:layout_height="@dimen/dimen_item_product_category_image_size"
-                android:src="@{product.imageUrl}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/photo" />
-
-            <TextView
-                android:id="@+id/numberOfReviews"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/itemSimpleProdId"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{product.numberOfReviews}"
-                android:textColor="@color/item_product_category_number_of_review_text_color"
-                android:textSize="@dimen/dimen_item_product_category_number_of_review_text_size"
-                app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
-                app:layout_constraintStart_toEndOf="@+id/ratingBar"
-                app:layout_constraintTop_toTopOf="@+id/ratingBar"
-                tools:text="(10)" />
+                android:layout_gravity="center_horizontal"
+                android:background="@color/white"
+                android:onClick="@{()->product.onClick(product.id, product.title)}">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_margin_horizontal"
-                android:layout_marginTop="@dimen/dimen_item_product_category_brand_margin_start"
-                android:ellipsize="end"
-                android:maxWidth="@dimen/dimen_item_product_category_title_max_width"
-                android:maxLines="1"
-                android:text="@{product.title}"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dimen_item_product_category_title_text_size"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/productImage"
-                app:layout_constraintTop_toTopOf="@id/productImage"
-                tools:text="Dorothy Perkins" />
+                <ImageView
+                    android:id="@+id/productImage"
+                    android:layout_width="@dimen/dimen_item_product_category_image_size"
+                    android:layout_height="@dimen/dimen_item_product_category_image_size"
+                    android:src="@{product.imageUrl}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/photo" />
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_item_product_category_price_top_margin"
-                android:text="@{@string/price(product.price)}"
-                android:textSize="@dimen/dimen_item_product_category_price_text_size"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ratingBar"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-                tools:text="11$" />
+                <TextView
+                    android:id="@+id/numberOfReviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{product.numberOfReviews}"
+                    android:textColor="@color/item_product_category_number_of_review_text_color"
+                    android:textSize="@dimen/dimen_item_product_category_number_of_review_text_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+                    app:layout_constraintStart_toEndOf="@+id/ratingBar"
+                    app:layout_constraintTop_toTopOf="@+id/ratingBar"
+                    tools:text="(10)" />
 
-            <androidx.appcompat.widget.AppCompatRatingBar
-                android:id="@+id/ratingBar"
-                style="@style/CustomRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_item_product_category_rating_bar_top_margin"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:rating="@{product.rating}"
-                android:stepSize="0.1"
-                app:layout_constraintStart_toStartOf="@+id/title"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                tools:rating="3.7" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin_horizontal"
+                    android:layout_marginTop="@dimen/dimen_item_product_category_brand_margin_start"
+                    android:ellipsize="end"
+                    android:maxWidth="@dimen/dimen_item_product_category_title_max_width"
+                    android:maxLines="1"
+                    android:text="@{product.title}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_item_product_category_title_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/productImage"
+                    app:layout_constraintTop_toTopOf="@id/productImage"
+                    tools:text="Dorothy Perkins" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_item_product_category_price_top_margin"
+                    android:text="@{@string/price(product.price)}"
+                    android:textSize="@dimen/dimen_item_product_category_price_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/ratingBar"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                    tools:text="11$" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/CustomRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_item_product_category_rating_bar_top_margin"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="@{product.rating}"
+                    android:stepSize="0.1"
+                    app:layout_constraintStart_toStartOf="@+id/title"
+                    app:layout_constraintTop_toBottomOf="@+id/title"
+                    tools:rating="3.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            style="@style/FavoriteToggle"
+            android:layout_width="@dimen/normal_225"
+            android:layout_height="@dimen/normal_225"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/normal_100"
+            android:checked="@{product.favorite}"
+            android:elevation="@dimen/normal_100"
+            android:onClick="@{()->product.favoriteToggleClick(product)}" />
+    </FrameLayout>
 </layout>

@@ -2,6 +2,7 @@ package com.example.internetshop.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.internetshop.databinding.ItemProductCategoryBinding
 import com.example.internetshop.model.data.viewStates.ProductViewState
@@ -18,7 +19,9 @@ class ProductsAdapter @Inject constructor() :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ).apply {
+                lifecycleOwner = parent.findViewTreeLifecycleOwner()
+            }
         )
     }
 

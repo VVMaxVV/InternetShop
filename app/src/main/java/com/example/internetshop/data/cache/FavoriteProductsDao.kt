@@ -45,4 +45,6 @@ interface FavoriteProductsDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateProductsData(listProductEntity: List<FavoriteProductEntity>): Completable
 
+    @Query("SELECT EXISTS(SELECT * FROM FavoriteProduct WHERE id == :id)")
+    fun hasItem(id: Int): Boolean
 }

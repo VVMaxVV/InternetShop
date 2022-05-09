@@ -25,11 +25,12 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image"
-                android:layout_width="@dimen/item_bag_product_image_width"
-                android:layout_height="@dimen/item_bag_product_image_height"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
                 android:src="@{product.imageURL}"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/photo" />
@@ -40,18 +41,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/item_bag_product_brand_horizontal_margin"
                 android:layout_marginTop="@dimen/item_bag_product_brand_top_margin"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollbars="vertical"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
+                android:maxLines="2"
                 android:text="@{product.title}"
                 android:textSize="@dimen/item_bag_product_brand_text_size"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="T-Shirt" />
+                tools:text="T-Shirt\n" />
 
             <TextView
                 android:id="@+id/color_label"
@@ -104,12 +101,14 @@
                 android:layout_width="@dimen/item_bag_product_minus_width"
                 android:layout_height="@dimen/item_bag_product_minus_height"
                 android:layout_marginStart="@dimen/item_bag_product_minus_margin_start"
+                android:layout_marginTop="@dimen/normal_75"
                 android:layout_marginBottom="@dimen/item_bag_product_minus_margin_bottom"
                 android:background="@drawable/ic_bag_minus"
                 android:elevation="@dimen/item_bag_product_minus_elevation"
                 android:onClick="@{()->product.onMinus(product.id)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image" />
+                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintTop_toBottomOf="@id/color_value" />
 
             <TextView
                 android:id="@+id/counter"

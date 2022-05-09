@@ -40,10 +40,11 @@ class ProductLocalRepositoryImpl @Inject constructor(
     }
 
     override fun getFavoriteProductListDescending(): Single<List<Product>> {
-        return Single.just(favoriteDao.getAllFromDB()
-            .map {
-                productEntityMapper.toDomain(it)
-            }.reversed()
+        return Single.just(
+            favoriteDao.getAllFromDB()
+                .map {
+                    productEntityMapper.toDomain(it)
+                }.reversed()
         )
     }
 
@@ -60,10 +61,10 @@ class ProductLocalRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun isProductInDB(product: Product): Single<Boolean> {
-        return if (favoriteDao.getProductByIdFromDB(product.id.toInt()) != null)
-            Single.just(true)
-        else Single.just(false)
+    override fun isProductInDB(id: String?): Single<Boolean> {
+        return if (id != null) {
+            Single.just(favoriteDao.hasItem(id.toInt()))
+        } else Single.error(NullPointerException())
     }
 
     override fun getFavoriteProductByName(): Single<List<Product>> {

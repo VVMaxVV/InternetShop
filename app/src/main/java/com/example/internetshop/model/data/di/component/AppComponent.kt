@@ -46,13 +46,17 @@ import javax.inject.Singleton
         DeleteFromBagUseCaseModule::class,
         ProductsCategoryUseCaseModule::class,
         ProductFromServerUseCaseModule::class,
-        ProductsFromServerUseCaseModule::class]
+        ProductsFromServerUseCaseModule::class,
+        ProductInDBUseCaseModule::class,
+        AddToFavoriteUseCaseModule::class,
+        DeleteFromFavoriteUseCaseModule::class]
 )
 interface AppComponent {
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
+
     fun inject(mainActivity: MainActivity)
     fun inject(productDetailsFragment: ProductDetailsFragment)
     fun inject(reviewFragment: ReviewFragment)

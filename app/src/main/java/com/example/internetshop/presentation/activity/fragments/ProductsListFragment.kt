@@ -54,7 +54,7 @@ class ProductsListFragment : BaseFragment() {
                 VerticalSpaceItemDecoration(
                     requireContext()
                         .resources
-                        .getDimension(R.dimen.item_products_margin_between_cards)
+                        .getDimension(R.dimen.normal_100)
                         .toInt()
                 )
             )
@@ -67,12 +67,12 @@ class ProductsListFragment : BaseFragment() {
             adapter.addData(it)
         })
         val categoryName = this.requireArguments().getString(EXTRA_CATEGORY_NAME)
-        productsListViewModel.categoryName = categoryName?: ""
+        productsListViewModel.categoryName = categoryName ?: ""
         if (categoryName == null) findNavController().popBackStack()
         else productsListViewModel
             .getCategoryProductList()
 
-        productsListViewModel.navEventLiveData.observe(viewLifecycleOwner, {
+        productsListViewModel.events.observe(viewLifecycleOwner, {
             when (it) {
                 is ProductsListViewModel.Event.OpenProductDetailEvent -> openDetails(
                     it.id,

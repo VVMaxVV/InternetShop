@@ -40,6 +40,16 @@
     <dimen name="normal_575">92dp</dimen>
     <dimen name="normal_600">96dp</dimen>
 
+    <dimen name="normal_625">100dp</dimen>
+    <dimen name="normal_650">104dp</dimen>
+    <dimen name="normal_675">108dp</dimen>
+    <dimen name="normal_700">112dp</dimen>
+
+    <dimen name="normal_725">116dp</dimen>
+    <dimen name="normal_750">120dp</dimen>
+    <dimen name="normal_775">124dp</dimen>
+    <dimen name="normal_800">128dp</dimen>
+
     <!--Login layout-->
     <dimen name="dimen_headers_height">28dp</dimen>
     <dimen name="dimen_text_forgot_password_layout_margin">8dp</dimen>

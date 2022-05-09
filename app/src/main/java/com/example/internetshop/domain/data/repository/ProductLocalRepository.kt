@@ -18,6 +18,6 @@ interface ProductLocalRepository {
     fun getFavoriteProductByRatingDescending(): Single<List<Product>>
     fun getFavoriteProductByPrice(): Single<List<Product>>
     fun getFavoriteProductByPriceDescending(): Single<List<Product>>
-    fun isProductInDB(product: Product): Single<Boolean>
+    fun isProductInDB(id: String?): Single<Boolean>
     fun getIdAllProduct(): Single<List<String>>
 }

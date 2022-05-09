@@ -17,7 +17,8 @@
     </style>
 
     <style name="SortSpinner" parent="@style/Widget.AppCompat.DropDownItem.Spinner">
-        <item name="background">@drawable/pdp_spinner</item>
+        <item name="android:textSize">100sp</item>
+        <item name="android:textColor">@color/red</item>
     </style>
 
     <style name="ProductHider.Italic" parent="ProductHeader">
@@ -44,8 +45,12 @@
         <item name="fontFamily">@font/metropolis_regular</item>
     </style>
 
-    <style name="PromoCode" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@drawable/promo_code_edittext</item>
+    <style name="FavoriteToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="android:background">@drawable/favorite_toggle_button</item>
+        <item name="android:textOff">""</item>
+        <item name="android:textOn">""</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="ProductDetailsSpinnerBackground" parent="Widget.AppCompat.Spinner">

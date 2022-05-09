@@ -36,19 +36,20 @@ class ProductDetailsViewModel @Inject constructor(
         data class OpenReview(val id: String) : Event()
         data class AddToFavorite(val value: Boolean) : Event()
         data class ShowToast(val text: String) : Event()
+        data class ReceiveThrowable(val throwable: Throwable, val message: String? = null) : Event()
         object ProductNotFound : Event()
         object NotAllFieldsAreFilled : Event()
         object AddedToCard : Event()
     }
 
-    private fun isInDB() {
-        productLocalRepository.isProductInDB(product.value?.id?.toString())
+    private fun isInDB(id: String) {
+        productLocalRepository.isProductInDB(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 favoriteIsChecked.value = it
             }, {
-                Event.ShowToast(it.message ?: "Unknown error")
+                event.value = Event.ReceiveThrowable(it, "isProductInDB()")
             }).run(compositeDisposable::add)
     }
 
@@ -58,9 +59,9 @@ class ProductDetailsViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 product.value = it
-                isInDB()
+                isInDB(it.id.toString())
             }, {
-                Log.i(ProductDetailsViewModel::class.java.name, "Error: ${it.message}")
+                event.value = Event.ReceiveThrowable(it)
             }).run(compositeDisposable::add)
     }
 
@@ -88,7 +89,7 @@ class ProductDetailsViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
-        } else Event.ProductNotFound
+        } else event.value = Event.ProductNotFound
     }
 
     fun getSpinnerEntries() {

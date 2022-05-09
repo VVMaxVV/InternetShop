@@ -10,7 +10,7 @@ class ToolBarViewModel @Inject constructor(): ViewModel() {
         R.id.authenticationFragment,
         R.id.categoriesFragment,
         R.id.favoriteListFragment,
-        R.id.cartFragment
+        R.id.bagFragment
     )
     val expanded = MutableLiveData<Boolean>()
 }

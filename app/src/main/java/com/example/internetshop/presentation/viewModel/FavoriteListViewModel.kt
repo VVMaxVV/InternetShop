@@ -4,16 +4,19 @@ import androidx.lifecycle.MutableLiveData
 import com.example.internetshop.domain.data.mapper.ProductMapper
 import com.example.internetshop.domain.data.model.product.SimpleProduct
 import com.example.internetshop.domain.data.usecase.GetFavoriteUseCase
+import com.example.internetshop.model.data.adapterStates.BaseSpinnerState
 import com.example.internetshop.presentation.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class FavoriteListViewModel @Inject constructor(private val getFavoriteUseCase: GetFavoriteUseCase) :
+class FavoriteListViewModel @Inject constructor(
+    private val getFavoriteUseCase: GetFavoriteUseCase,
+    val spinnerState: BaseSpinnerState
+) :
     BaseViewModel() {
     val event = SingleLiveEvent<Event>()
     val productsLiveData = MutableLiveData<List<SimpleProduct>>()
-    val spinnerPosition = MutableLiveData<Int?>()
 
     companion object {
         const val ALL_PRODUCTS = 0
@@ -30,7 +33,7 @@ class FavoriteListViewModel @Inject constructor(private val getFavoriteUseCase: 
     }
 
     fun getProductsList() {
-        compositeDisposable.add(getFavoriteUseCase.execute(spinnerPosition.value ?: 0)
+        compositeDisposable.add(getFavoriteUseCase.execute(spinnerState.position.value ?: 0)
             .subscribeOn(Schedulers.io())
             .map { it ->
                 it.map {

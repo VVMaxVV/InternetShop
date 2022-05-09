@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -15,6 +16,7 @@ import com.example.internetshop.databinding.FragmentProductDetailsBinding
 import com.example.internetshop.model.data.di.component.AppComponent
 import com.example.internetshop.presentation.viewModel.ProductDetailsViewModel
 import com.example.internetshop.presentation.viewModel.ToolBarViewModel
+
 
 class ProductDetailsFragment :
     BaseFragment() {
@@ -65,13 +67,13 @@ class ProductDetailsFragment :
         super.onViewCreated(view, savedInstanceState)
         val reviewButton = binding?.goToReview
 
-        viewModel.productLiveData.observe(viewLifecycleOwner, { product ->
+        viewModel.product.observe(viewLifecycleOwner, { product ->
             binding?.let {
                 it.product = product
             }
         })
         val productId = this.requireArguments().getString(EXTRA_ID)!!
-        viewModel.getProductRx(productId)
+        viewModel.getProduct(productId)
 
         reviewButton?.setOnClickListener {
             findNavController().navigate(
@@ -80,6 +82,7 @@ class ProductDetailsFragment :
                 )
             )
         }
+        listenSpinnersData()
 
         viewModel.toastEventLiveData.observe(viewLifecycleOwner, {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -90,19 +93,60 @@ class ProductDetailsFragment :
         })
         viewModel.event.observe(viewLifecycleOwner, {
             when (it) {
-                is ProductDetailsViewModel.ProductDetailsEvent.OpenReview -> openReview(productId)
-                is ProductDetailsViewModel.ProductDetailsEvent.AddToFavorite -> {
+                is ProductDetailsViewModel.Event.OpenReview -> openReview(productId)
+                is ProductDetailsViewModel.Event.AddToFavorite -> {
                     if (it.value) viewModel.addToFavorite()
                     else viewModel.deleteFromFavorite()
                 }
-                is ProductDetailsViewModel.ProductDetailsEvent.ShowToast -> showToast(it.text)
-                is ProductDetailsViewModel.ProductDetailsEvent.ProductNotFound -> showToast(
-                    context?.resources?.getString(
+                is ProductDetailsViewModel.Event.ShowToast -> showToast(it.text)
+                is ProductDetailsViewModel.Event.ProductNotFound -> showToast(
+                    requireContext().resources.getString(
                         R.string.toast_product_not_found
-                    ) ?: "Product not found"
+                    )
+                )
+                is ProductDetailsViewModel.Event.NotAllFieldsAreFilled -> showToast(
+                    requireContext().resources.getString(
+                        R.string.toast_not_all_fields_are_filled
+                    )
+                )
+                is ProductDetailsViewModel.Event.AddedToCard -> showToast(
+                    requireContext().resources.getString(
+                        R.string.added_to_cart
+                    )
                 )
             }
         })
+    }
+
+    private fun listenSpinnersData() {
+        viewModel.sizesSpinnerState.list.observe(this, { sizesList ->
+            binding?.sizeSpinner?.adapter =
+                context?.let {
+                    ArrayAdapter(
+                        it,
+                        R.layout.item_spinner_pdp,
+                        mutableListOf(
+                            requireContext().resources.getString(R.string.label_pdp_size)
+                        ).apply {
+                            addAll(sizesList)
+                        })
+                }
+        })
+        viewModel.colorsSpinnerState.list.observe(this, { colorsList ->
+            binding?.colorSpinner?.adapter =
+                context?.let {
+                    ArrayAdapter(
+                        it,
+                        R.layout.item_spinner_pdp,
+                        mutableListOf(
+                            requireContext().resources.getString(R.string.label_pdp_color)
+                        ).apply {
+                            addAll(colorsList)
+                        }
+                    )
+                }
+        })
+        viewModel.getSpinnerEntries()
     }
 
     private fun openReview(id: String) {

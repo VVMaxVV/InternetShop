@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab_bag"
+    app:startDestination="@id/bagFragment">
+
+    <fragment
+        android:id="@+id/bagFragment"
+        android:name="com.example.internetshop.presentation.activity.fragments.BagFragment"
+        android:label="@string/label_bag"
+        tools:layout="@layout/fragment_bag">
+        <action
+            android:id="@+id/action_bagFragment_to_productDetailsFragment"
+            app:destination="@id/bag_pdp" />
+    </fragment>
+    <fragment
+        android:id="@+id/bag_pdp"
+        android:name="com.example.internetshop.presentation.activity.fragments.ProductDetailsFragment"
+        android:label="{product_name}"
+        tools:layout="@layout/fragment_product_details">
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="product_name"
+            app:argType="string" />
+    </fragment>
+</navigation>

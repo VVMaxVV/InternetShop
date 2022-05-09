@@ -65,7 +65,7 @@ class FavoriteListFragment : BaseFragment() {
                 is FavoriteListViewModel.Event.ToastEvent -> showToast(it.text)
             }
         })
-        viewModel.spinnerPosition.observe(viewLifecycleOwner, {
+        viewModel.spinnerState.position.observe(viewLifecycleOwner, {
             viewModel.getProductsList()
         })
     }

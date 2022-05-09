@@ -4,7 +4,7 @@
     <item
         android:id="@+id/tab_shop"
         android:enabled="true"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_shop"
         android:title="@string/label_shop"
         app:showAsAction="always|withText" />
     <item
